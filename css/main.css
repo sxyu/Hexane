@@ -51,13 +51,19 @@ textarea {
     padding: 0.2em 0;
 }
 
+h1, h2, h3, h4, h5, h6{
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-weight:300;
+}
 
 /* ===== Initializr Styles ==================================================
    Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
    ========================================================================== */
 
 body {
-    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    font: 16px/26px Raleway, Helvetica Neue, Arial;
+    background: #000;
 }
 
 .wrapper {
@@ -70,18 +76,28 @@ body {
    =================== */
 
 .header-container {
-    border-bottom: 20px solid #e44d26;
+    border-top: 5px solid #0A4D8E;
 }
 
 .footer-container,
 .main aside {
-    border-top: 20px solid #e44d26;
+    border-bottom: 5px solid #1363B0;
 }
 
 .header-container,
-.footer-container,
+.footer-container{
+    background: url('../img/chem.jpg') no-repeat bottom left, #1166ac;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+}
+.footer-container{
+    background-position: top left;
+}
+
 .main aside {
-    background: #f16529;
+    background: #2f76ba;
 }
 
 .title {
@@ -108,7 +124,7 @@ nav a {
     font-weight: bold;
 
     color: white;
-    background: #e44d26;
+    /*background: #F73048;*/
 }
 
 nav a:hover,
@@ -117,12 +133,16 @@ nav a:visited {
 }
 
 nav a:hover {
-    text-decoration: underline;
+    background: rgba(100,100,100,0.3);
 }
 
 /* ==============
     MOBILE: Main
    ============== */
+
+.main-container{
+    background: #fff;
+}
 
 .main {
     padding: 30px 0;
@@ -139,7 +159,13 @@ nav a:hover {
 
 .footer-container footer {
     color: white;
-    padding: 20px 0;
+    height:60px;
+    line-height: 60px;
+    padding: 0;
+}
+
+.footer-container footer h3{
+    margin: 0;
 }
 
 /* ===============
@@ -154,19 +180,32 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
+.title{
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-weight:300;
+    margin:0;
+}
 
+.title .title-bold{
+    font-weight:600;
+}
 
+#expr-field{
+    box-sizing: border-box;
+    background-color:#efefef;
+    border: none;
+    min-width:100%;
+    max-width:100%;
+    min-height:70px;
+    padding:0.7em;
+    outline:none;
+    font-size:2em;
+}
 
-
-
-
-
-
-
-
-
-
-
+nav a{
+    font-weight: 500;
+}
 
 /* ==========================================================================
    Media Queries
@@ -181,8 +220,11 @@ nav a:hover {
     nav a {
         float: left;
         width: 27%;
-        margin: 0 1.7%;
-        padding: 25px 2%;
+        margin: 0 0;
+        padding: 0 2%;
+        height: 80px;
+        line-height:80px;
+        display:inline-block;
         margin-bottom: 0;
     }
 
@@ -212,13 +254,12 @@ nav a:hover {
 /* ====================
     WIDE: CSS3 Effects
    ==================== */
-
-    .header-container,
-    .main aside {
-        -webkit-box-shadow: 0 5px 10px #aaa;
-           -moz-box-shadow: 0 5px 10px #aaa;
-                box-shadow: 0 5px 10px #aaa;
-    }
+/*    .header-container,*/
+    /*.main aside {*/
+        /*-webkit-box-shadow: 0 2px 5px #ccc;*/
+           /*-moz-box-shadow: 0 2px 5px #ccc;*/
+                /*box-shadow: 0 2px 5px #ccc;*/
+   /* }*/
 
 /* ============
     WIDE: Menu
@@ -226,6 +267,7 @@ nav a:hover {
 
     .title {
         float: left;
+        line-height: 80px;
     }
 
     nav {

@@ -1,15 +1,16 @@
-# humanstxt.org/
-# The humans responsible & technology colophon
+The Creator / Progenitor
+Hey there! My name is Alex Yu (GitHub: github.com/sxyu), a student at U-Hill Secondary School in Vancouver, BC, Canada. By the time you read this, I would probably have graduated already. 
+I created Chemeleon in 2017 to help cope with my chemistry homework. This project was inspired by my earlier project, Cantus, which included several similar features such as calculations with sig figs and equation balancing.
+I wish to thank Mr. Al Slapsys, my chemistry teacher at U-Hill, who gave me the initial idea for making a "calculator that works with sig figs" and provided me with support & suggestions throughout the development process.
 
-# TEAM
+--
+How It Works Under the Hood
+Chemeleon is entirely based in Javascript (with a little bit of PHP on the backend). Everything is stored in your browser.
 
-    <name> -- <role> -- <twitter>
-
-# THANKS
-
-    <name>
-
-# TECHNOLOGY COLOPHON
-
-    HTML5, CSS3
-    jQuery, Modernizr
+I did it this way for two reasons:
+1. It's fast and easy to use. You don't need to log in.
+2. It doesn't put much load on the server (free hosting!).
+---
+Why "humans.txt"? 
+"It's an initiative for knowing the people behind a website. It's a TXT file that contains information about the different people who have contributed to building the website."
+(taken from humanstxt.org)
