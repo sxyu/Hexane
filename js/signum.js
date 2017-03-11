@@ -517,10 +517,11 @@ SigNum.prototype.toFullNumber = function(){
     }
 
     var c = this.copy(); c.value = Math.abs(c.value);
-    c.roundToSF();
 
     if (SigNum.enableSF == false)
-        c.sf = Infinity;
+        return c.value.toString();
+
+    c.roundToSF();
 
     // this doesn't work for zero (log is -Infinity), Infinity, etc, 
     // so we make special cases
@@ -533,7 +534,7 @@ SigNum.prototype.toFullNumber = function(){
     var res = this.value < 0 ? '-' : '';
     var val = c.value;
 
-    var cutoff = Math.pow(10, low-high-1)
+    var cutoff = Math.max(Math.pow(10, low-high-1), 1e-15)
     var haspt = false;
 
     if (high < 0) {
@@ -566,7 +567,7 @@ SigNum.prototype.toFullNumber = function(){
 
         res = res.concat(tmp.toString()); 
 
-        if (!(isFinite(low)) && (val%Math.pow(10, i) < 1e-300)){
+        if (!(isFinite(low)) && (val%Math.pow(10, i) < Math.pow(10, i)*1e-15)){
             low = i-1;
             break;
         }
@@ -577,14 +578,21 @@ SigNum.prototype.toFullNumber = function(){
         }
     }
 
-    ct = 0;
-    for (var i=Math.max(low, high-15)-1; i >= 0; --i){
-        ++ct; if (ct > 1000){ console.log("Warning: forced to break out of non-terminating loop.");  break;}
-        res = res.concat('0');
+    if (haspt && !(isFinite(low))){
+        res = res.substring(0, res.length-endzeroct);
     }
+    else{
+        ct = 0;
+        for (var i=Math.max(low, high-15)-1; i >= 0; --i){
+            ++ct; if (ct > 1000){ console.log("Warning: forced to break out of non-terminating loop.");  break;}
+            res = res.concat('0');
+        }
+    }
+
     if (endzeroct > 0 && !haspt &&
         (SigNum.enableSF == true && isFinite(c.sf))) 
         res = res.concat('(' + c.sf + 'sf)')
+
     return res;
 }
 

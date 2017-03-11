@@ -61,7 +61,7 @@
 
     <div class="header-container">
         <header class="wrapper clearfix">
-            <h1 class="title"><span class="title-bold">Hexane</span><span class="title-subsite" id="title-subsite">Calculator</span> <sup><small>Beta</small></sup></h1>
+            <h1 class="title"><span class="title-bold">Hexane</span><span class="title-subsite" id="title-subsite">Calculator</span><sup title="Beta"><small>&beta;</small></sup></h1>
             <nav>
                 <ul>
                     <li><a href="#">Calc</a></li>
@@ -77,10 +77,10 @@
 
             <article>
 				<section>				
-					<header>
+					<div id="editor">
 						<div id="result-container"><span id="result-field"></span></div>
 						<div id="expr-container"><span id="expr-field"></span></div>
-					</header>
+					</div>
 					<div id="keypad">
 						<div class="key-row">
 							<!-- text-to-add: add text to the MathQuill textbox; keys-to-type: simulate key presses into the MathQuill textbox -->
@@ -182,9 +182,31 @@
 							<div class="key" text-to-add="_" title="Variable subscript">a<sub>x</sub></div>
 						</div>
 					</div>
+					
 					<div id="answer-list">
-						<p class="answer-list-tip"><strong>Saved Results</strong> &nbsp;|&nbsp; Press <kbd>ENTER</kbd> in the textbox to save current result &nbsp;|&nbsp; <a class="answer-list-clear">Clear</a></p>
+						<p class="answer-list-tip"><strong>Saved Results</strong> &nbsp;|&nbsp; <span class="mobile-hide">Press <kbd>ENTER</kbd> in the textbox to save current result &nbsp;|&nbsp; </span><a class="answer-list-clear">Clear</a></p>
 					</div>
+					
+					<div id="config">
+						<h3>Configuration</h3>
+						<p class="config-tip" title="Hexane has a built-in SigFigs engine."><strong>Significant figures engine</strong> - when to round numbers?</p>
+						<form action="" id="config-sf">
+							<input name="sf" type="radio" id="sf-c1" class="active" value="1"/>
+								<label for="sf-c1" class="active" title="Rounds the number to the correct number of sig figs after every single operation.">After each operation</label>
+							<input name="sf" type="radio" id="sf-c2" class="active" value="2" checked=true/>
+								<label for="sf-c2" class="active" 
+								title="Rounds the number to the correct number of sig figs when the operation type changes,e.g. from + to * or from / to -.
++ and - are considered to be in the same type, and so are *, / and mod. This is the default option.">
+									When the operation type changes
+									</label>
+							<input name="sf" type="radio" id="sf-c0" class="active" value="0"/>
+								<label for="sf-c0" class="active" title="Does not round at all during the process of computation &
+only rounds to sig figs when all operations have completed.">At the end of all operations</label>
+							<input name="sf" type="radio" id="sf-c-1" class="active" value="-1"/>
+								<label for="sf-c-1" class="active" title="Totally disables the sig fig engine.">Turn SigFigs off</label>
+						</form>
+					</div>
+					
 				</section>
             </article>
 
@@ -193,7 +215,7 @@
 
     <div class="footer-container">
         <footer class="wrapper">
-            <h3>&copy; Hexane | Alex Yu 2017. All rights reserved.</h3>
+            <h3>Hexane.tk &copy; Alex Yu 2017. All rights reserved.</h3>
         </footer>
     </div>
 

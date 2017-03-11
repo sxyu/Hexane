@@ -360,8 +360,7 @@
 .mq-editable-field .mq-selection .mq-non-leaf,
 .mq-math-mode .mq-selection .mq-scaled,
 .mq-editable-field .mq-selection .mq-scaled {
-  background: #B4D5FE !important;
-  background: Highlight !important;
+  background: #CE6554 !important;
   color: HighlightText;
   border-color: HighlightText;
 }

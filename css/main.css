@@ -33,8 +33,9 @@ a, .active{
 	-ms-transition: background 0.5s ease;
 	transition: background 0.5s ease;
 }
-.active{
-	background: #ccc;
+
+.mobile-hide{
+	display:none;
 }
 
 audio,
@@ -99,7 +100,6 @@ body {
 	background:#eee;
 }
 
-.footer-container,
 .main aside {
     border-top: 1px solid #d8d8d8;
 }
@@ -125,8 +125,8 @@ body {
 .footer-container{
 	position:relative;
 	overflow:hidden;
-	background:#eee;
-	border-top: 1px solid #d8d8d8;
+	background:#555;
+	color: #eee;
 }
 
 .main aside {
@@ -220,15 +220,15 @@ nav a:hover {
 }
 
 .footer-container footer {
-    color: #333;
-    height:60px;
-    line-height: 60px;
+    height: 50px;
+    line-height: 50px;
     padding: 0;
 }
 
 .footer-container footer h3{
     margin: 0 30px;
 	font-weight:400;
+	font-size:14px;
 }
 
 /* ===============
@@ -242,7 +242,12 @@ nav a:hover {
 /* ==========================================================================
    Custom styles
    ========================================================================== */
-
+   
+.title sup{
+	text-transform: lowercase;
+	margin-left:5px;
+}
+   
 #expr-field, #expr-field.mq-math-mode{
     box-sizing: border-box;
     background-color:#444;
@@ -357,7 +362,7 @@ nav a{
 }
 
 #answer-list{
-	padding: 15px 40px 30px 37px;
+	padding: 15px 40px 32px 37px;
 	overflow-x: auto;
 	overflow-y: hidden;
 	font-size:0;
@@ -370,7 +375,7 @@ nav a{
 }
 #answer-list .answer-list-tip{
 	color:#aaa;
-	font-size:10px;
+	font-size:12px;
 	margin: 0 0 2px 0;
 	position: absolute;
 	bottom: 7px;
@@ -396,7 +401,6 @@ nav a{
 	line-height:40px;
 	text-align:left;
 	padding:0 25px 0 15px;
-	max-width: 20%;
 	margin-right:10px;
 	background: #a96433;
 	overflow: hidden;
@@ -450,6 +454,49 @@ nav a{
 	width:10px;
 }	
 
+#config{
+	padding: 15px 40px 15px 37px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	-moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	position:relative;
+	background:#333;
+}
+
+#config h3{
+	margin:0 0 4px 0;
+	font-size:13px;
+	color: #eee;
+}
+
+#config .config-tip{
+	color:#aaa;
+	font-size:12px;
+	margin: 0;
+}
+
+#config form input{
+	display:inline-block;
+	vertical-align:middle;
+	color:#ccc;
+	font-size:12px;
+	padding: 3px 0 4px 0;
+	margin-right:5px;
+}
+
+#config form label{
+	display:inline-block;
+	vertical-align:middle;
+	color:#ccc;
+	font-size:12px;
+	padding: 3px 0;
+	margin-right:15px;
+	
+}
 
 .main-container .wrapper{
 	width: 100%;
@@ -503,6 +550,10 @@ nav a{
 
 	#title-subsite{
 		display: inline;
+	}
+	
+	.mobile-hide{
+		display:inline;
 	}
 	
 /* ========================

@@ -145,6 +145,38 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 		return res;
 	}
 	
+	var evalExpr = function(){
+		try{
+			if (exprField.latex().trim() == '') resultField.latex('0 = 0 \\cdot 10^0');
+			else {
+				resval = Hexane.eval(exprField.latex());
+				if (resval.constructor == SigNum){
+					var res = resval.toExponential();
+					res = eToExp(res);
+					res = resval.toFullNumber() + ' = '  + res;
+					resultField.latex(res);
+				}
+				else{
+					var res = resval.toString();
+					if (res.indexOf('e') != -1 && typeof(resval) == "number"){
+						var idx = res.indexOf('e');
+						var t1 = res.substring(0, idx);
+						var t2 = res.substring(idx+1);
+						if (t2.length > 0 && t2[0] == '+'){
+							t2 = t2.substring(1);
+						}
+						res = t1 + '\\cdot10^{' + t2 + '}';
+					}
+					resultField.latex(res);
+				}
+			}
+		}
+		catch (err) {
+			// alert(exprField.latex()); 
+			 resultField.latex('\\text{Your input is invalid}');// + err.message;
+		}
+	}
+	
     var exprField = MQ.MathField(exprFieldSpan, {
         spaceBehavesLikeTab: true,
         charsThatBreakOutOfSupSub: '+-=<>',
@@ -156,35 +188,7 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 					Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
 					// latexSpan.textContent = exprField.latex();
 					localStorage.setItem('exprLatex', exprField.latex());
-                    try{
-                        if (exprField.latex().trim() == '') resultField.latex('0 = 0 \\cdot 10^0');
-                        else {
-                            resval = Hexane.eval(exprField.latex());
-							if (resval.constructor == SigNum){
-								var res = resval.toExponential();
-								res = eToExp(res);
-								res = resval.toFullNumber() + ' = '  + res;
-								resultField.latex(res);
-							}
-							else{
-								var res = resval.toString();
-								if (res.indexOf('e') != -1 && typeof(resval) == "number"){
-									var idx = res.indexOf('e');
-									var t1 = res.substring(0, idx);
-									var t2 = res.substring(idx+1);
-									if (t2.length > 0 && t2[0] == '+'){
-										t2 = t2.substring(1);
-									}
-									res = t1 + '\\cdot10^{' + t2 + '}';
-								}
-								resultField.latex(res);
-							}
-                        }
-                    }
-                catch (err) {
-                    // alert(exprField.latex()); 
-                     resultField.latex('\\text{Your input is invalid}');// + err.message;
-                }
+                    evalExpr()
             },
             enter: function() {//alert(exprField.latex());
                 Hexane.prevAns = Hexane.prevAns.concat([resval]).slice(-50); 
@@ -221,7 +225,7 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 							'</span> <span class="answer-delete" title="Delete saved result"></span></div>');
 		}
 		txt += '\n<p class="answer-list-tip"><strong>Saved Results</strong> &nbsp;|&nbsp; Press <kbd>enter</kbd>' +
-		       ' in the textbox to save current result &nbsp;|&nbsp; <a class="answer-list-clear">Clear</a></p>';
+		       ' in the textbox to save current result (max 50) &nbsp;|&nbsp; <a class="answer-list-clear">Clear</a></p>';
 		answerList.html(txt);
 		
 		$('.answer-tile').click(function(e){
@@ -247,12 +251,12 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 
 		$('.answer-list-clear').click(function(e){
 			Hexane.prevAns = [];
-			$('.answer-tile').animate({opacity:0}, 500, 'linear');
+			$('.answer-tile').animate({opacity:0}, 400, 'linear');
 			setTimeout(
 				function(){
 					rebuildAnsList();
 				}
-			, 	500);
+			, 	1000);
 		});
 		
 		saveAnsList();
@@ -260,6 +264,7 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 	
 	var timeoutTracker = 0;
 
+	// keypad
     $('.key').on('mousedown', function(){ 
 		$this = $(this); 
 		var ct = 0;
@@ -275,10 +280,27 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 			++ct;
 		}
 		exec();
+		// allow user to hold key & repeat type
 	    timeoutTracker = setInterval(exec, 25);
 	}).on('mouseup mouseleave', function() {		
 		clearInterval(timeoutTracker);
 		if (!Modernizr.touch) exprField.focus();
+	});
+	
+	// config
+	$('#config-sf input').change(function(){
+		var $this = $(this);
+		var val = Number($this.attr('value'));
+		
+		if (val < 0) SigNum.enableSF = false;
+		else{
+			SigNum.enableSF = true;
+			SigNum.roundingMode = val;
+		}
+		
+		localStorage.setItem('sfMode', val)
+		
+		evalExpr();
 	});
 	
 	$('#allclear-btn').click(function(){
@@ -304,10 +326,29 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 				}
 			}
 		}
+		
+		var sfMode = localStorage.getItem('sfMode');
+		if (sfMode != undefined && sfMode != null && sfMode.trim() != ''){
+			if (Number(sfMode) < 0) {
+				SigNum.enableSF = false;
+			}
+			else{
+				SigNum.enableSF = true;
+				SigNum.roundingMode = Number(sfMode);
+			}
+			$('#sf-c' + sfMode).attr('checked', true);
+		}
+		else{
+			localStorage.setItem('sfMode', 2);
+			SigNum.enableSF = true;
+			SigNum.roundingMode = 2;
+			$('#sf-c2').attr('checked', true);
+		}
+		
 		rebuildAnsList();
 	});
 	
-    $('body').animate({opacity:1}, 1200);
+    $('body').animate({opacity:1}, 1000);
     exprField.select();
     exprField.focus(); 
 });
