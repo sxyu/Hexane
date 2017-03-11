@@ -1,4 +1,4 @@
-/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ | Modified for use with Hexane hexane.tk*/
 
 html {
     color: #222;
@@ -63,37 +63,49 @@ h1, h2, h3, h4, h5, h6{
 
 body {
     font: 16px/26px Raleway, Helvetica Neue, Arial;
-    background: #000;
-}
-
-.wrapper {
-    width: 90%;
-    margin: 0 5%;
+    background: #eee;
+	opacity:0;
 }
 
 /* ===================
-    ALL: Orange Theme
+    ALL
    =================== */
 
 .header-container {
-    border-top: 5px solid #0A4D8E;
+    border-bottom: 1px solid #d8d8d8;
+	position:relative;
+	overflow:hidden;
+	background:#eee;
 }
 
 .footer-container,
 .main aside {
-    border-bottom: 5px solid #1363B0;
+    border-top: 1px solid #d8d8d8;
 }
 
-.header-container,
+/* .header-container .bg-image, */
+/* .footer-container .bg-image{ */
+	/* width:100%; */
+	/* height: 80px; */
+	/* position:absolute; top:0; bottom:0; */
+	/* z-index:-1; */
+    /* background:  #eee; */
+	/* opacity:0.6; */
+    /* -moz-background-size:cover; */
+    /* -webkit-background-size:cover; */
+    /* -o-background-size:cover; */
+    /* -ms-background-size:cover; */
+    /* background-size:cover; */
+/* } */
+/* .footer-container .bg-image{ */
+	/* height:60px; */
+	/* background-position: bottom left; */
+/* } */
 .footer-container{
-    background: url('../img/chem.jpg') no-repeat bottom left, #1166ac;
-    -moz-background-size:cover;
-    -webkit-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;
-}
-.footer-container{
-    background-position: top left;
+	position:relative;
+	overflow:hidden;
+	background:#eee;
+	border-top: 1px solid #d8d8d8;
 }
 
 .main aside {
@@ -101,12 +113,29 @@ body {
 }
 
 .title {
-    color: white;
+    color: #464646;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-weight:300;
+	line-height: 60px;
+	margin: 0 30px;
+}
+
+.title .title-bold{
+    font-weight:600;
+}
+
+#title-subsite{
+	display: none;
 }
 
 /* ==============
     MOBILE: Menu
    ============== */
+
+nav{
+	display:none; /* temporary until other pages implemented */
+}
 
 nav ul {
     margin: 0;
@@ -114,26 +143,36 @@ nav ul {
     list-style-type: none;
 }
 
+nav li{
+	display: block;
+	height:80px;
+}
+
 nav a {
-    display: block;
     margin-bottom: 10px;
     padding: 15px 0;
+	min-height:80px;
 
     text-align: center;
     text-decoration: none;
-    font-weight: bold;
-
-    color: white;
+    font-weight: 300;
+	color:#222;
+	text-transform:uppercase;
     /*background: #F73048;*/
+	-webkit-transition: background 0.5s ease;
+	-moz-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	-ms-transition: background 0.5s ease;
+	transition: background 0.5s ease;
 }
 
 nav a:hover,
 nav a:visited {
-    color: white;
+    color: #333;
 }
 
 nav a:hover {
-    background: rgba(100,100,100,0.3);
+    background: rgba(100,100,100,0.1);
 }
 
 /* ==============
@@ -141,7 +180,8 @@ nav a:hover {
    ============== */
 
 .main-container{
-    background: #fff;
+    background: #eee;
+	color: #000;
 }
 
 .main {
@@ -150,6 +190,7 @@ nav a:hover {
 
 .main article h1 {
     font-size: 2em;
+	font-weight:600;
 }
 
 .main aside {
@@ -158,14 +199,14 @@ nav a:hover {
 }
 
 .footer-container footer {
-    color: white;
+    color: #000;
     height:60px;
     line-height: 60px;
     padding: 0;
 }
 
 .footer-container footer h3{
-    margin: 0;
+    margin: 0 30px;
 }
 
 /* ===============
@@ -177,34 +218,131 @@ nav a:hover {
 }
 
 /* ==========================================================================
-   Author's custom styles
+   Custom styles
    ========================================================================== */
 
-.title{
-    letter-spacing:4px;
-    text-transform:uppercase;
-    font-weight:300;
-    margin:0;
-}
-
-.title .title-bold{
-    font-weight:600;
-}
-
-#expr-field{
+#expr-field, #expr-field.mq-math-mode{
     box-sizing: border-box;
-    background-color:#efefef;
+    background-color:#444;
+
     border: none;
     min-width:100%;
     max-width:100%;
-    min-height:70px;
-    padding:0.7em;
+    min-height:270px;
+    padding:25px 37px;
     outline:none;
     font-size:2em;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;	
+}
+
+#expr-field *{
+	color:#fdfdfd;
+	border-color: #fdfdfd;
+}
+
+#expr-field .mq-cursor{
+	color: #ddd;
+	border-color: #ddd;
+}
+
+#expr-field .mq-matrixed-container {
+  filter: progid:DXImageTransform.Microsoft.Chroma(color='black');
+}
+
+#expr-field .mq-nthroot{
+	font-size:40%;
+	color: #fdfdfd;
 }
 
 nav a{
     font-weight: 500;
+}
+
+#result-container{
+	box-sizing:border-box;
+	font-size:20px;
+	text-align:left;
+	width:100%;
+	padding:0 37px;
+	height:70px;
+	line-height:70px;
+	background:#393939;
+	color:#fafafa;
+	overflow-x:auto;
+	overflow-y:hidden;
+}
+
+#keypad{
+	box-sizing:border-box;
+	background:#393939;
+	/* height:229px; */
+	position:relative;
+	padding:25px 37px;
+	padding-bottom: 19px;
+	font-family: Courier New, monospace;
+	font-size:0;
+	-moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	overflow-x:auto;
+	overflow-y:hidden;
+}
+#keypad .key-row{
+	min-width:1200px;
+}
+#keypad .key{
+	box-sizing:border-box;
+	height:40px;
+	width:45px;
+	font-size:14px;
+	text-align:center;
+	line-height:40px;
+	display:inline-block;
+	background-color:#222;
+	color: #efefef;
+	margin-right:8px;
+	margin-bottom:6px;
+	cursor:pointer;
+	-webkit-transition: background 0.5s ease;
+	-moz-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	-ms-transition: background 0.5s ease;
+	transition: background 0.5s ease;
+}
+
+#keypad .key:hover{
+	background-color: #2c2c2c;
+}
+
+#keypad .key.num-key{
+	background-color:#974233;
+}
+
+#keypad .key.num-key:hover{
+	background-color:#ac5141;
+}
+#keypad .key.double-wid{
+	width:98px;
+}
+#keypad .key.triple-wid{
+	width:151px;
+}
+	
+
+.main-container .wrapper{
+	width: 100%;
+	padding:0;
+}
+
+.main-container{
+	background:#444;
+	color:#fafafa;
 }
 
 /* ==========================================================================
@@ -216,15 +354,26 @@ nav a{
 /* ====================
     INTERMEDIATE: Menu
    ==================== */
-
-    nav a {
-        float: left;
-        width: 27%;
+	nav{
+		position:relative;
+		width:38%;
+		height:80px;
+		display:none; /* temporary until other pages implemented */
+	}
+	nav li{
+		display:inline-block;
+		width: 50px;
+		height:80px;
         margin: 0 0;
-        padding: 0 2%;
+		vertical-align:middle;
+		margin-left:10px;
+	}
+    nav a {
+		box-sizing:border-box;
+        padding: 12px 5%;
         height: 80px;
         line-height:80px;
-        display:inline-block;
+        right: 0;
         margin-bottom: 0;
     }
 
@@ -236,6 +385,10 @@ nav a{
         margin-right: 0;
     }
 
+	#title-subsite{
+		display: inline;
+	}
+	
 /* ========================
     INTERMEDIATE: IE Fixes
    ======================== */
@@ -247,6 +400,7 @@ nav a{
     .oldie nav a {
         margin: 0 0.7%;
     }
+	
 }
 
 @media only screen and (min-width: 768px) {
@@ -281,7 +435,7 @@ nav a{
 
     .main article {
         float: left;
-        width: 57%;
+        width: 100%;
     }
 
     .main aside {

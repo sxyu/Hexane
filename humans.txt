@@ -1,15 +1,22 @@
-The Creator / Progenitor
+About Me
 Hey there! My name is Alex Yu (GitHub: github.com/sxyu), a student at U-Hill Secondary School in Vancouver, BC, Canada. By the time you read this, I would probably have graduated already. 
-I created Chemeleon in 2017 to help cope with my chemistry homework. This project was inspired by my earlier project, Cantus, which included several similar features such as calculations with sig figs and equation balancing.
+I created Hexane in 2017 to help cope with my chemistry homework. This project was inspired by my earlier project, Cantus, which included several similar features such as calculations with sig figs and equation balancing.
 I wish to thank Mr. Al Slapsys, my chemistry teacher at U-Hill, who gave me the initial idea for making a "calculator that works with sig figs" and provided me with support & suggestions throughout the development process.
 
 --
-How It Works Under the Hood
-Chemeleon is entirely based in Javascript (with a little bit of PHP on the backend). Everything is stored in your browser.
+How Hexane Works
+Hexane is entirely based in Javascript (with a little bit of PHP on the backend). Everything is stored in your browser.
+The evaluator script was generated using Jison (Bison for JS).
 
 I did it this way for two reasons:
 1. It's fast and easy to use. You don't need to log in.
 2. It doesn't put much load on the server (free hosting!).
+---
+Logo Credits:
+Cooking graphic by Freepik (http://www.flaticon.com/authors/freepik)
+from Flaticon (http://www.flaticon.com/) is licensed under 
+Creative Commons BY 3.0 (see: http://creativecommons.org/licenses/by/3.0/). 
+Made with Logo Maker (http://logomakr.com)
 ---
 Why "humans.txt"? 
 "It's an initiative for knowing the people behind a website. It's a TXT file that contains information about the different people who have contributed to building the website."

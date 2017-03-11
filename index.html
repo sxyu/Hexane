@@ -6,16 +6,48 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title></title>
-    <meta name="description" content="">
+    <title>Calculator | Hexane</title>
+    <meta name="description" content="Hexane calculator - expression evaluator designed for chemistry students">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <link rel="stylesheet" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="mathquill-0.10.1/mathquill.css"/>
-
-    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+	<link rel="stylesheet" href="css/fonts/embed.css"/>
+	
+	<!-- <noscript> -->
+		<!-- <style type="text/css"> -->
+			<!-- body{ -->
+				<!-- opacity:1; -->
+			<!-- } -->
+		<!-- </style> -->
+	<!-- </noscript> -->
+	
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- 
+	Logo Credits:
+	Cooking graphic by <a href="http://www.flaticon.com/authors/freepik">Freepik</a> 
+	from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under 
+	<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. 
+	Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a> 
+	-->
 </head>
 <body>
     <!--[if lt IE 8]>
@@ -24,12 +56,12 @@
 
     <div class="header-container">
         <header class="wrapper clearfix">
-            <h1 class="title"><span class="title-bold">Chemis</span>TK</h1>
+            <h1 class="title"><span class="title-bold">Hexane</span><span class="title-subsite" id="title-subsite">Calculator</span></h1>
             <nav>
                 <ul>
-                    <li><a href="#">Calculator</a></li>
+                    <li><a href="#">Calc</a></li>
                     <li><a href="#">Balance</a></li>
-                    <li><a href="#">Data</a></li>
+                    <li><a href="#">More</a></li>
                 </ul>
             </nav>
         </header>
@@ -39,67 +71,124 @@
         <div class="main wrapper clearfix">
 
             <article>
-                <header>
-                    <h1>Calculator</h1>
-                    <p>Enter an expression below to evaluate it.</p>
-                    <p><span id="expr-field"></span></p>
-                    <p>  <span id="latex"></span></p>
-                    <p>= <span id="result"></span></p>
+				<section>				
+					<header>
+						<div id="result-container"><span id="result-field"></span></div>
+						<div id="expr-container"><span id="expr-field"></span></div>
+					</header>
+					<div id="keypad">
+						<div class="key-row">
+							<!-- text-to-add: add text to the MathQuill textbox; keys-to-type: simulate key presses into the MathQuill textbox -->
+							<div class="key num-key" text-to-add="1">1</div>
+							<div class="key num-key" text-to-add="2">2</div>
+							<div class="key num-key" text-to-add="3">3</div>
+							
+							<div class="key double-wid" keys-to-type="Backspace">⌫	</div>
+							<div class="key" keys-to-type="Del">⌦</div>
 
-                </header>
+							<div class="key" text-to-add="+">+</div>
+							<div class="key" text-to-add="*">&times;</div>
+							
+							<!-- Note: if both are specified, text-to-add is evaluated before keys-to-type  -->
+							<div class="key" text-to-add="log_10" keys-to-type="Right">log</div>
+							<div class="key" text-to-add="log_">log<sub>x</sub></div>
+							<div class="key" text-to-add="sqrt">&#8730;x</div>
+							<div class="key" text-to-add="nthroot"><sup>n</sup>&#8730;x</div>
+							
+							<div class="key num-key" text-to-add="true">true</div>
+							<div class="key num-key" text-to-add="false">false</div>
+							<div class="key" text-to-add="sin(">sin</div>
+							<div class="key" text-to-add="cos(">cos</div>
+							<div class="key" text-to-add="tan(">tan</div>
+							<div class="key num-key" text-to-add="pi">&pi;</div>
+							<div class="key num-key" text-to-add="e">e</div>
+							<div class="key num-key" text-to-add="A">A</div>
+						</div>
+						
+						<div class="key-row">
+							<div class="key num-key" text-to-add="4">4</div>
+							<div class="key num-key" text-to-add="5">5</div>
+							<div class="key num-key" text-to-add="6">6</div>
+							
+							<div class="key" keys-to-type="Spacebar">⇪</div>
+							<div class="key double-wid" id="allclear-btn">AC</div>
+							<div class="key" text-to-add="-">-</div>
+							<div class="key" text-to-add="/">&divide;</div>
+							<div class="key" text-to-add="^2">a<sup>2</sup></div>
+							<div class="key" text-to-add="^">a<sup>x</sup></div>
+							<div class="key" text-to-add="mod">mod</div>
+							<div class="key" text-to-add="and">and</div>
+							<div class="key" text-to-add="or">or</div>
+							<div class="key" text-to-add="not">not</div>
+							<div class="key" text-to-add="asin(">asin</div>
+							<div class="key" text-to-add="acos(">acos</div>
+							<div class="key" text-to-add="atan(">atan</div>
+							<div class="key num-key" text-to-add="x">x</div>
+							<div class="key num-key" text-to-add="y">y</div>
+							<div class="key num-key" text-to-add="z">z</div>
+						</div>
+						
+						<div class="key-row">
+							<div class="key num-key" text-to-add="7">7</div>
+							<div class="key num-key" text-to-add="8">8</div>
+							<div class="key num-key" text-to-add="9">9</div>
+							<div class="key" keys-to-type="Home">⟸</div>
+							<div class="key" keys-to-type="Up">▲</div>
+							<div class="key" keys-to-type="End">⟹</div>
+							
+							<div class="key" text-to-add="(">(</div>
+							<div class="key" text-to-add=")">)</div>
+							<div class="key" text-to-add=",">,</div>
+							<div class="key" text-to-add="%">%</div>
+							<div class="key" text-to-add="!">!</div>
+							<div class="key" text-to-add="bitand">and<sub>b</sub></div>
+							<div class="key" text-to-add="bitor">or<sub>b</sub></div>
+							<div class="key" text-to-add="bitnot">not<sub>b</sub></div>
+							<div class="key" text-to-add="qdtc(">qdtc</div>
+							<div class="key" text-to-add="qdtcp(">qdtc<sup>+</sup></div>
+							<div class="key" text-to-add="random(">rand</div>
+							<div class="key num-key" text-to-add="a">a</div>
+							<div class="key num-key" text-to-add="b">b</div>
+							<div class="key num-key" text-to-add="c">c</div>
+							
+						</div>
+							
+						<div class="key-row">
+							<div class="key" text-to-add="*10^">&times;10<sup>x</sup></div>
+							<div class="key" text-to-add=".">.</div>
+							<div class="key num-key" text-to-add="0">0</div>
+							<div class="key" keys-to-type="Left">◀</div>
+							<div class="key" keys-to-type="Down">▼</div>
+							<div class="key" keys-to-type="Right">▶</div>
+							<div class="key" text-to-add="[">[</div>
+							<div class="key" text-to-add="2">]</div>
+							<div class="key" text-to-add="{">{</div>
+							<div class="key" text-to-add="}">}</div>
+							<div class="key" text-to-add="|">|x|</div>
+							<div class="key" text-to-add="<<"><<</div>
+							<div class="key" text-to-add=">>">>></div>
+							<div class="key" text-to-add="bitxor">xor<sub>b</sub></div>
+							<div class="key" text-to-add="floor(">floor</div>							
+							<div class="key" text-to-add="ceil(">ceil</div>							
+							<div class="key" text-to-add="round(">round</div>	
+							
+							<div class="key num-key" text-to-add="theta">&theta;</div>
+							<div class="key" text-to-add=":=">:=</div>
+							<div class="key" text-to-add="_">a<sub>x</sub></div>
+						</div>
+					</div>
+				</section>
             </article>
-
-            <aside>
-                <h3>Keypad</h3>
-                <div id="keypad">
-                    <div class="key-row">
-                    </div>
-                    <div class="key-row">
-                    </div>
-                </div>
-            </aside>
 
         </div> <!-- #main -->
     </div> <!-- #main-container -->
 
     <div class="footer-container">
         <footer class="wrapper">
-            <h3>&copy; Chemis.tk / Alex Yu 2017</h3>
+            <h3>&copy; Hexane / Alex Yu 2017</h3>
         </footer>
     </div>
 
-    <script src="js/jquery-1.12.4.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-
-    <script src="js/main.js"></script>
-    <script src="js/calculator.js"></script>
-	
-    <script src="mathquill-0.10.1/mathquill.js"></script>
-
-    <script>
-var MQ = MathQuill.getInterface(2);
-
-var exprFieldSpan = document.getElementById('expr-field');
-var latexSpan = document.getElementById('latex');
-
-var exprField = MQ.MathField(exprFieldSpan, {
-    spaceBehavesLikeTab: true,
-    charsThatBreakOutOfSupSub: '+-=<>',
-    handlers: {
-        edit: function() {
-            latexSpan.textContent = exprField.latex();
-			try{
-				if (exprField.latex().trim() == '') result.textContent = '';
-				else result.textContent = calculator.parse(exprField.latex());
-			}
-			catch (err) {
-				result.textContent = 'Your input is invalid.';// + err.message;
-			}
-        }
-    }
-});
-
-exprField.latex('\\frac{100.0}{22.4}\\cdot6.02\\cdot10^{23}');
-    </script>
+    <script data-main="js/main" src="js/require.js"></script>
 </body>
 </html>
