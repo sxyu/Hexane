@@ -71,7 +71,7 @@
     recoverable: (boolean: TRUE when the parser has a error recovery rule available for this particular error)
   }
 */
-var HexaneEvalSignum = (function(){
+Hexane.Eval = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,3],$V2=[1,4],$V3=[1,5],$V4=[1,7],$V5=[1,8],$V6=[1,9],$V7=[1,10],$V8=[1,11],$V9=[1,12],$Va=[1,13],$Vb=[1,14],$Vc=[1,16],$Vd=[1,15],$Ve=[1,17],$Vf=[1,18],$Vg=[1,19],$Vh=[1,20],$Vi=[1,21],$Vj=[1,22],$Vk=[1,24],$Vl=[1,25],$Vm=[1,26],$Vn=[1,27],$Vo=[1,28],$Vp=[1,29],$Vq=[1,30],$Vr=[1,31],$Vs=[1,32],$Vt=[1,33],$Vu=[1,34],$Vv=[1,35],$Vw=[1,36],$Vx=[1,37],$Vy=[1,38],$Vz=[1,39],$VA=[1,40],$VB=[1,41],$VC=[1,42],$VD=[1,43],$VE=[1,44],$VF=[1,45],$VG=[1,46],$VH=[5,7,8,9,10,11,12,13,14,15,16,18,19,20,22,23,24,25,26,27,28,29,30,31,32,33,35,37,39,41],$VI=[2,46],$VJ=[1,62],$VK=[1,61],$VL=[1,64],$VM=[1,63],$VN=[1,65],$VO=[5,7,8,9,10,11,12,13,14,15,16,18,19,20,22,23,25,26,27,28,29,30,31,32,33,35,37,39,41],$VP=[5,7,8,9,10,11,12,13,14,15,16,26,27,28,29,30,31,35,37,39,41],$VQ=[5,7,8,9,12,14,15,16,26,27,28,29,30,31,35,37,39,41],$VR=[5,7,12,14,16,35,37,39,41],$VS=[5,7,8,9,10,11,12,13,14,15,16,18,20,25,26,27,28,29,30,31,32,33,35,37,39,41],$VT=[5,7,12,14,15,16,26,27,28,29,30,31,35,37,39,41],$VU=[1,120],$VV=[7,35];
 var parser = {trace: function trace() { },
 yy: {},
@@ -94,22 +94,22 @@ case 3:
  this.$ = [$$[$0]]; 
 break;
 case 4:
-this.$ = $$[$0-2].plus($$[$0]);
+this.$ = $$[$0-2]+$$[$0];
 break;
 case 5:
-this.$ = $$[$0-2].minus($$[$0]);
+this.$ = $$[$0-2]-$$[$0];
 break;
 case 6:
-this.$ = $$[$0-2].times($$[$0]);
+this.$ = $$[$0-2]*$$[$0];
 break;
 case 7:
-this.$ = $$[$0-2].div($$[$0]);
+this.$ = $$[$0-2]/$$[$0];
 break;
 case 8: case 34:
-this.$ = SigNum.abs($$[$0-1]);
+this.$ = Math.abs($$[$0-1]);
 break;
 case 9:
-this.$ = $$[$0-2].mod($$[$0]);
+this.$ = $$[$0-2] % $$[$0];
 break;
 case 10:
 this.$ = $$[$0-2] || $$[$0];
@@ -124,34 +124,34 @@ case 13:
 this.$ = !$$[$0];
 break;
 case 14:
-this.$ = $$[$0-2].or($$[$0]);
+this.$ = $$[$0-2] | $$[$0];
 break;
 case 15:
-this.$ = $$[$0-2].and($$[$0]);
+this.$ = $$[$0-2] & $$[$0];
 break;
 case 16:
-this.$ = $$[$0-2].xor($$[$0]);
+this.$ = $$[$0-2] ^ $$[$0];
 break;
 case 17:
-this.$ = $$[$0].not();
+this.$ = ~$$[$0];
 break;
 case 18:
-this.$ = $$[$0-2].shr($$[$0]);
+this.$ = $$[$0-2] >> $$[$0];
 break;
 case 19:
-this.$ = $$[$0-2].shl($$[$0]);
+this.$ = $$[$0-2] << $$[$0];
 break;
 case 20:
-this.$ = $$[$0-2].times(SigNum.pow(10, $$[$0]));
+this.$ = $$[$0-2] * Math.pow(10, $$[$0]);
 break;
 case 21:
-this.$ = $$[$0-2].expo($$[$0]);
+this.$ = Math.pow($$[$0-2], $$[$0]);
 break;
 case 22:
-this.$ = ($$[$0-2].value != undefined ? $$[$0-2].value == $$[$0].value : $$[$0-2] == $$[$0]);
+this.$ = $$[$0-2] == $$[$0];
 break;
 case 23:
-this.$ = ($$[$0-2].value != undefined ? $$[$0-2].value != $$[$0].value : $$[$0-2] != $$[$0]);
+this.$ = $$[$0-2] != $$[$0];
 break;
 case 24:
 this.$ = $$[$0-2] < $$[$0];
@@ -167,42 +167,42 @@ this.$ = $$[$0-2] >= $$[$0];
 break;
 case 28:
 
-          this.$ = (function fact (n) { return n==0 ? 1 : fact(n.minus(1)).times(n) })($$[$0-1]);
+          this.$ = (function fact (n) { return n==0 ? 1 : fact(n-1) * n })($$[$0-1]);
         
 break;
 case 29:
-this.$ = $$[$0-1].times(0.01);
+this.$ = $$[$0-1]/100;
 break;
 case 30:
-this.$ = $$[$0].times(-1);
+this.$ = -$$[$0];
 break;
 case 31: case 32: case 33:
 this.$ = $$[$0-1];
 break;
 case 35:
-this.$  = $$[$0-4].div($$[$0-1]);
+this.$  = $$[$0-4] / $$[$0-1];
 break;
 case 36:
-this.$ = SigNum.sqrt($$[$0-1]);
+this.$ = Math.sqrt($$[$0-1]);
 break;
 case 37:
-this.$ = SigNum.root($$[$0-1], $$[$0-4]);
+this.$ = Math.pow($$[$0-1], 1/$$[$0-4]);
 break;
 case 38:
-var tmp = SigNum.floor($$[$0]/SigNum.pow(10,SigNum.floor(SigNum.log10($$[$0]))));
-		 this.$ = SigNum.log($$[$0]-tmp*SigNum.pow(10,SigNum.floor(SigNum.log10($$[$0]))), tmp); 
+var tmp = Math.floor($$[$0]/Math.pow(10,Math.floor(Math.log10($$[$0]))));
+		 this.$ = Math.log2($$[$0]-tmp*Math.pow(10,Math.floor(Math.log10($$[$0])))) / Math.log2(tmp); 
 break;
 case 39: case 40: case 41:
-this.$ = SigNum.log($$[$0-1], $$[$0-3]) 
+this.$ = Math.log2($$[$0-1]) / Math.log2($$[$0-3]) 
 break;
 case 42:
-this.$ = SigNum.log($$[$0], $$[$0-2]) 
+this.$ = Math.log2($$[$0]) / Math.log2($$[$0-2]) 
 break;
 case 43: case 44: case 45:
-this.$ = SigNum.log($$[$0-1], $$[$0-4]) 
+this.$ = Math.log2($$[$0-1]) / Math.log2($$[$0-4]) 
 break;
 case 46:
-this.$ = new SigNum(yytext);
+this.$ = Number(yytext);
 break;
 case 47:
 if ($$[$0-3][0] == '\\') $$[$0-3] = $$[$0-3].substring(1);
@@ -227,31 +227,31 @@ case 52:
 this.$ = Hexane.vars[$$[$0]];
 break;
 case 53:
-this.$ = $$[$0-1].times(Hexane.vars[$$[$0]]);
+this.$ = $$[$0-1] * Hexane.vars[$$[$0]];
 break;
 case 54:
-this.$ = $$[$0-1].times($$[$0]);
+this.$ = $$[$0-1] * $$[$0];
 break;
 case 55:
 this.$ = Hexane.vars[$$[$0-3].concat($$[$0-1])];
 break;
 case 56:
-this.$ = SigNum.E;
+this.$ = Math.E;
 break;
 case 57:
-this.$ = SigNum.PI;
+this.$ = Math.PI;
 break;
 case 58:
 this.$ = Hexane.vars['theta'];
 break;
 case 59:
-this.$ = $$[$0-1].times(SigNum.PI);
+this.$ = $$[$0-1] * Math.PI;
 break;
 case 60:
-this.$ = $$[$0-1].times(SigNum.E);
+this.$ = $$[$0-1] * Math.E;
 break;
 case 61:
-this.$ = $$[$0-1].times(Hexane.vars['theta']);
+this.$ = $$[$0-1] * Hexane.vars['theta'];
 break;
 case 62:
 this.$ = true;
@@ -775,122 +775,132 @@ case 15:return 43
 break;
 case 16:return 44
 break;
-case 17:return 51
+case 17:return 16
 break;
-case 18:return 51
+case 18:return 10
 break;
-case 19:return 52
+case 19:return 10
 break;
-case 20:return 50
+case 20:return 11
 break;
-case 21:return 53
+case 21:return 11
 break;
-case 22:return 54
+case 22:return 51
 break;
-case 23:return 53
+case 23:return 51
 break;
-case 24:return 54
+case 24:return 52
 break;
-case 25:return 24
+case 25:return 50
 break;
-case 26:return 13
+case 26:return 53
 break;
-case 27:return 13
+case 27:return 54
 break;
-case 28:return 17
+case 28:return 53
 break;
-case 29:return 17
+case 29:return 54
 break;
-case 30:return 15
+case 30:return 24
 break;
-case 31:return 15
+case 31:return 13
 break;
-case 32:return 14
+case 32:return 13
 break;
-case 33:return 14
+case 33:return 17
 break;
-case 34:return 16
+case 34:return 17
 break;
-case 35:return 16
+case 35:return 15
 break;
-case 36:return 19
+case 36:return 15
 break;
-case 37:return 19
+case 37:return 14
 break;
-case 38:return 18
+case 38:return 14
 break;
-case 39:return 18
+case 39:return 16
 break;
-case 40:return 20
+case 40:return 16
 break;
-case 41:return 20
+case 41:return 19
 break;
-case 42:return 21
+case 42:return 19
 break;
-case 43:return 21
+case 43:return 18
 break;
-case 44:return 30
+case 44:return 18
 break;
-case 45:return 31
+case 45:return 20
 break;
-case 46:return 48
+case 46:return 20
 break;
-case 47:return 48
+case 47:return 21
 break;
-case 48:return 10
+case 48:return 21
 break;
-case 49:return 11
+case 49:return 30
 break;
-case 50:return 9
+case 50:return 31
 break;
-case 51:return 8
+case 51:return 48
 break;
-case 52:return 25
+case 52:return 48
 break;
-case 53:return 33
+case 53:return 10
 break;
-case 54:return 22
+case 54:return 11
 break;
-case 55:return 23
+case 55:return 9
 break;
-case 56:return 49
+case 56:return 8
 break;
-case 57:return 26
+case 57:return 25
 break;
-case 58:return 27
+case 58:return 33
 break;
-case 59:return 26
+case 59:return 22
 break;
-case 60:return 28
+case 60:return 23
 break;
-case 61:return 29
+case 61:return 49
 break;
-case 62:return 32
+case 62:return 27
 break;
-case 63:return 38
+case 63:return 26
 break;
-case 64:return 39
+case 64:return 26
 break;
-case 65:return 33
+case 65:return 28
 break;
-case 66:return 36
+case 66:return 29
 break;
-case 67:return 37
+case 67:return 32
 break;
-case 68:return 34
+case 68:return 38
 break;
-case 69:return 35
+case 69:return 39
 break;
-case 70:return 7
+case 70:return 33
 break;
-case 71:return 5
+case 71:return 36
 break;
-case 72:return 'INVALID'
+case 72:return 37
+break;
+case 73:return 34
+break;
+case 74:return 35
+break;
+case 75:return 7
+break;
+case 76:return 5
+break;
+case 77:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:#?[0-9]+\.?([0-9#]+)?)/,/^(?:(#?\.?[0-9#]+))/,/^(?:(\\frac\{))/,/^(?:(\\cdot))/,/^(?:(\\left\())/,/^(?:(\\right\)))/,/^(?:(\\left\[))/,/^(?:(\\right\]))/,/^(?:(\\left\\\{))/,/^(?:(\\right\\\}))/,/^(?:(\\left\|))/,/^(?:(\\right\|))/,/^(?:(\\log_\{))/,/^(?:(\\log_))/,/^(?:(\\sqrt\{))/,/^(?:(\\sqrt\[))/,/^(?:pi\b)/,/^(?:\\pi\b)/,/^(?:\\theta\b)/,/^(?:e\b)/,/^(?:(true))/,/^(?:(false))/,/^(?:(\\operatorname\{true\}))/,/^(?:(\\operatorname\{false\}))/,/^(?:(E))/,/^(?:(mod))/,/^(?:(\\operatorname\{mod\}))/,/^(?:(not))/,/^(?:(\\operatorname\{not\}))/,/^(?:(and))/,/^(?:(\\operatorname\{and\}))/,/^(?:(or))/,/^(?:(\\operatorname\{or\}))/,/^(?:(xor))/,/^(?:(\\operatorname\{xor\}))/,/^(?:(bitand))/,/^(?:(\\operatorname\{bitand\}))/,/^(?:(bitor))/,/^(?:(\\operatorname\{bitor\}))/,/^(?:(bitxor))/,/^(?:(\\operatorname\{bitxor\}))/,/^(?:(bitnot))/,/^(?:(\\operatorname\{bitnot\}))/,/^(?:(\\le))/,/^(?:(\\ge))/,/^(?:\\?[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:\\?[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:(\\%))/,/^(?:>>)/,/^(?:<<)/,/^(?::=)/,/^(?:==)/,/^(?:!=)/,/^(?:=)/,/^(?:<)/,/^(?:>)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:%)/,/^(?:\[)/,/^(?:\])/,/^(?:\()/,/^(?:\))/,/^(?:,)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:#[0-9]+\.?([0-9]+)?)/,/^(?:(\.?[0-9]+))/,/^(?:(\\frac\{))/,/^(?:(\\cdot))/,/^(?:(\\left\())/,/^(?:(\\right\)))/,/^(?:(\\left\[))/,/^(?:(\\right\]))/,/^(?:(\\left\\\{))/,/^(?:(\\right\\\}))/,/^(?:(\\left\|))/,/^(?:(\\right\|))/,/^(?:(\\log_\{))/,/^(?:(\\log_))/,/^(?:(\\sqrt\{))/,/^(?:(\\sqrt\[))/,/^(?:(\\oplus))/,/^(?:(\\times))/,/^(?:(\\otimes))/,/^(?:(\\divide))/,/^(?:(\\div))/,/^(?:pi\b)/,/^(?:\\pi\b)/,/^(?:\\theta\b)/,/^(?:e\b)/,/^(?:(true))/,/^(?:(false))/,/^(?:(\\operatorname\{true\}))/,/^(?:(\\operatorname\{false\}))/,/^(?:(E))/,/^(?:(mod))/,/^(?:(\\operatorname\{mod\}))/,/^(?:(not))/,/^(?:(\\operatorname\{not\}))/,/^(?:(and))/,/^(?:(\\operatorname\{and\}))/,/^(?:(or))/,/^(?:(\\operatorname\{or\}))/,/^(?:(xor))/,/^(?:(\\operatorname\{xor\}))/,/^(?:(bitand))/,/^(?:(\\operatorname\{bitand\}))/,/^(?:(bitor))/,/^(?:(\\operatorname\{bitor\}))/,/^(?:(bitxor))/,/^(?:(\\operatorname\{bitxor\}))/,/^(?:(bitnot))/,/^(?:(\\operatorname\{bitnot\}))/,/^(?:(\\le))/,/^(?:(\\ge))/,/^(?:\\?[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:\\?[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:(\\%))/,/^(?:>>)/,/^(?:<<)/,/^(?::=)/,/^(?:!=)/,/^(?:==)/,/^(?:=)/,/^(?:<)/,/^(?:>)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:%)/,/^(?:\[)/,/^(?:\])/,/^(?:\()/,/^(?:\))/,/^(?:,)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77],"inclusive":true}}
 });
 return lexer;
 })();
@@ -904,9 +914,9 @@ return new Parser;
 
 
 if (typeof require !== 'undefined' && typeof exports !== 'undefined') {
-exports.parser = HexaneEvalSignum;
-exports.Parser = HexaneEvalSignum.Parser;
-exports.parse = function () { return HexaneEvalSignum.parse.apply(HexaneEvalSignum, arguments); };
+exports.parser = Hexane.Eval;
+exports.Parser = Hexane.Eval.Parser;
+exports.parse = function () { return Hexane.Eval.parse.apply(Hexane.Eval, arguments); };
 exports.main = function commonjsMain(args) {
     if (!args[1]) {
         console.log('Usage: '+args[0]+' FILE');

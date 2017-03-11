@@ -276,7 +276,14 @@ function SigNum (value=0, sf, creatingOp='') {
         var c = new SigNum(0, Infinity, lastOp);
         if (b.constructor == SigNum){
             c.value = Math.pow(this.value, b.value); 
-            c.sf = b.decimalPlaces();
+            var decpc = b.decimalPlaces();
+            if (decpc <= 0){
+                c.sf = this.sf;
+            }
+            else{
+                c.sf = decpc;
+            }
+            if (c.sf == -Infinity) c.sf = Infinity;
         }
         else{
             c.value = Math.pow(this.value, b);
@@ -469,10 +476,33 @@ SigNum.log = function(a,b){
     return a.log(b); 
 }
 
+SigNum.log10 = function(a){
+    return SigNum.log(a, 10);
+}
+
+SigNum.log2 = function(a){
+    return SigNum.log(a, 2);
+}
+
+
 SigNum.pow = function(a,b){ 
     if (a.constructor != SigNum) a = new SigNum(a); 
     return a.expo(b); 
 }
+
+SigNum.max = function(a,b){ 
+    if (a.constructor != SigNum) a = new SigNum(a); 
+    if (b.constructor != SigNum) b = new SigNum(b); 
+    if (a.value > b.value) return a;
+    return b
+}
+SigNum.min = function(a,b){ 
+    if (a.constructor != SigNum) a = new SigNum(a); 
+    if (b.constructor != SigNum) b = new SigNum(b); 
+    if (a.value < b.value) return a;
+    return b
+}
+
 
 SigNum.random = function(c){ return new SigNum(Math.random()); }
 SigNum.PI = new SigNum(Math.PI);

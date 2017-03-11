@@ -16,8 +16,25 @@ requirejs.config({
  * http://j.mp/respondjs */
 !function(a){"use strict";a.matchMedia=a.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(a.document)}(this),function(a){"use strict";function b(){v(!0)}var c={};a.respond=c,c.update=function(){};var d=[],e=function(){var b=!1;try{b=new a.XMLHttpRequest}catch(c){b=new a.ActiveXObject("Microsoft.XMLHTTP")}return function(){return b}}(),f=function(a,b){var c=e();c&&(c.open("GET",a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&&304!==c.status||b(c.responseText)},4!==c.readyState&&c.send(null))},g=function(a){return a.replace(c.regex.minmaxwh,"").match(c.regex.other)};if(c.ajax=f,c.queue=d,c.unsupportedmq=g,c.regex={media:/@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi,keyframes:/@(?:\-(?:o|moz|webkit)\-)?keyframes[^\{]+\{(?:[^\{\}]*\{[^\}\{]*\})+[^\}]*\}/gi,comments:/\/\*[^*]*\*+([^/][^*]*\*+)*\//gi,urls:/(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g,findStyles:/@media *([^\{]+)\{([\S\s]+?)$/,only:/(only\s+)?([a-zA-Z]+)\s?/,minw:/\(\s*min\-width\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/,maxw:/\(\s*max\-width\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/,minmaxwh:/\(\s*m(in|ax)\-(height|width)\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/gi,other:/\([^\)]*\)/g},c.mediaQueriesSupported=a.matchMedia&&null!==a.matchMedia("only all")&&a.matchMedia("only all").matches,!c.mediaQueriesSupported){var h,i,j,k=a.document,l=k.documentElement,m=[],n=[],o=[],p={},q=30,r=k.getElementsByTagName("head")[0]||l,s=k.getElementsByTagName("base")[0],t=r.getElementsByTagName("link"),u=function(){var a,b=k.createElement("div"),c=k.body,d=l.style.fontSize,e=c&&c.style.fontSize,f=!1;return b.style.cssText="position:absolute;font-size:1em;width:1em",c||(c=f=k.createElement("body"),c.style.background="none"),l.style.fontSize="100%",c.style.fontSize="100%",c.appendChild(b),f&&l.insertBefore(c,l.firstChild),a=b.offsetWidth,f?l.removeChild(c):c.removeChild(b),l.style.fontSize=d,e&&(c.style.fontSize=e),a=j=parseFloat(a)},v=function(b){var c="clientWidth",d=l[c],e="CSS1Compat"===k.compatMode&&d||k.body[c]||d,f={},g=t[t.length-1],p=(new Date).getTime();if(b&&h&&q>p-h)return a.clearTimeout(i),i=a.setTimeout(v,q),void 0;h=p;for(var s in m)if(m.hasOwnProperty(s)){var w=m[s],x=w.minw,y=w.maxw,z=null===x,A=null===y,B="em";x&&(x=parseFloat(x)*(x.indexOf(B)>-1?j||u():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?j||u():1)),w.hasquery&&(z&&A||!(z||e>=x)||!(A||y>=e))||(f[w.media]||(f[w.media]=[]),f[w.media].push(n[w.rules]))}for(var C in o)o.hasOwnProperty(C)&&o[C]&&o[C].parentNode===r&&r.removeChild(o[C]);o.length=0;for(var D in f)if(f.hasOwnProperty(D)){var E=k.createElement("style"),F=f[D].join("\n");E.type="text/css",E.media=D,r.insertBefore(E,g.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(k.createTextNode(F)),o.push(E)}},w=function(a,b,d){var e=a.replace(c.regex.comments,"").replace(c.regex.keyframes,"").match(c.regex.media),f=e&&e.length||0;b=b.substring(0,b.lastIndexOf("/"));var h=function(a){return a.replace(c.regex.urls,"$1"+b+"$2$3")},i=!f&&d;b.length&&(b+="/"),i&&(f=1);for(var j=0;f>j;j++){var k,l,o,p;i?(k=d,n.push(h(a))):(k=e[j].match(c.regex.findStyles)&&RegExp.$1,n.push(RegExp.$2&&h(RegExp.$2))),o=k.split(","),p=o.length;for(var q=0;p>q;q++)l=o[q],g(l)||m.push({media:l.split("(")[0].match(c.regex.only)&&RegExp.$2||"all",rules:n.length-1,hasquery:l.indexOf("(")>-1,minw:l.match(c.regex.minw)&&parseFloat(RegExp.$1)+(RegExp.$2||""),maxw:l.match(c.regex.maxw)&&parseFloat(RegExp.$1)+(RegExp.$2||"")})}v()},x=function(){if(d.length){var b=d.shift();f(b.href,function(c){w(c,b.href,b.media),p[b.href]=!0,a.setTimeout(function(){x()},0)})}},y=function(){for(var b=0;b<t.length;b++){var c=t[b],e=c.href,f=c.media,g=c.rel&&"stylesheet"===c.rel.toLowerCase();e&&g&&!p[e]&&(c.styleSheet&&c.styleSheet.rawCssText?(w(c.styleSheet.rawCssText,e,f),p[e]=!0):(!/^([a-zA-Z:]*\/\/)/.test(e)&&!s||e.replace(RegExp.$1,"").split("/")[0]===a.location.host)&&("//"===e.substring(0,2)&&(e=a.location.protocol+e),d.push({href:e,media:f})))}x()};y(),c.update=y,c.getEmValue=u,a.addEventListener?a.addEventListener("resize",b,!1):a.attachEvent&&a.attachEvent("onresize",b)}}(this);
 
+Array.prototype.indexOf || (Array.prototype.indexOf = function(d, e) {
+    var a;
+    if (null == this) throw new TypeError('"this" is null or not defined');
+    var c = Object(this),
+        b = c.length >>> 0;
+    if (0 === b) return -1;
+    a = +e || 0;
+    Infinity === Math.abs(a) && (a = 0);
+    if (a >= b) return -1;
+    for (a = Math.max(0 <= a ? a : b - Math.abs(a), 0); a < b;) {
+        if (a in c && c[a] === d) return a;
+        a++
+    }
+    return -1
+});
+
 var Hexane = new function(){
 	this.prevAns = [];
+	this.history = [];
 	this.funcs = {
 		pow: function(a, b) { return SigNum.pow(a, b); },
 		max: function(a, b) { return SigNum.max(a, b); },
@@ -33,26 +50,43 @@ var Hexane = new function(){
 		sin: function(a) { return SigNum.sin(a); },
 		cos: function(a) { return SigNum.cos(a); },
 		tan: function(a) { return SigNum.tan(a); },
+		sinh: function(a) { return SigNum.sinh(a); },
+		cosh: function(a) { return SigNum.cosh(a); },
+		tanh: function(a) { return SigNum.tanh(a); },
 		asin: function(a) { return SigNum.asin(a); },
 		acos: function(a) { return SigNum.acos(a); },
 		atan: function(a) { return SigNum.atan(a); },
+		asinh: function(a) { return SigNum.asinh(a); },
+		acosh: function(a) { return SigNum.acosh(a); },
+		atanh: function(a) { return SigNum.atanh(a); },
+		
 		random: function(a,b) { if (b == undefined){
 									if (a == undefined)	return SigNum.random()
 									else return SigNum.random() * a;
 								}
 								else return SigNum.random() * (b-a) + a; },
+								
 		qdtc: function(a,b,c) { if (a.constructor != SigNum) a = new SigNum(a);
 								if (b.constructor != SigNum) b = new SigNum(b);
 								if (c.constructor != SigNum) c = new SigNum(c);
 								if (b.times(b)-a.times(c).times(4) > 0) return [(b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))]; 
 								else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
 								else return undefined;},
+								
 		qdtcp: function(a,b,c) {if (a.constructor != SigNum) a = new SigNum(a);
 								if (b.constructor != SigNum) b = new SigNum(b);
 								if (c.constructor != SigNum) c = new SigNum(c);
 								if (b.times(b)-a.times(c).times(4) > 0) return SigNum.max((b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))); 
 								else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
 								else return undefined;},
+								
+		qdtcn: function(a,b,c) {if (a.constructor != SigNum) a = new SigNum(a);
+								if (b.constructor != SigNum) b = new SigNum(b);
+								if (c.constructor != SigNum) c = new SigNum(c);
+								if (b.times(b)-a.times(c).times(4) > 0) return SigNum.min((b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))); 
+								else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
+								else return undefined;},
+								
 		qdtcacid: function(a,b){if (a.constructor != SigNum) a = new SigNum(a);
 								if (b.constructor != SigNum) b = new SigNum(b);
 								if (c.constructor != SigNum) c = new SigNum(c);
@@ -61,7 +95,7 @@ var Hexane = new function(){
     this.vars = {}
 }
 
-requirejs(['jquery', 'MathQuill', 'signum', 'hexane-eval', 'hexane-eval-signum'], function($){
+requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum'], function($){
 	
 	// remove objects from global namespace
 	jQuery.noConflict(true);
@@ -79,16 +113,38 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane-eval', 'hexane-eval-signum']
 	// set Avogadro's number
 	Hexane.vars['A'] = new SigNum(6.022140857e23);
 	
-	Hexane.eval = function(expr) { return HexaneEvalSignum.parse(expr); };
-	Hexane.Parser = HexaneEvalSignum;
+	Hexane.DefaultParser = Hexane.EvalSigNum;
+	Hexane.eval = function(expr) { return Hexane.DefaultParser.parse(expr); };
 
     var exprFieldSpan = document.getElementById('expr-field');
     var resultSpan = document.getElementById('result-field');
     var latexSpan = document.getElementById('latex');
+	var answerList = $('#answer-list');
 
     var resultField = MQ.StaticMath(resultSpan);
     var resval = undefined;
-
+	
+	//  mode = 'latex': 1.0e+10 -> 1.0\\cdot10^10
+	//  mode = 'html' 1.0e+10 -> 1.0&#8226;10<sup>10</sup>
+	//  mode = 'kbd' 1.0e+10 -> 1.0*^10^10
+	var eToExp = function(res, mode = 'latex'){
+		if (res.indexOf('e') != -1){
+			var idx = res.indexOf('e');
+			var t1 = res.substring(0, idx);
+			var t2 = res.substring(idx+1);
+			if (t2.length > 0 && t2[0] == '+'){
+				t2 = t2.substring(1);
+			}
+			if (mode == 'html')
+				return t1 + '&#8226;10<sup>' + t2 + '</sup>';
+			else if (mode == 'kbd')
+				return t1 + '*10^' + t2;
+			else
+				return t1 + '\\cdot10^{' + t2 + '}';
+		}
+		return res;
+	}
+	
     var exprField = MQ.MathField(exprFieldSpan, {
         spaceBehavesLikeTab: true,
         charsThatBreakOutOfSupSub: '+-=<>',
@@ -97,22 +153,16 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane-eval', 'hexane-eval-signum']
         leftRightIntoCmdGoes: 'up',
         handlers: {
             edit: function() {
+					Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
 					// latexSpan.textContent = exprField.latex();
+					localStorage.setItem('exprLatex', exprField.latex());
                     try{
-                        if (exprField.latex().trim() == '') resultField.latex('');
+                        if (exprField.latex().trim() == '') resultField.latex('0 = 0 \\cdot 10^0');
                         else {
                             resval = Hexane.eval(exprField.latex());
 							if (resval.constructor == SigNum){
 								var res = resval.toExponential();
-								if (res.indexOf('e') != -1){
-									var idx = res.indexOf('e');
-									var t1 = res.substring(0, idx);
-									var t2 = res.substring(idx+1);
-									if (t2.length > 0 && t2[0] == '+'){
-										t2 = t2.substring(1);
-									}
-									res = t1 + '\\cdot10^{' + t2 + '}';
-								}
+								res = eToExp(res);
 								res = resval.toFullNumber() + ' = '  + res;
 								resultField.latex(res);
 							}
@@ -133,15 +183,81 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane-eval', 'hexane-eval-signum']
                     }
                 catch (err) {
                     // alert(exprField.latex()); 
-                        resultField.latex('\\text{Your input is invalid}');// + err.message;
+                     resultField.latex('\\text{Your input is invalid}');// + err.message;
                 }
             },
             enter: function() {//alert(exprField.latex());
-                Hexane.prevAns = Hexane.prevAns.concat([resval]).slice(-20); 
+                Hexane.prevAns = Hexane.prevAns.concat([resval]).slice(-50); 
+				rebuildAnsList();
             },
         }
     });
+	
+	var saveAnsList = function() {
+		var prevAnsTxt = '';
+		for (var i=0; i<Hexane.prevAns.length; ++i){
+			if (i != 0) prevAnsTxt += ';';
+			if (Hexane.prevAns[i].constructor == SigNum){
+				prevAnsTxt += Hexane.prevAns[i].value + ':' + Hexane.prevAns[i].sf;
+			}
+			else{
+				prevAnsTxt += Hexane.prevAns[i];
+			}
+		}
+		localStorage.setItem('prevAns', prevAnsTxt);
+	}
+	
+	var rebuildAnsList = function(){
+		var txt = '';
+		for (var i=0; i<Hexane.prevAns.length; ++i){
+			var str = Hexane.prevAns[i].toString();
+			var val = str;
+			if (Hexane.prevAns[i].constructor == SigNum){
+				str = eToExp(str, 'html');
+				val = eToExp(val, 'kbd');
+			}
+			txt = txt.concat('<div class="answer-tile" position="' + i + '" value="' + val + '" title="Click to enter saved result into textbox (max 50)">'+
+							'<span class="answer-text">' + str +
+							'</span> <span class="answer-delete" title="Delete saved result"></span></div>');
+		}
+		txt += '\n<p class="answer-list-tip"><strong>Saved Results</strong> &nbsp;|&nbsp; Press <kbd>enter</kbd>' +
+		       ' in the textbox to save current result &nbsp;|&nbsp; <a class="answer-list-clear">Clear</a></p>';
+		answerList.html(txt);
+		
+		$('.answer-tile').click(function(e){
+			var tile = $(this);
+			exprField.typedText(tile.attr('value'));
+			exprField.keystroke('Spacebar');
+		});
+				
+		$('.answer-delete').click(function(e){
+			var tile = $(this).parent();
+			Hexane.prevAns.splice(Number(tile.attr('position')), 1);
+			saveAnsList();
+			
+			tile.animate({opacity:0}, 500, 'linear',
+				function(){
+					tile.remove();
+					rebuildAnsList();
+				}
+			);
+			window.event.cancelBubble = true;
+			e.stopPropagation();
+		});
 
+		$('.answer-list-clear').click(function(e){
+			Hexane.prevAns = [];
+			$('.answer-tile').animate({opacity:0}, 500, 'linear');
+			setTimeout(
+				function(){
+					rebuildAnsList();
+				}
+			, 	500);
+		});
+		
+		saveAnsList();
+	}
+	
 	var timeoutTracker = 0;
 
     $('.key').on('mousedown', function(){ 
@@ -167,6 +283,28 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane-eval', 'hexane-eval-signum']
 	
 	$('#allclear-btn').click(function(){
 		exprField.latex('');
+	});
+	
+	$(document).ready(function(){
+		var exprLatex = localStorage.getItem('exprLatex');
+		if (exprLatex != undefined && exprLatex != null){
+			exprField.latex(exprLatex);
+		}
+		
+		var prevAns = localStorage.getItem('prevAns');
+		if (prevAns != undefined && prevAns != null && prevAns.trim() != ''){
+			Hexane.prevAns = prevAns.split(';');
+			for (var i=0; i < Hexane.prevAns.length; ++i){
+				if (Hexane.prevAns[i].indexOf(':') >= 0){
+					var spl = Hexane.prevAns[i].split(':');
+					Hexane.prevAns[i] = new SigNum(Number(spl[0]), Number(spl[1]));
+				}
+				else if (Hexane.prevAns[i] == 'true' || Hexane.prevAns[i] == 'false'){
+					Hexane.prevAns[i] = Boolean(Hexane.prevAns[i]);
+				}
+			}
+		}
+		rebuildAnsList();
 	});
 	
     $('body').animate({opacity:1}, 1200);

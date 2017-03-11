@@ -8,7 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Calculator | Hexane</title>
     <meta name="description" content="Hexane calculator - expression evaluator designed for chemistry students">
+    <meta name="author" content="Alex Yu">
+	<meta name="copyright" content="All content copyright 2017 Hexane/Alex Yu">
+    <meta name="keywords" content="chemistry,calculator,computer,evaluator,sigfigs,significant,figures,Hexane,MathQuill,students,teaching,learning,school">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index,follow">
+	
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <link rel="stylesheet" href="css/normalize.min.css">
@@ -56,7 +61,7 @@
 
     <div class="header-container">
         <header class="wrapper clearfix">
-            <h1 class="title"><span class="title-bold">Hexane</span><span class="title-subsite" id="title-subsite">Calculator</span></h1>
+            <h1 class="title"><span class="title-bold">Hexane</span><span class="title-subsite" id="title-subsite">Calculator</span> <sup><small>Beta</small></sup></h1>
             <nav>
                 <ul>
                     <li><a href="#">Calc</a></li>
@@ -83,26 +88,26 @@
 							<div class="key num-key" text-to-add="2">2</div>
 							<div class="key num-key" text-to-add="3">3</div>
 							
-							<div class="key double-wid" keys-to-type="Backspace">⌫	</div>
-							<div class="key" keys-to-type="Del">⌦</div>
+							<div class="key double-wid" keys-to-type="Backspace" title="Delete previous item">⌫</div>
+							<div class="key" keys-to-type="Del" title="Delete next item">⌦</div>
 
 							<div class="key" text-to-add="+">+</div>
-							<div class="key" text-to-add="*">&times;</div>
+							<div class="key" text-to-add="\times" keys-to-type="Spacebar">&times;</div>
 							
 							<!-- Note: if both are specified, text-to-add is evaluated before keys-to-type  -->
-							<div class="key" text-to-add="log_10" keys-to-type="Right">log</div>
-							<div class="key" text-to-add="log_">log<sub>x</sub></div>
-							<div class="key" text-to-add="sqrt">&#8730;x</div>
-							<div class="key" text-to-add="nthroot"><sup>n</sup>&#8730;x</div>
+							<div class="key" text-to-add="log_10" keys-to-type="Right" title="Log Base 10">log</div>
+							<div class="key" text-to-add="log_" title="Log base x">log<sub>x</sub></div>
+							<div class="key" text-to-add="sqrt" title="Square root">&#8730;x</div>
+							<div class="key" text-to-add="nthroot" title="Nth root"><sup>n</sup>&#8730;x</div>
 							
 							<div class="key num-key" text-to-add="true">true</div>
 							<div class="key num-key" text-to-add="false">false</div>
 							<div class="key" text-to-add="sin(">sin</div>
 							<div class="key" text-to-add="cos(">cos</div>
 							<div class="key" text-to-add="tan(">tan</div>
-							<div class="key num-key" text-to-add="pi">&pi;</div>
-							<div class="key num-key" text-to-add="e">e</div>
-							<div class="key num-key" text-to-add="A">A</div>
+							<div class="key num-key" text-to-add="pi" title="Pi">&pi;</div>
+							<div class="key num-key" text-to-add="e" title="Euler's number">e</div>
+							<div class="key num-key" text-to-add="A" title="Avogadro's number">A</div>
 						</div>
 						
 						<div class="key-row">
@@ -110,16 +115,16 @@
 							<div class="key num-key" text-to-add="5">5</div>
 							<div class="key num-key" text-to-add="6">6</div>
 							
-							<div class="key" keys-to-type="Spacebar">⇪</div>
-							<div class="key double-wid" id="allclear-btn">AC</div>
+							<div class="key" keys-to-type="Spacebar" title="Escape from the current block level: (1+2|) -> (1+2)|">⇪</div>
+							<div class="key double-wid" id="allclear-btn" title="Clear textbox">Clear</div>
 							<div class="key" text-to-add="-">-</div>
-							<div class="key" text-to-add="/">&divide;</div>
-							<div class="key" text-to-add="^2">a<sup>2</sup></div>
-							<div class="key" text-to-add="^">a<sup>x</sup></div>
-							<div class="key" text-to-add="mod">mod</div>
-							<div class="key" text-to-add="and">and</div>
-							<div class="key" text-to-add="or">or</div>
-							<div class="key" text-to-add="not">not</div>
+							<div class="key" text-to-add="/" title="Create fraction (divide by)">&divide;</div>
+							<div class="key" text-to-add="^2" keys-to-type="Spacebar" title="Square">a<sup>2</sup></div>
+							<div class="key" text-to-add="^" title="Exponent">a<sup>x</sup></div>
+							<div class="key" text-to-add="mod" title="Modulo operator">mod</div>
+							<div class="key" text-to-add="and" title="Logical and">and</div>
+							<div class="key" text-to-add="or" title="Logical or">or</div>
+							<div class="key" text-to-add="not" title="Logical not">not</div>
 							<div class="key" text-to-add="asin(">asin</div>
 							<div class="key" text-to-add="acos(">acos</div>
 							<div class="key" text-to-add="atan(">atan</div>
@@ -132,21 +137,21 @@
 							<div class="key num-key" text-to-add="7">7</div>
 							<div class="key num-key" text-to-add="8">8</div>
 							<div class="key num-key" text-to-add="9">9</div>
-							<div class="key" keys-to-type="Home">⟸</div>
+							<div class="key" keys-to-type="Home" title="Go to the beginning of the line">⟸</div>
 							<div class="key" keys-to-type="Up">▲</div>
-							<div class="key" keys-to-type="End">⟹</div>
+							<div class="key" keys-to-type="End" title="Go to the end of the line">⟹</div>
 							
 							<div class="key" text-to-add="(">(</div>
 							<div class="key" text-to-add=")">)</div>
-							<div class="key" text-to-add=",">,</div>
-							<div class="key" text-to-add="%">%</div>
-							<div class="key" text-to-add="!">!</div>
-							<div class="key" text-to-add="bitand">and<sub>b</sub></div>
-							<div class="key" text-to-add="bitor">or<sub>b</sub></div>
-							<div class="key" text-to-add="bitnot">not<sub>b</sub></div>
-							<div class="key" text-to-add="qdtc(">qdtc</div>
-							<div class="key" text-to-add="qdtcp(">qdtc<sup>+</sup></div>
-							<div class="key" text-to-add="random(">rand</div>
+							<div class="key" text-to-add="#" title="Mark number as infinitely precise (SigFigs = Infinity)">#</div>
+							<div class="key" text-to-add="%" title="Percent">%</div>
+							<div class="key" text-to-add="!" title="Factorial">!</div>
+							<div class="key" text-to-add="bitand" title="Bitwise and">and<sub>b</sub></div>
+							<div class="key" text-to-add="bitor" title="Bitwise or">or<sub>b</sub></div>
+							<div class="key" text-to-add="bitnot" title="Bitwise not">not<sub>b</sub></div>
+							<div class="key" text-to-add="qdtc(" title="Quadratic solver: qdtc(a,b,c)">qdtc</div>
+							<div class="key" text-to-add="qdtcp(" title="Quadratic solver (only returns the larger value): qdtc(a,b,c)">qdtc<sup>+</sup></div>
+							<div class="key" text-to-add="random(" title="Generate random rumber: random() OR random(high) OR random(low, high)">rand</div>
 							<div class="key num-key" text-to-add="a">a</div>
 							<div class="key num-key" text-to-add="b">b</div>
 							<div class="key num-key" text-to-add="c">c</div>
@@ -164,18 +169,21 @@
 							<div class="key" text-to-add="2">]</div>
 							<div class="key" text-to-add="{">{</div>
 							<div class="key" text-to-add="}">}</div>
-							<div class="key" text-to-add="|">|x|</div>
-							<div class="key" text-to-add="<<"><<</div>
-							<div class="key" text-to-add=">>">>></div>
-							<div class="key" text-to-add="bitxor">xor<sub>b</sub></div>
-							<div class="key" text-to-add="floor(">floor</div>							
-							<div class="key" text-to-add="ceil(">ceil</div>							
-							<div class="key" text-to-add="round(">round</div>	
+							<div class="key" text-to-add="|" title="Absolute value">|x|</div>
+							<div class="key" text-to-add="<<" title="Bitshift left"><<</div>
+							<div class="key" text-to-add=">>" title="Bitshift right">>></div>
+							<div class="key" text-to-add="bitxor" title="Bitwise xor">xor<sub>b</sub></div>
+							<div class="key" text-to-add="floor(" title="Floor (round down)">floor</div>							
+							<div class="key" text-to-add="ceil(" title="Floor (round up)">ceil</div>							
+							<div class="key" text-to-add="round(" title="Floor (round to closest integer, 5 = up)">round</div>	
 							
-							<div class="key num-key" text-to-add="theta">&theta;</div>
-							<div class="key" text-to-add=":=">:=</div>
-							<div class="key" text-to-add="_">a<sub>x</sub></div>
+							<div class="key num-key" text-to-add="theta" title="Theta">&theta;</div>
+							<div class="key" text-to-add=":=" title="Variable assignment operator := (ex. x := 2)">:=</div>
+							<div class="key" text-to-add="_" title="Variable subscript">a<sub>x</sub></div>
 						</div>
+					</div>
+					<div id="answer-list">
+						<p class="answer-list-tip"><strong>Saved Results</strong> &nbsp;|&nbsp; Press <kbd>ENTER</kbd> in the textbox to save current result &nbsp;|&nbsp; <a class="answer-list-clear">Clear</a></p>
 					</div>
 				</section>
             </article>
@@ -185,7 +193,7 @@
 
     <div class="footer-container">
         <footer class="wrapper">
-            <h3>&copy; Hexane / Alex Yu 2017</h3>
+            <h3>&copy; Hexane | Alex Yu 2017. All rights reserved.</h3>
         </footer>
     </div>
 

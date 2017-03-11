@@ -25,6 +25,18 @@ hr {
     padding: 0;
 }
 
+a, .active{
+	cursor: pointer;
+	-webkit-transition: background 0.5s ease;
+	-moz-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	-ms-transition: background 0.5s ease;
+	transition: background 0.5s ease;
+}
+.active{
+	background: #ccc;
+}
+
 audio,
 canvas,
 iframe,
@@ -42,6 +54,15 @@ fieldset {
 
 textarea {
     resize: vertical;
+}
+
+kbd{
+	font-size: 1em;
+	background-color: #333;
+	padding: 3px 4px;
+	border-radius: 5px;
+	margin: 0 2px;
+	text-transform: capitalize;
 }
 
 .browserupgrade {
@@ -121,7 +142,7 @@ body {
 	margin: 0 30px;
 }
 
-.title .title-bold{
+.title .title-bold, .footer-container .footer-bold{
     font-weight:600;
 }
 
@@ -199,7 +220,7 @@ nav a:hover {
 }
 
 .footer-container footer {
-    color: #000;
+    color: #333;
     height:60px;
     line-height: 60px;
     padding: 0;
@@ -207,6 +228,7 @@ nav a:hover {
 
 .footer-container footer h3{
     margin: 0 30px;
+	font-weight:400;
 }
 
 /* ===============
@@ -269,7 +291,7 @@ nav a{
 	width:100%;
 	padding:0 37px;
 	height:70px;
-	line-height:70px;
+	line-height:60px;
 	background:#393939;
 	color:#fafafa;
 	overflow-x:auto;
@@ -333,7 +355,101 @@ nav a{
 #keypad .key.triple-wid{
 	width:151px;
 }
+
+#answer-list{
+	padding: 15px 40px 30px 37px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	font-size:0;
+	-moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	position:relative;
+}
+#answer-list .answer-list-tip{
+	color:#aaa;
+	font-size:10px;
+	margin: 0 0 2px 0;
+	position: absolute;
+	bottom: 7px;
+}
+#answer-list .answer-list-clear{
+	color: #fa9;
+	padding: 5px;
+	border-radius:4px;
+	-webkit-transition: background 0.5s ease;
+	-moz-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	-ms-transition: background 0.5s ease;
+	transition: background 0.5s ease;
+}
+#answer-list .answer-list-clear:hover{
+	background-color: #3a3a3a;
+}
+
+#answer-list .answer-tile{
+	display:inline-block;
+	font-size:16px;
+	height:40px;
+	line-height:40px;
+	text-align:left;
+	padding:0 25px 0 15px;
+	max-width: 20%;
+	margin-right:10px;
+	background: #a96433;
+	overflow: hidden;
+	position: relative;
+	left:0;
+	cursor: pointer;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+#answer-list .answer-tile:hover{
+	background: #b97443;
+}
+#answer-list .answer-text{
+	font-family: Courier New, monospace;
 	
+	-moz-user-select: text;
+    -khtml-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+#answer-list .answer-delete::before{
+	content: '✖';
+	font-weight:300;
+	color:#e9a453;
+	font-size:13px;
+	padding:4px 6px;
+	text-align:center;
+	border-radius:50%;
+	-webkit-transition: background 0.5s ease;
+	-moz-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	-ms-transition: background 0.5s ease;
+	transition: background 0.5s ease;
+}
+#answer-list .answer-delete:hover::before{
+	background-color:#b96213;
+}
+
+#answer-list .answer-delete{
+	float: right;
+	cursor:pointer;
+	z-index:10;
+	position:relative;
+	right:-6px;
+	height:10px;
+	width:10px;
+}	
+
 
 .main-container .wrapper{
 	width: 100%;
@@ -450,9 +566,8 @@ nav a{
     Maximal Width
    =============== */
 
-    .wrapper {
-        width: 1026px; /* 1140px - 10% for margins */
-        margin: 0 auto;
+    .header-container .wrapper, .footer-container .wrapper  {
+        margin: 0 10px;
     }
 }
 

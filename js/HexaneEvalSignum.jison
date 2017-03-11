@@ -23,6 +23,11 @@
 ("\\log_")            return 'LOGS'
 ("\\sqrt{")           return 'SQRT'
 ("\\sqrt[")           return 'NTHROOT'
+("\\oplus")           return 'XOR'
+("\\times")           return '*'
+("\\otimes")          return '*'
+("\\divide")          return '/'
+("\\div")             return '/'
 "pi"                  return 'PI'
 "\\pi"                return 'PI'
 "\\theta"             return 'THETA'
@@ -196,8 +201,9 @@ e
 	| NTHROOT e ']' '{' e '}' 
 		{$$ = SigNum.root($5, $2);}
 	| LOGS e
-		{var tmp = SigNum.floor($2/SigNum.pow(10,SigNum.floor(SigNum.log10($2))));
-		 $$ = SigNum.log($2-tmp*SigNum.pow(10,SigNum.floor(SigNum.log10($2))), tmp); }
+		{var tmp = SigNum.floor($2.div(SigNum.pow(10,SigNum.floor(SigNum.log10($2)))));
+		 var val = $2.minus(tmp.times(SigNum.pow(10,SigNum.floor(SigNum.log10($2)))));
+		 $$ = SigNum.log(val, tmp); }
 	| LOGS NUMBER '(' e ')'
 		{$$ = SigNum.log($4, $2) }
 	| LOGS NUMBER '[' e ']'

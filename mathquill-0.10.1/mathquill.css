@@ -8,9 +8,9 @@
  * one at http://mozilla.org/MPL/2.0/.
  */
 @font-face {
-  font-family: Symbola;
-  src: url(font/Symbola.eot);
-  src: local("Symbola Regular"), local("Symbola"), url(font/Symbola.woff2) format("woff2"), url(font/Symbola.woff) format("woff"), url(font/Symbola.ttf) format("truetype"), url(font/Symbola.otf) format("opentype"), url(font/Symbola.svg#Symbola) format("svg");
+  font-family: latinmodern;
+  src: url(font/latinmodern.eot);
+  src: local("LatinModern Math"), local("latinmodern-math"), url(font/latinmodern.woff2) format("woff2"), url(font/latinmodern.woff) format("woff"), url(font/latinmodern.ttf) format("truetype"), url(font/latinmodern.otf) format("opentype"), url(font/latinmodern.svg#latinmodern) format("svg");
 }
 .mq-editable-field {
   display: -moz-inline-box;
@@ -104,8 +104,8 @@
 }
 .mq-math-mode var,
 .mq-math-mode .mq-text-mode,
-.mq-math-mode .mq-nonSymbola {
-  font-family: "Times New Roman", Symbola, serif;
+.mq-math-mode .mq-nonlatinmodern {
+  font-family: "Times New Roman", latinmodern, serif;
   line-height: .9;
 }
 .mq-math-mode * {
@@ -132,7 +132,7 @@
   font-size: 87%;
 }
 .mq-math-mode .mq-font {
-  font: 1em "Times New Roman", Symbola, serif;
+  font: 1em "Times New Roman", latinmodern, serif;
 }
 .mq-math-mode .mq-font * {
   font-family: inherit;
@@ -161,10 +161,10 @@
   font-style: normal;
 }
 .mq-math-mode .mq-sans-serif {
-  font-family: sans-serif, Symbola, serif;
+  font-family: sans-serif, latinmodern, serif;
 }
 .mq-math-mode .mq-monospace {
-  font-family: monospace, Symbola, serif;
+  font-family: monospace, latinmodern, serif;
 }
 .mq-math-mode .mq-overline {
   border-top: 1px solid black;
@@ -241,7 +241,7 @@
   display: block;
 }
 .mq-math-mode .mq-operator-name {
-  font-family: Symbola, "Times New Roman", serif;
+  font-family: latinmodern, "Times New Roman", serif;
   line-height: .9;
   font-style: normal;
 }
@@ -330,7 +330,7 @@
 .mq-math-mode,
 .mq-math-mode .mq-editable-field {
   cursor: text;
-  font-family: Symbola, "Times New Roman", serif;
+  font-family: latinmodern, "Times New Roman", serif;
 }
 .mq-math-mode .mq-overarrow {
   border-top: 1px solid black;
