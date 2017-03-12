@@ -30,14 +30,13 @@
 ("\\div")             return '/'
 "pi"                  return 'PI'
 "\\pi"                return 'PI'
-"\\theta"             return 'THETA'
 "e"                   return 'E'
 ("true")			  return 'T'
 ("false")			  return 'F'
 ("\\operatorname{true}")		   return 'T'
 ("\\operatorname{false}")		   return 'F'
-("E")                 return 'EXP'
-("mod")				  return 'MOD'
+("E")                              return 'EXP'
+("mod")				               return 'MOD'
 ("\\operatorname{mod}")		       return 'MOD'
 ("not")                            return 'NOT'
 ("\\operatorname{not}")            return 'NOT'
@@ -59,8 +58,13 @@
 ("\\le")              return '<='
 ("\\ge")              return '>='
 
-"\\"?[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")   return 'NAME'
-"\\"?[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                          return 'NAME'
+"@"[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")       return 'FORMULA'
+"@"[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                              return 'FORMULA'
+
+"\\"[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")   return 'NAME'
+"\\"[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                          return 'NAME'
+[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")       return 'NAME'
+[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                              return 'NAME'
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -237,6 +241,9 @@ e
 		{Hexane.vars[$1] = $3; $$ = Hexane.vars[$1]; }
 	| NAME
         {$$ = Hexane.vars[$1];}
+	| FORMULA
+	    {$$ = $1.toString().substring(1);}
+		
 	| NUMBER NAME
         {$$ = $1.times(Hexane.vars[$2]);}
 	| NUMBER NUMBER
@@ -247,14 +254,10 @@ e
         {$$ = SigNum.E;}
     | PI
         {$$ = SigNum.PI;}
-	| THETA
-        {$$ = Hexane.vars['theta'];}
 	| NUMBER PI
         {$$ = $1.times(SigNum.PI);}
 	| NUMBER E
         {$$ = $1.times(SigNum.E);}
-	| NUMBER THETA
-        {$$ = $1.times(Hexane.vars['theta']);}
 	| T
         {$$ = true;}
     | F

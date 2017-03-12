@@ -120,7 +120,7 @@
   box-sizing: border-box;
 }
 .mq-math-mode .mq-empty {
-  background: #ccc;
+  background: #555;
 }
 .mq-math-mode .mq-empty.mq-root-block {
   background: transparent;
@@ -361,7 +361,6 @@
 .mq-math-mode .mq-selection .mq-scaled,
 .mq-editable-field .mq-selection .mq-scaled {
   background: #CE6554 !important;
-  color: HighlightText;
   border-color: HighlightText;
 }
 .mq-math-mode .mq-selection .mq-matrixed,
@@ -380,7 +379,7 @@
 .mq-editable-field .mq-selection.mq-blur .mq-scaled,
 .mq-math-mode .mq-selection.mq-blur .mq-matrixed,
 .mq-editable-field .mq-selection.mq-blur .mq-matrixed {
-  background: #D4D4D4 !important;
+  background: #D49484 !important;
   color: black;
   border-color: black;
 }

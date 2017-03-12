@@ -2856,6 +2856,7 @@ var TextBlock = P(Node, function(_, super_) {
   };
 
   _.createLeftOf = function(cursor) {
+	return;
     var textBlock = this;
     super_.createLeftOf.call(this, cursor);
 
@@ -3011,7 +3012,7 @@ var TextBlock = P(Node, function(_, super_) {
     textPc.jQadd(textPcDom);
 
     self.children().disown();
-    return textPc.adopt(self, 0, 0);
+      textPc.adopt(self, 0, 0);
   }
 
   _.focus = MathBlock.prototype.focus;

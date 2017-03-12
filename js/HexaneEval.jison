@@ -31,7 +31,7 @@
 ("\\div")             return '/'
 "pi"                  return 'PI'
 "\\pi"                return 'PI'
-"\\theta"             return 'THETA'
+
 "e"                   return 'E'
 ("true")			  return 'T'
 ("false")			  return 'F'
@@ -60,8 +60,14 @@
 ("\\le")              return '<='
 ("\\ge")              return '>='
 
-"\\"?[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")   return 'NAME'
-"\\"?[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                          return 'NAME'
+"@"[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")       return 'FORMULA'
+"@"[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                              return 'FORMULA'
+
+"\\"[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")   return 'NAME'
+"\\"[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                          return 'NAME'
+[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")       return 'NAME'
+[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                              return 'NAME'
+
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -237,6 +243,11 @@ e
 		{Hexane.vars[$1] = $3; $$ = Hexane.vars[$1]; }
 	| NAME
         {$$ = Hexane.vars[$1];}
+	| FORMULA
+	    {$$ = $1.toString().substring(1);}
+		
+	| '@' NAME
+	    {$$ = $2.toString();}
 	| NUMBER NAME
         {$$ = $1 * Hexane.vars[$2];}
 	| NUMBER NUMBER
@@ -247,14 +258,10 @@ e
         {$$ = Math.E;}
     | PI
         {$$ = Math.PI;}
-	| THETA
-        {$$ = Hexane.vars['theta'];}
 	| NUMBER PI
         {$$ = $1 * Math.PI;}
 	| NUMBER E
         {$$ = $1 * Math.E;}
-	| NUMBER THETA
-        {$$ = $1 * Hexane.vars['theta'];}
 	| T
         {$$ = true;}
     | F

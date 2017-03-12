@@ -1,11 +1,3 @@
-requirejs.config({
-    baseUrl: 'js',
-    paths: {
-        jquery: 'jquery-1.12.4.min',
-		MathQuill: '../mathquill-0.10.1/mathquill'
-    }
-});
-
 /* Modernizr 2.8.3 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-fontface-backgroundsize-borderimage-borderradius-boxshadow-flexbox-hsla-multiplebgs-opacity-rgba-textshadow-cssanimations-csscolumns-generatedcontent-cssgradients-cssreflections-csstransforms-csstransforms3d-csstransitions-applicationcache-canvas-canvastext-draganddrop-hashchange-history-audio-video-indexeddb-input-inputtypes-localstorage-postmessage-sessionstorage-websockets-websqldatabase-webworkers-geolocation-inlinesvg-smil-svg-svgclippaths-touch-webgl-shiv-mq-cssclasses-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes-load
  */
@@ -15,6 +7,8 @@ requirejs.config({
  * Licensed under MIT
  * http://j.mp/respondjs */
 !function(a){"use strict";a.matchMedia=a.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(a.document)}(this),function(a){"use strict";function b(){v(!0)}var c={};a.respond=c,c.update=function(){};var d=[],e=function(){var b=!1;try{b=new a.XMLHttpRequest}catch(c){b=new a.ActiveXObject("Microsoft.XMLHTTP")}return function(){return b}}(),f=function(a,b){var c=e();c&&(c.open("GET",a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&&304!==c.status||b(c.responseText)},4!==c.readyState&&c.send(null))},g=function(a){return a.replace(c.regex.minmaxwh,"").match(c.regex.other)};if(c.ajax=f,c.queue=d,c.unsupportedmq=g,c.regex={media:/@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi,keyframes:/@(?:\-(?:o|moz|webkit)\-)?keyframes[^\{]+\{(?:[^\{\}]*\{[^\}\{]*\})+[^\}]*\}/gi,comments:/\/\*[^*]*\*+([^/][^*]*\*+)*\//gi,urls:/(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g,findStyles:/@media *([^\{]+)\{([\S\s]+?)$/,only:/(only\s+)?([a-zA-Z]+)\s?/,minw:/\(\s*min\-width\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/,maxw:/\(\s*max\-width\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/,minmaxwh:/\(\s*m(in|ax)\-(height|width)\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/gi,other:/\([^\)]*\)/g},c.mediaQueriesSupported=a.matchMedia&&null!==a.matchMedia("only all")&&a.matchMedia("only all").matches,!c.mediaQueriesSupported){var h,i,j,k=a.document,l=k.documentElement,m=[],n=[],o=[],p={},q=30,r=k.getElementsByTagName("head")[0]||l,s=k.getElementsByTagName("base")[0],t=r.getElementsByTagName("link"),u=function(){var a,b=k.createElement("div"),c=k.body,d=l.style.fontSize,e=c&&c.style.fontSize,f=!1;return b.style.cssText="position:absolute;font-size:1em;width:1em",c||(c=f=k.createElement("body"),c.style.background="none"),l.style.fontSize="100%",c.style.fontSize="100%",c.appendChild(b),f&&l.insertBefore(c,l.firstChild),a=b.offsetWidth,f?l.removeChild(c):c.removeChild(b),l.style.fontSize=d,e&&(c.style.fontSize=e),a=j=parseFloat(a)},v=function(b){var c="clientWidth",d=l[c],e="CSS1Compat"===k.compatMode&&d||k.body[c]||d,f={},g=t[t.length-1],p=(new Date).getTime();if(b&&h&&q>p-h)return a.clearTimeout(i),i=a.setTimeout(v,q),void 0;h=p;for(var s in m)if(m.hasOwnProperty(s)){var w=m[s],x=w.minw,y=w.maxw,z=null===x,A=null===y,B="em";x&&(x=parseFloat(x)*(x.indexOf(B)>-1?j||u():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?j||u():1)),w.hasquery&&(z&&A||!(z||e>=x)||!(A||y>=e))||(f[w.media]||(f[w.media]=[]),f[w.media].push(n[w.rules]))}for(var C in o)o.hasOwnProperty(C)&&o[C]&&o[C].parentNode===r&&r.removeChild(o[C]);o.length=0;for(var D in f)if(f.hasOwnProperty(D)){var E=k.createElement("style"),F=f[D].join("\n");E.type="text/css",E.media=D,r.insertBefore(E,g.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(k.createTextNode(F)),o.push(E)}},w=function(a,b,d){var e=a.replace(c.regex.comments,"").replace(c.regex.keyframes,"").match(c.regex.media),f=e&&e.length||0;b=b.substring(0,b.lastIndexOf("/"));var h=function(a){return a.replace(c.regex.urls,"$1"+b+"$2$3")},i=!f&&d;b.length&&(b+="/"),i&&(f=1);for(var j=0;f>j;j++){var k,l,o,p;i?(k=d,n.push(h(a))):(k=e[j].match(c.regex.findStyles)&&RegExp.$1,n.push(RegExp.$2&&h(RegExp.$2))),o=k.split(","),p=o.length;for(var q=0;p>q;q++)l=o[q],g(l)||m.push({media:l.split("(")[0].match(c.regex.only)&&RegExp.$2||"all",rules:n.length-1,hasquery:l.indexOf("(")>-1,minw:l.match(c.regex.minw)&&parseFloat(RegExp.$1)+(RegExp.$2||""),maxw:l.match(c.regex.maxw)&&parseFloat(RegExp.$1)+(RegExp.$2||"")})}v()},x=function(){if(d.length){var b=d.shift();f(b.href,function(c){w(c,b.href,b.media),p[b.href]=!0,a.setTimeout(function(){x()},0)})}},y=function(){for(var b=0;b<t.length;b++){var c=t[b],e=c.href,f=c.media,g=c.rel&&"stylesheet"===c.rel.toLowerCase();e&&g&&!p[e]&&(c.styleSheet&&c.styleSheet.rawCssText?(w(c.styleSheet.rawCssText,e,f),p[e]=!0):(!/^([a-zA-Z:]*\/\/)/.test(e)&&!s||e.replace(RegExp.$1,"").split("/")[0]===a.location.host)&&("//"===e.substring(0,2)&&(e=a.location.protocol+e),d.push({href:e,media:f})))}x()};y(),c.update=y,c.getEmValue=u,a.addEventListener?a.addEventListener("resize",b,!1):a.attachEvent&&a.attachEvent("onresize",b)}}(this);
+
+var $ = jQuery;
 
 Array.prototype.indexOf || (Array.prototype.indexOf = function(d, e) {
     var a;
@@ -32,102 +26,357 @@ Array.prototype.indexOf || (Array.prototype.indexOf = function(d, e) {
     return -1
 });
 
-var Hexane = new function(){
-	this.prevAns = [];
-	this.history = [];
-	this.funcs = {
-		pow: function(a, b) { return SigNum.pow(a, b); },
-		max: function(a, b) { return SigNum.max(a, b); },
-		min: function(a, b) { return SigNum.min(a, b); },
-		abs: function(a, b) { return SigNum.abs(a, b); },
-		log: function(a, b) { if (b == undefined) return SigNum.log10(a); else return SigNum.log2(a) / SigNum.log2(b); },
-		sqrt: function(a) { return SigNum.sqrt(a); },
-		cbrt: function(a) { return SigNum.cbrt(a); },
-		floor: function(a) { return SigNum.floor(a); },
-		ceil: function(a) { return SigNum.ceil(a); },
-		trunc: function(a) { return SigNum.trunc(a); },
-		round: function(a) { return SigNum.round(a); },
-		sin: function(a) { return SigNum.sin(a); },
-		cos: function(a) { return SigNum.cos(a); },
-		tan: function(a) { return SigNum.tan(a); },
-		sinh: function(a) { return SigNum.sinh(a); },
-		cosh: function(a) { return SigNum.cosh(a); },
-		tanh: function(a) { return SigNum.tanh(a); },
-		asin: function(a) { return SigNum.asin(a); },
-		acos: function(a) { return SigNum.acos(a); },
-		atan: function(a) { return SigNum.atan(a); },
-		asinh: function(a) { return SigNum.asinh(a); },
-		acosh: function(a) { return SigNum.acosh(a); },
-		atanh: function(a) { return SigNum.atanh(a); },
-		
-		random: function(a,b) { if (b == undefined){
-									if (a == undefined)	return SigNum.random()
-									else return SigNum.random() * a;
-								}
-								else return SigNum.random() * (b-a) + a; },
-								
-		qdtc: function(a,b,c) { if (a.constructor != SigNum) a = new SigNum(a);
-								if (b.constructor != SigNum) b = new SigNum(b);
-								if (c.constructor != SigNum) c = new SigNum(c);
-								if (b.times(b)-a.times(c).times(4) > 0) return [(b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))]; 
-								else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
-								else return undefined;},
-								
-		qdtcp: function(a,b,c) {if (a.constructor != SigNum) a = new SigNum(a);
-								if (b.constructor != SigNum) b = new SigNum(b);
-								if (c.constructor != SigNum) c = new SigNum(c);
-								if (b.times(b)-a.times(c).times(4) > 0) return SigNum.max((b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))); 
-								else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
-								else return undefined;},
-								
-		qdtcn: function(a,b,c) {if (a.constructor != SigNum) a = new SigNum(a);
-								if (b.constructor != SigNum) b = new SigNum(b);
-								if (c.constructor != SigNum) c = new SigNum(c);
-								if (b.times(b)-a.times(c).times(4) > 0) return SigNum.min((b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))); 
-								else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
-								else return undefined;},
-								
-		qdtcacid: function(a,b){if (a.constructor != SigNum) a = new SigNum(a);
-								if (b.constructor != SigNum) b = new SigNum(b);
-								if (c.constructor != SigNum) c = new SigNum(c);
-								return qdtcp(1, a, a.times(b).times(-1)); }
-    }
-    this.vars = {}
-}
+Math.log10 || (Math.log10 = function(d) {
+    return Math.log(d) /Math.log(10);
+});
 
-requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum'], function($){
+Math.log2 || (Math.log2 = function(d) {
+    return Math.log(d) /Math.log(2);
+});
+
+Math.sign || (Math.sign = function(d) {
+    if (d > 0) return 1;
+    else if (d < 0) return -1;
+    return 0;
+});
+
+var Hexane = new function(){};
+
+Hexane = new function(){
+    // Previous answers returned to the user. Shown in the (possibly confusingly named) History section. 
+    this.prevAns = [];
+    
+    // Command history. This needs to be integrated into the GUI.
+    this.history = [];
+    
+    // Built-in functions. Later we should support user-defined functions.
+    this.funcs = {
+        // Function for getting and setting sig figs from the front end
+        sf: function(a, b) {
+            if (b == undefined){
+                if (a.constructor == SigNum){
+                    return a.sf;
+                }
+                else return Infinity;
+            }
+            else if (a.constructor == SigNum){
+                return new SigNum(a.value, b); 
+            }
+            else if (typeof(a) == "number"){
+                return new SigNum(a, b); 
+            }
+            else return NaN;
+        },
+        
+        pow: function(a, b) { return SigNum.pow(a, b); },
+        max: function(a, b) { return SigNum.max(a, b); },
+        min: function(a, b) { return SigNum.min(a, b); },
+        abs: function(a, b) { return SigNum.abs(a, b); },
+        log: function(a, b) { if (b == undefined) return SigNum.log10(a); else return SigNum.log2(a) / SigNum.log2(b); },
+        sqrt: function(a) { return SigNum.sqrt(a); },
+        cbrt: function(a) { return SigNum.cbrt(a); },
+        floor: function(a) { return SigNum.floor(a); },
+        ceil: function(a) { return SigNum.ceil(a); },
+        trunc: function(a) { return SigNum.trunc(a); },
+        round: function(a) { return SigNum.round(a); },
+        sin: function(a) { return SigNum.sin(a); },
+        cos: function(a) { return SigNum.cos(a); },
+        tan: function(a) { return SigNum.tan(a); },
+        sinh: function(a) { return SigNum.sinh(a); },
+        cosh: function(a) { return SigNum.cosh(a); },
+        tanh: function(a) { return SigNum.tanh(a); },
+        asin: function(a) { return SigNum.asin(a); },
+        acos: function(a) { return SigNum.acos(a); },
+        atan: function(a) { return SigNum.atan(a); },
+        asinh: function(a) { return SigNum.asinh(a); },
+        acosh: function(a) { return SigNum.acosh(a); },
+        atanh: function(a) { return SigNum.atanh(a); },
+        sign: function(a) { return SigNum.sign(a); },
+        
+        //chem stuff
+        ka: function(a) { return Hexane.data.ka[a.toString()]; },
+        pka: function(a) { return -SigNum.log10(Hexane.data.ka[a.toString()]); },
+        kb: function(b) { return Hexane.data.kb[b.toString()]; },
+        pkb: function(b) { return -SigNum.log10(Hexane.data.kb[b.toString()]); },
+        
+        elemmass: function(ele) { return Hexane.data.mass[ele.toString()]; },
+        
+        random: function(a,b) { if (b == undefined){
+                                    if (a == undefined)	return SigNum.random()
+                                    else return SigNum.random() * a;
+                                }
+                                else return SigNum.random() * (b-a) + a; },
+                                
+        qdtc: function(a,b,c) { if (a.constructor != SigNum) a = new SigNum(a);
+                                if (b.constructor != SigNum) b = new SigNum(b);
+                                if (c.constructor != SigNum) c = new SigNum(c);
+                                if (b.times(b)-a.times(c).times(4) > 0) return [(b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))]; 
+                                else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
+                                else return undefined;},
+                                
+        qdtcp: function(a,b,c) {if (a.constructor != SigNum) a = new SigNum(a);
+                                if (b.constructor != SigNum) b = new SigNum(b);
+                                if (c.constructor != SigNum) c = new SigNum(c);
+                                if (b.times(b)-a.times(c).times(4) > 0) return SigNum.max((b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))); 
+                                else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
+                                else return undefined;},
+                                
+        qdtcn: function(a,b,c) {if (a.constructor != SigNum) a = new SigNum(a);
+                                if (b.constructor != SigNum) b = new SigNum(b);
+                                if (c.constructor != SigNum) c = new SigNum(c);
+                                if (b.times(b)-a.times(c).times(4) > 0) return SigNum.min((b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2)), (b.times(-1).minus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2))); 
+                                else if (b.times(b)-a.times(c).times(4).value == 0) return (b.times(-1).plus(SigNum.sqrt(b.times(b)-a.times(c).times(4))))/(a.times(2));
+                                else return undefined;},
+                                
+        qdtcacid: function(a,b){if (a.constructor != SigNum) a = new SigNum(a);
+                                if (b.constructor != SigNum) b = new SigNum(b);
+                                if (c.constructor != SigNum) c = new SigNum(c);
+                                return qdtcp(1, a, a.times(b).times(-1)); }
+    }
+    
+    this.vars = { 'A' : new SigNum(6.022140857e23, 10) }
+    
+    this.data = new function(){
+        this.ka = {
+            'HClO4': new SigNum(Infinity), 
+            'HI': new SigNum(Infinity), 
+            'HBr': new SigNum(Infinity), 
+            'HCl': new SigNum(Infinity), 
+            'HNO3': new SigNum(Infinity), 
+            'H2SO4': new SigNum(Infinity), 
+            'H3O': new SigNum(1.0, 2), 
+            'HIO3': new SigNum(1.7e-1, 2), 
+            'H2C2O4': new SigNum(5.9e-2, 2), 
+            'H2SO3': new SigNum(1.5e-2, 2), 
+            'HSO4': new SigNum(1.2e-2, 2), 
+            'H3PO4': new SigNum(7.5e-3, 2), 
+            'Fe(H2O)6': new SigNum(6.0e-3, 2), 
+            'H3C6H5O7': new SigNum(7.1e-4, 2), 
+            'HNO2': new SigNum(4.6e-4, 2), 
+            'HF': new SigNum(3.5e-4, 2), 
+            'HCOOH': new SigNum(1.8e-4, 2), 
+            'Cr(H2O)6': new SigNum(1.5e-4, 2), 
+            'C6H5COOH': new SigNum(6.5e-5, 2), 
+            'HC2O4': new SigNum(6.4e-5, 2), 
+            'CH3COOH': new SigNum(1.8e-5, 2), 
+            'H2C6H5O7': new SigNum(1.7e-5, 2), 
+            'Al(H2O)6': new SigNum(1.4e-5, 2), 
+            'H2CO3': new SigNum(4.3e-7, 2), 
+            'HC6H5O7': new SigNum(4.1e-7, 2), 
+            'HSO3': new SigNum(1.0e-7, 2), 
+            'H2S': new SigNum(9.1e-8, 2), 
+            'H2PO4': new SigNum(6.2e-8, 2), 
+            'H3BO3': new SigNum(7.3e-10, 2), 
+            'NH4': new SigNum(5.6e-10, 2), 
+            'HCN': new SigNum(4.9e-10, 2), 
+            'C6H5OH': new SigNum(1.3e-10, 2), 
+            'HCO3': new SigNum(5.6e-11, 2), 
+            'H2O2': new SigNum(2.4e-12, 2), 
+            'HPO4': new SigNum(2.2e-13, 2), 
+            'H2O': new SigNum(1.0e-14, 2), 
+            'OH': new SigNum(0), 
+            'NH3': new SigNum(0),
+        };
+        
+        this.kb = {
+            'NH2-': new SigNum(Infinity), 
+            'O': new SigNum(Infinity), 
+
+            'OH': new SigNum(1.0, 2), 
+            'PO4': new SigNum(4.5e-2, 2), 
+            'HO2': new SigNum(4.2e-3, 2), 
+            'CO3': new SigNum(1.8e-4, 2), 
+            'C6H5O': new SigNum(7.7e-5, 2), 
+            'CN': new SigNum(2.0e-5, 2), 
+            'NH3': new SigNum(1.8e-5, 2), 
+            'H2BO3': new SigNum(1.4e-5, 2), 
+            'HPO4': new SigNum(1.6e-7, 2), 
+            'HS': new SigNum(1.1e-7, 2), 
+            'SO3': new SigNum(1.0e-7, 2), 
+            'C6H5O7': new SigNum(2.4e-8, 2), 
+            'HCO3': new SigNum(2.3e-8, 2), 
+            'Al(H2O)5(OH)': new SigNum(7.1e-10, 2), 
+            'HC6H5O7': new SigNum(5.9e-10, 2), 
+            'CH3COO': new SigNum(5.6e-10, 2), 
+            'C2O4': new SigNum(1.6e-10, 2), 
+            'C6H5COO': new SigNum(1.5e-10, 2), 
+            'Cr(H2O)5(OH)': new SigNum(6.7e-11, 2), 
+            'HCOO': new SigNum(5.6e-11, 2), 
+            'F': new SigNum(2.9e-11, 2), 
+            'NO2': new SigNum(2.2e-11, 2), 
+            'H2C6H5O7': new SigNum(1.4e-11, 2), 
+            'Fe(H2O)5(OH)': new SigNum(1.7e-12, 2), 
+            'H2PO4': new SigNum(1.3e-12, 2), 
+            'SO4': new SigNum(8.3e-13, 2), 
+            'HSO3': new SigNum(6.7e-13, 2), 
+            'HC2O4': new SigNum(1.7e-13, 2), 
+            'IO3': new SigNum(5.9e-14, 2), 
+            'H2O': new SigNum(1.0e-14, 2), 
+            'HClO4': new SigNum(0), 
+            'HI': new SigNum(0), 
+            'HBr': new SigNum(0), 
+            'HCl': new SigNum(0), 
+            'HNO3': new SigNum(0), 
+            'H2SO4': new SigNum(0),
+            'HSO4': new SigNum(0),
+        };
+        
+        this.mass = {
+            'H': new SigNum("1.008"), 
+            'He': new SigNum("4.00"), 
+            'Li': new SigNum("6.94"), 
+            'Be': new SigNum("9.01"), 
+            'B': new SigNum("10.8"), 
+            'C': new SigNum("12.01"), 
+            'N': new SigNum("14.01"), 
+            'O': new SigNum("16.00"), 
+            'F': new SigNum("19.0"), 
+            'Ne': new SigNum("20.2"), 
+            'Na': new SigNum("23.0"), 
+            'Mg': new SigNum("24.3"), 
+            'Al': new SigNum("27.0"), 
+            'Si': new SigNum("28.1"), 
+            'P': new SigNum("31.0"), 
+            'S': new SigNum("32.1"), 
+            'Cl': new SigNum("35.5"), 
+            'Ar': new SigNum("39.9"), 
+            'K': new SigNum("39.1"), 
+            'Ca': new SigNum("40.1"), 
+            'Sc': new SigNum("45.0"), 
+            'Ti': new SigNum("47.9"), 
+            'V': new SigNum("50.9"), 
+            'Cr': new SigNum("52.0"), 
+            'Mn': new SigNum("54.9"), 
+            'Fe': new SigNum("55.8"), 
+            'Co': new SigNum("58.9"), 
+            'Ni': new SigNum("58.7"), 
+            'Cu': new SigNum("63.5"), 
+            'Zn': new SigNum("65.4"), 
+            'Ga': new SigNum("69.7"), 
+            'Ge': new SigNum("72.6"), 
+            'As': new SigNum("74.9"), 
+            'Se': new SigNum("79.0"), 
+            'Br': new SigNum("79.9"), 
+            'Kr': new SigNum("83.8"), 
+            'Rb': new SigNum("85.5"), 
+            'Sr': new SigNum("87.6"), 
+            'Y': new SigNum("88.9"), 
+            'Zr': new SigNum("91.2"), 
+            'Nb': new SigNum("92.9"), 
+            'Mo': new SigNum("95.9"), 
+            'Tc': new SigNum("99"), 
+            'Ru': new SigNum("101.1"), 
+            'Rh': new SigNum("102.9"), 
+            'Pd': new SigNum("106.4"), 
+            'Ag': new SigNum("107.9"), 
+            'Cd': new SigNum("112.4"), 
+            'In': new SigNum("114.8"), 
+            'Sn': new SigNum("118.7"), 
+            'Sb': new SigNum("121.8"), 
+            'Te': new SigNum("127.6"), 
+            'I': new SigNum("126.9"), 
+            'Xe': new SigNum("131.3"), 
+            'Cs': new SigNum("132.9"), 
+            'Ba': new SigNum("137.3"), 
+            'La': new SigNum("138.9"), 
+            'Ce': new SigNum("140.1"), 
+            'Pr': new SigNum("140.9"), 
+            'Nd': new SigNum("144.2"), 
+            'Pm': new SigNum("147"), 
+            'Sm': new SigNum("150.4"), 
+            'Eu': new SigNum("152.0"), 
+            'Gd': new SigNum("157.3"), 
+            'Tb': new SigNum("158.9"), 
+            'Dy': new SigNum("162.5"), 
+            'Ho': new SigNum("164.9"), 
+            'Er': new SigNum("167.3"), 
+            'Tm': new SigNum("168.9"), 
+            'Yb': new SigNum("173.0"), 
+            'Lu': new SigNum("175.0"), 
+            'Hf': new SigNum("178.5"), 
+            'Ta': new SigNum("180.9"), 
+            'W': new SigNum("183.9"), 
+            'Re': new SigNum("186.2"), 
+            'Os': new SigNum("190.2"), 
+            'Ir': new SigNum("192.2"), 
+            'Pt': new SigNum("195.1"), 
+            'Au': new SigNum("197.0"), 
+            'Hg': new SigNum("200.6"), 
+            'Tl': new SigNum("204.4"), 
+            'Pb': new SigNum("207.2"), 
+            'Bi': new SigNum("209.0"), 
+            'Po': new SigNum("209"), 
+            'At': new SigNum("210"), 
+            'Rn': new SigNum("222"), 
+            'Fr': new SigNum("223"), 
+            'Ra': new SigNum("226"), 
+            'Ac': new SigNum("227"), 
+            'Th': new SigNum("232.0"), 
+            'Pa': new SigNum("231"), 
+            'U': new SigNum("238.0"), 
+            'Np': new SigNum("237"), 
+            'Pu': new SigNum("242"), 
+            'Am': new SigNum("243"), 
+            'Cm': new SigNum("247"), 
+            'Bk': new SigNum("245"), 
+            'Cf': new SigNum("251"), 
+            'Es': new SigNum("254"), 
+            'Fm': new SigNum("253"), 
+            'Md': new SigNum("254"), 
+            'No': new SigNum("254"), 
+            'Lr': new SigNum("257"), 
+            'Lw': new SigNum("257"), 
+            'Rf': new SigNum("261"), 
+            'Db': new SigNum("262"), 
+            'Sg': new SigNum("266"), 
+            'Bh': new SigNum("264"), 
+            'Hs': new SigNum("269"), 
+            'Mt': new SigNum("268"), 
+            'Ds': new SigNum("269"), 
+            'Rg': new SigNum("272"), 
+            'Cn': new SigNum("277"), 
+            'Uut': new SigNum(NaN), 
+            'Fl': new SigNum("289"), 
+            'Uup': new SigNum(NaN), 
+            'Lv': new SigNum("298"), 
+            'Uus': new SigNum(NaN), 
+            'Uuo': new SigNum(NaN),
+        };
+    };
+};
+
+$(document).ready(function() {
 	
 	// remove objects from global namespace
-	jQuery.noConflict(true);
+    var $ = jQuery;
+    jQuery.noConflict(true);
 	
 	// get MQ interface
     var MQ = MathQuill.getInterface(2);
 	
-	$(document).ready(function() {
-		if (Modernizr.touch) {
-			// Disable keyboard by adding readonly attribute to field
-			$('#expr-container textarea').attr('readonly', 'readonly');    
-		}
-	});
+	var varsLoaded = false;
 	
-	// set Avogadro's number
-	Hexane.vars['A'] = new SigNum(6.022140857e23);
+    if (Modernizr.touch) {
+        // Disable keyboard by adding readonly attribute to field
+        $('#editor textarea').attr('readonly', 'readonly');    
+    }
 	
-	Hexane.DefaultParser = Hexane.EvalSigNum;
+	Hexane.DefaultParser = Hexane.Eval;
 	Hexane.eval = function(expr) { return Hexane.DefaultParser.parse(expr); };
 
     var exprFieldSpan = document.getElementById('expr-field');
     var resultSpan = document.getElementById('result-field');
     var latexSpan = document.getElementById('latex');
-	var answerList = $('#answer-list');
+	var historyList = $('#history');
 
     var resultField = MQ.StaticMath(resultSpan);
     var resval = undefined;
 	
 	//  mode = 'latex': 1.0e+10 -> 1.0\\cdot10^10
-	//  mode = 'html' 1.0e+10 -> 1.0&#8226;10<sup>10</sup>
+	//  mode = 'html' 1.0e+10 -> 1.0&8226;10<sup>10</sup>
 	//  mode = 'kbd' 1.0e+10 -> 1.0*^10^10
-	var eToExp = function(res, mode = 'latex'){
+	var eToExp = function(res, mode){
+        if (mode == undefined || mode == null) mode = 'latex';
 		if (res.indexOf('e') != -1){
 			var idx = res.indexOf('e');
 			var t1 = res.substring(0, idx);
@@ -145,9 +394,28 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 		return res;
 	}
 	
+	var updateMemoryTitles = function(){
+		$('.memory-tile').each(function(idx, ele){
+			$this = $(ele);
+			var val = Hexane.vars[$this.attr('var')];
+			if (val == undefined || val == null){
+				$this.prop('title', 'undefined');
+			}
+			else{
+				$this.prop('title', val.toString());
+			}
+		});
+	}
+	
+	var resval = undefined;
+	
+	// Evaluate the entered expression
 	var evalExpr = function(){
 		try{
-			if (exprField.latex().trim() == '') resultField.latex('0 = 0 \\cdot 10^0');
+			if (exprField.latex().trim() == '') {
+				resultField.latex('0 = 0 \\cdot 10^0');
+				resval = undefined;
+			}
 			else {
 				resval = Hexane.eval(exprField.latex());
 				if (resval.constructor == SigNum){
@@ -169,18 +437,26 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 					}
 					resultField.latex(res);
 				}
+				
+				updateMemoryTitles();
+			
+				if (varsLoaded)
+					localStorage.setItem("vars", JSON.stringify(Hexane.vars));
 			}
 		}
 		catch (err) {
-			// alert(exprField.latex()); 
-			 resultField.latex('\\text{Your input is invalid}');// + err.message;
+			// var msgs = ["I'm not sure if I understand you.", "This is confusing me!", "Sorry, I'm not sure what you mean.", 
+						// "That doesn't seem to be right.", "Error! Please check over what you wrote."];
+			// var idx = Math.floor(Math.random() * msgs.length);
+			// resultField.latex("\\text{" + msgs[idx] + "}");// + err.message;
+			resultField.latex("\\text{Something's not right...}");// + err.message;
 		}
 	}
 	
     var exprField = MQ.MathField(exprFieldSpan, {
         spaceBehavesLikeTab: true,
         charsThatBreakOutOfSupSub: '+-=<>',
-        autoCommands: 'pi theta sqrt nthroot',
+        autoCommands: 'pi theta omega alpha beta gamma Theta Omega Alpha Beta Gamma sqrt nthroot',
         autoOperatorNames: 'true false mod log',
         leftRightIntoCmdGoes: 'up',
         handlers: {
@@ -188,11 +464,13 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 					Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
 					// latexSpan.textContent = exprField.latex();
 					localStorage.setItem('exprLatex', exprField.latex());
-                    evalExpr()
+                    evalExpr();
             },
             enter: function() {//alert(exprField.latex());
-                Hexane.prevAns = Hexane.prevAns.concat([resval]).slice(-50); 
-				rebuildAnsList();
+				if (resval != undefined && resval != null){
+					Hexane.prevAns = Hexane.prevAns.concat([resval]).slice(-50); 
+					rebuildAnsList();
+				}
             },
         }
     });
@@ -220,21 +498,22 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 				str = eToExp(str, 'html');
 				val = eToExp(val, 'kbd');
 			}
-			txt = txt.concat('<div class="answer-tile" position="' + i + '" value="' + val + '" title="Click to enter saved result into textbox (max 50)">'+
-							'<span class="answer-text">' + str +
-							'</span> <span class="answer-delete" title="Delete saved result"></span></div>');
+			txt = txt.concat('<div class="history-tile" position="' + i + '" value="' + val + '" title="Click to enter saved result into textbox">'+
+							'<span class="history-text">' + str +
+							'</span> <span class="history-delete" title="Delete saved result"></span></div>');
 		}
-		txt += '\n<p class="answer-list-tip"><strong>Saved Results</strong> &nbsp;|&nbsp; Press <kbd>enter</kbd>' +
-		       ' in the textbox to save current result (max 50) &nbsp;|&nbsp; <a class="answer-list-clear">Clear</a></p>';
-		answerList.html(txt);
+		txt += '\n<p class="history-tip"><strong>History</strong> &nbsp;|&nbsp;<span class="mobile-hide">Press <kbd>enter</kbd>' +
+		       ' in the textbox to save the current result (max 50 results) &nbsp;| </span><a class="history-clear">Clear</a></p>';
+		historyList.html(txt);
 		
-		$('.answer-tile').click(function(e){
+		$('.history-tile').click(function(e){
 			var tile = $(this);
 			exprField.typedText(tile.attr('value'));
 			exprField.keystroke('Spacebar');
+			$(window).scrollTop(80);
 		});
 				
-		$('.answer-delete').click(function(e){
+		$('.history-delete').click(function(e){
 			var tile = $(this).parent();
 			Hexane.prevAns.splice(Number(tile.attr('position')), 1);
 			saveAnsList();
@@ -249,9 +528,9 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 			e.stopPropagation();
 		});
 
-		$('.answer-list-clear').click(function(e){
+		$('.history-clear').click(function(e){
 			Hexane.prevAns = [];
-			$('.answer-tile').animate({opacity:0}, 400, 'linear');
+			$('.history-tile').animate({opacity:0}, 400, 'linear');
 			setTimeout(
 				function(){
 					rebuildAnsList();
@@ -264,13 +543,21 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 	
 	var timeoutTracker = 0;
 
+    var evtname = 'mousedown';
+    if (Modernizr.touch){
+        evtname = 'mouseup';
+    }
+
 	// keypad
-    $('.key').on('mousedown', function(){ 
+    $('.key').on(evtname, function(){ 
 		$this = $(this); 
 		var ct = 0;
 		var exec = function(){
 			if (ct == 0 || ct > 50 || (ct > 10 && ct % 5 == 0) || (ct < 10 && ct % 10 == 0)){
-				if ($this.attr('text-to-add')){ 
+				if ($this.attr('latex-to-write')){ 
+					exprField.write($this.attr('latex-to-write'));
+				} 
+    			if ($this.attr('text-to-add')){ 
 					exprField.typedText($this.attr('text-to-add'));
 				} 
 				if ($this.attr('keys-to-type')){ 
@@ -281,9 +568,44 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 		}
 		exec();
 		// allow user to hold key & repeat type
-	    timeoutTracker = setInterval(exec, 25);
-	}).on('mouseup mouseleave', function() {		
-		clearInterval(timeoutTracker);
+    	if (!Modernizr.touch)
+    	    timeoutTracker = setInterval(exec, 25);
+	})
+
+    if (!Modernizr.touch){
+        $('.key').on('mouseup mouseleave', function() {		
+              clearInterval(timeoutTracker);
+              exprField.focus();
+        });
+    }
+	
+	// disable context menu for memory buttons
+	$('.memory-tile').bind('contextmenu', function(e){
+		return false;
+	});
+	
+	// memory
+	$('.memory-tile').mouseup(function(event){
+		$this = $(this);
+		var name = $this.attr('var');
+		
+		if (event.button == 0){
+			exprField.typedText(name);
+			$(window).scrollTop(80);
+		}
+		else{
+			if (resval != undefined && resval != null){
+				Hexane.vars[name] = resval;
+				$this.attr('title', resval.toString());
+			}
+			else{
+				Hexane.vars[name] = undefined;
+				$this.attr('title', 'undefined');
+			}
+			if (varsLoaded)
+				localStorage.setItem("vars", JSON.stringify(Hexane.vars));
+		}
+		
 		if (!Modernizr.touch) exprField.focus();
 	});
 	
@@ -305,49 +627,77 @@ requirejs(['jquery', 'MathQuill', 'signum', 'hexane.eval', 'hexane.eval-signum']
 	
 	$('#allclear-btn').click(function(){
 		exprField.latex('');
+		if (! Modernizr.touch) exprField.focus();
 	});
 	
-	$(document).ready(function(){
-		var exprLatex = localStorage.getItem('exprLatex');
-		if (exprLatex != undefined && exprLatex != null){
-			exprField.latex(exprLatex);
+	$('#enter-btn').click(function(){
+		if (resval != undefined && resval != null){
+			Hexane.prevAns = Hexane.prevAns.concat([resval]).slice(-50); 
+			rebuildAnsList();
 		}
-		
-		var prevAns = localStorage.getItem('prevAns');
-		if (prevAns != undefined && prevAns != null && prevAns.trim() != ''){
-			Hexane.prevAns = prevAns.split(';');
-			for (var i=0; i < Hexane.prevAns.length; ++i){
-				if (Hexane.prevAns[i].indexOf(':') >= 0){
-					var spl = Hexane.prevAns[i].split(':');
-					Hexane.prevAns[i] = new SigNum(Number(spl[0]), Number(spl[1]));
-				}
-				else if (Hexane.prevAns[i] == 'true' || Hexane.prevAns[i] == 'false'){
-					Hexane.prevAns[i] = Boolean(Hexane.prevAns[i]);
-				}
-			}
-		}
-		
-		var sfMode = localStorage.getItem('sfMode');
-		if (sfMode != undefined && sfMode != null && sfMode.trim() != ''){
-			if (Number(sfMode) < 0) {
-				SigNum.enableSF = false;
-			}
-			else{
-				SigNum.enableSF = true;
-				SigNum.roundingMode = Number(sfMode);
-			}
-			$('#sf-c' + sfMode).attr('checked', true);
-		}
-		else{
-			localStorage.setItem('sfMode', 2);
-			SigNum.enableSF = true;
-			SigNum.roundingMode = 2;
-			$('#sf-c2').attr('checked', true);
-		}
-		
-		rebuildAnsList();
+		if (! Modernizr.touch) exprField.focus();
 	});
 	
+        try{
+            var exprLatex = localStorage.getItem('exprLatex');
+            exprField.latex(exprLatex || '');
+            
+            var prevAns = localStorage.getItem('prevAns');
+            if (prevAns != undefined && prevAns != null && prevAns.trim() != ''){
+                Hexane.prevAns = prevAns.split(';');
+                for (var i=0; i < Hexane.prevAns.length; ++i){
+                    if (Hexane.prevAns[i].indexOf(':') >= 0){
+                        var spl = Hexane.prevAns[i].split(':');
+                        Hexane.prevAns[i] = new SigNum(Number(spl[0]), Number(spl[1]));
+                    }
+                    else if (Hexane.prevAns[i] == 'true' || Hexane.prevAns[i] == 'false'){
+                        Hexane.prevAns[i] = Boolean(Hexane.prevAns[i]);
+                    }
+                }
+            }
+            
+            var sfMode = localStorage.getItem('sfMode');
+            if (sfMode != undefined && sfMode != null && sfMode.trim() != ''){
+                if (Number(sfMode) < 0) {
+                    SigNum.enableSF = false;
+                }
+                else{
+                    SigNum.enableSF = true;
+                    SigNum.roundingMode = Number(sfMode);
+                }
+                $('#sf-c' + sfMode).attr('checked', true);
+            }
+            else{
+                localStorage.setItem('sfMode', 2);
+                SigNum.enableSF = true;
+                SigNum.roundingMode = 2;
+                $('#sf-c2').attr('checked', true);
+            }
+            
+            var vars = JSON.parse(localStorage.getItem("vars"));
+            if (vars != undefined && vars != null){
+                for (var key in vars){
+                    if (typeof(vars[key]) == 'object' && vars[key]['value'] != undefined){
+                        
+                        var sf = vars[key]['sf'];
+                        if (sf == null) sf = Infinity;
+                        
+                        Hexane.vars[key] = new SigNum(vars[key]['value'], sf);
+                    }
+                    else{
+                        Hexane.vars[key] = vars[key];
+                    }
+                }
+            }
+            
+            varsLoaded = true;
+
+            rebuildAnsList();		
+            updateMemoryTitles()
+        }
+        catch (ex) { console.log(ex.message) }
+	
+	// Fade in page when loaded
     $('body').animate({opacity:1}, 1000);
     exprField.select();
     exprField.focus(); 

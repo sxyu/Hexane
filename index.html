@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Calculator | Hexane</title>
+    <title>Scientific Calculator | Hexane</title>
     <meta name="description" content="Hexane calculator - expression evaluator designed for chemistry students">
     <meta name="author" content="Alex Yu">
 	<meta name="copyright" content="All content copyright 2017 Hexane/Alex Yu">
@@ -14,13 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="index,follow">
 	
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
     <link rel="stylesheet" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="mathquill-0.10.1/mathquill.css"/>
 	<link rel="stylesheet" href="css/fonts/embed.css"/>
 	
+	<script src="js/jquery-1.12.4.min.js" type="text/javascript"></script>
+		
 	<!-- <noscript> -->
 		<!-- <style type="text/css"> -->
 			<!-- body{ -->
@@ -29,30 +29,23 @@
 		<!-- </style> -->
 	<!-- </noscript> -->
 	
-	<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+	<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
 	<link rel="manifest" href="manifest.json">
-	<meta name="msapplication-TileColor" content="#ffffff">
-	<meta name="msapplication-TileImage" content="ms-icon-144x144.png">
-	<meta name="theme-color" content="#ffffff">
-	<!-- 
-	Logo Credits:
-	Cooking graphic by <a href="http://www.flaticon.com/authors/freepik">Freepik</a> 
-	from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under 
-	<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. 
-	Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a> 
-	-->
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#ff4128">
+	<meta name="msapplication-TileImage" content="mstile-144x144.png">
+	<meta name="theme-color" content="#fc5555">
 </head>
 <body>
     <!--[if lt IE 8]>
@@ -61,7 +54,10 @@
 
     <div class="header-container">
         <header class="wrapper clearfix">
-            <h1 class="title"><span class="title-bold">Hexane</span><span class="title-subsite" id="title-subsite">Calculator</span><sup title="Beta"><small>&beta;</small></sup></h1>
+            <h1 class="title">
+				<img id="header-logo" src="img/hexane-sm.png" alt="H"/>
+				<span class="title-bold">Hexane</span> <span class="title-subsite" id="title-subsite">C<sub>6</sub>H<sub>14</sub></span> <sup title="This is an Alpha Version - Expect some instability & rough edges">&alpha;</sup>
+			</h1>
             <nav>
                 <ul>
                     <li><a href="#">Calc</a></li>
@@ -77,10 +73,10 @@
 
             <article>
 				<section>				
-					<div id="editor">
-						<div id="result-container"><span id="result-field"></span></div>
-						<div id="expr-container"><span id="expr-field"></span></div>
-					</div>
+					<div id="answer"><span id="result-field"></span></div>
+					
+					<div id="editor"><span id="expr-field"></span></div>
+					
 					<div id="keypad">
 						<div class="key-row">
 							<!-- text-to-add: add text to the MathQuill textbox; keys-to-type: simulate key presses into the MathQuill textbox -->
@@ -88,24 +84,26 @@
 							<div class="key num-key" text-to-add="2">2</div>
 							<div class="key num-key" text-to-add="3">3</div>
 							
-							<div class="key double-wid" keys-to-type="Backspace" title="Delete previous item">⌫</div>
-							<div class="key" keys-to-type="Del" title="Delete next item">⌦</div>
+							<div class="key" text-to-add="+">+</div>							
+							
+							<div class="key ctrl-key double-wid" keys-to-type="Backspace" title="Delete previous item">⌫</div>
+							<div class="key ctrl-key" keys-to-type="Del" title="Delete next item">⌦</div>
 
-							<div class="key" text-to-add="+">+</div>
-							<div class="key" text-to-add="\times" keys-to-type="Spacebar">&times;</div>
 							
 							<!-- Note: if both are specified, text-to-add is evaluated before keys-to-type  -->
-							<div class="key" text-to-add="log_10" keys-to-type="Right" title="Log Base 10">log</div>
-							<div class="key" text-to-add="log_" title="Log base x">log<sub>x</sub></div>
-							<div class="key" text-to-add="sqrt" title="Square root">&#8730;x</div>
-							<div class="key" text-to-add="nthroot" title="Nth root"><sup>n</sup>&#8730;x</div>
+							<div class="key" text-to-add="#" title="Mark number as infinitely precise (SigFigs = Infinity)">#</div>
+							
+							<div class="key" text-to-add="log_10" keys-to-type="Right" title="Log Base 10 (= typing log_10 in the textbox)">log</div>
+							<div class="key" text-to-add="log_" title="Log base x (- typing log_ in the textbox)">log<sub>x</sub></div>
+							<div class="key" text-to-add="sqrt" title="Square root (= typing sqrt in the textbox)">&#8730;x</div>
+							<div class="key" text-to-add="nthroot" title="Nth root (= typing nthroot in the textbox)"><sup>n</sup>&#8730;x</div>
 							
 							<div class="key num-key" text-to-add="true">true</div>
 							<div class="key num-key" text-to-add="false">false</div>
 							<div class="key" text-to-add="sin(">sin</div>
 							<div class="key" text-to-add="cos(">cos</div>
 							<div class="key" text-to-add="tan(">tan</div>
-							<div class="key num-key" text-to-add="pi" title="Pi">&pi;</div>
+							<div class="key num-key" text-to-add="pi" title="Pi (equivalent to typing pi)">&pi;</div>
 							<div class="key num-key" text-to-add="e" title="Euler's number">e</div>
 							<div class="key num-key" text-to-add="A" title="Avogadro's number">A</div>
 						</div>
@@ -115,19 +113,22 @@
 							<div class="key num-key" text-to-add="5">5</div>
 							<div class="key num-key" text-to-add="6">6</div>
 							
-							<div class="key" keys-to-type="Spacebar" title="Escape from the current block level: (1+2|) -> (1+2)|">⇪</div>
-							<div class="key double-wid" id="allclear-btn" title="Clear textbox">Clear</div>
-							<div class="key" text-to-add="-">-</div>
-							<div class="key" text-to-add="/" title="Create fraction (divide by)">&divide;</div>
-							<div class="key" text-to-add="^2" keys-to-type="Spacebar" title="Square">a<sup>2</sup></div>
-							<div class="key" text-to-add="^" title="Exponent">a<sup>x</sup></div>
-							<div class="key" text-to-add="mod" title="Modulo operator">mod</div>
-							<div class="key" text-to-add="and" title="Logical and">and</div>
-							<div class="key" text-to-add="or" title="Logical or">or</div>
-							<div class="key" text-to-add="not" title="Logical not">not</div>
-							<div class="key" text-to-add="asin(">asin</div>
-							<div class="key" text-to-add="acos(">acos</div>
-							<div class="key" text-to-add="atan(">atan</div>
+							<div class="key" text-to-add="*" title="Multiplication (shortcut: *)">&times;</div>
+							
+							<div class="key ctrl-key" id="enter-btn" title="Save the current result to history (see the history block below)">Save</div>
+							<div class="key ctrl-key double-wid" id="allclear-btn" title="Clear textbox">Clear</div>
+							
+							<div class="key" text-to-add="@" title="Mark the beginning of a chemical formula (example use: ka(@H2PO4); shortcut: @)">@</div>
+													
+							<div class="key" text-to-add="^2" keys-to-type="Spacebar" title="Square (equivalent to typing ^2)" >a<sup>2</sup></div>
+							<div class="key" text-to-add="^" title="Exponent (shortcut: ^)">a<sup>x</sup></div>
+							<div class="key" latex-to-write="mod" title="Modulo operator">mod</div>
+							<div class="key" latex-to-write="and" title="Logical and">and</div>
+							<div class="key" latex-to-write="or" title="Logical or">or</div>
+							<div class="key" latex-to-write="not" title="Logical not">not</div>
+							<div class="key" latex-to-write="asin\left(\right)" keys-to-type="Right">asin</div>
+							<div class="key" latex-to-write="acos\left(\right)" keys-to-type="Right">acos</div>
+							<div class="key" latex-to-write="atan\left(\right)" keys-to-type="Right">atan</div>
 							<div class="key num-key" text-to-add="x">x</div>
 							<div class="key num-key" text-to-add="y">y</div>
 							<div class="key num-key" text-to-add="z">z</div>
@@ -137,18 +138,23 @@
 							<div class="key num-key" text-to-add="7">7</div>
 							<div class="key num-key" text-to-add="8">8</div>
 							<div class="key num-key" text-to-add="9">9</div>
-							<div class="key" keys-to-type="Home" title="Go to the beginning of the line">⟸</div>
-							<div class="key" keys-to-type="Up">▲</div>
-							<div class="key" keys-to-type="End" title="Go to the end of the line">⟹</div>
+
+							<div class="key" text-to-add="-">-</div>
+
+							<div class="key ctrl-key" keys-to-type="Home" title="Go to the beginning of the line">⟸</div>
+							<div class="key ctrl-key" keys-to-type="Up">▲</div>
+							<div class="key ctrl-key" keys-to-type="End" title="Go to the end of the line">⟹</div>
 							
 							<div class="key" text-to-add="(">(</div>
 							<div class="key" text-to-add=")">)</div>
-							<div class="key" text-to-add="#" title="Mark number as infinitely precise (SigFigs = Infinity)">#</div>
+							
 							<div class="key" text-to-add="%" title="Percent">%</div>
+							
+							<div class="key" text-to-add="ka(@" title="Get the Ka of an acid">K<sub>a</sub></div>
+							<div class="key" text-to-add="kb(@" title="Get the Kb of a base">K<sub>b</sub></div>
+							<div class="key" text-to-add="ksp(@" title="Get the Ksp of a salt (not yet implemented)">K<sub>sp</sub></div>							
+							
 							<div class="key" text-to-add="!" title="Factorial">!</div>
-							<div class="key" text-to-add="bitand" title="Bitwise and">and<sub>b</sub></div>
-							<div class="key" text-to-add="bitor" title="Bitwise or">or<sub>b</sub></div>
-							<div class="key" text-to-add="bitnot" title="Bitwise not">not<sub>b</sub></div>
 							<div class="key" text-to-add="qdtc(" title="Quadratic solver: qdtc(a,b,c)">qdtc</div>
 							<div class="key" text-to-add="qdtcp(" title="Quadratic solver (only returns the larger value): qdtc(a,b,c)">qdtc<sup>+</sup></div>
 							<div class="key" text-to-add="random(" title="Generate random rumber: random() OR random(high) OR random(low, high)">rand</div>
@@ -159,51 +165,121 @@
 						</div>
 							
 						<div class="key-row">
-							<div class="key" text-to-add="*10^">&times;10<sup>x</sup></div>
+							<div class="key" text-to-add="*10^" title="Multiply by 10 raised to the xth power (or use E)">&times;10<sup>x</sup></div>
 							<div class="key" text-to-add=".">.</div>
 							<div class="key num-key" text-to-add="0">0</div>
-							<div class="key" keys-to-type="Left">◀</div>
-							<div class="key" keys-to-type="Down">▼</div>
-							<div class="key" keys-to-type="Right">▶</div>
-							<div class="key" text-to-add="[">[</div>
-							<div class="key" text-to-add="2">]</div>
+							
+							<div class="key" text-to-add="/" title="Create fraction (divide by; shortcut: /)">&divide;</div>
+							
+							<div class="key ctrl-key" keys-to-type="Left">◀</div>
+							<div class="key ctrl-key" keys-to-type="Down">▼</div>
+							<div class="key ctrl-key" keys-to-type="Right">▶</div>
 							<div class="key" text-to-add="{">{</div>
-							<div class="key" text-to-add="}">}</div>
-							<div class="key" text-to-add="|" title="Absolute value">|x|</div>
-							<div class="key" text-to-add="<<" title="Bitshift left"><<</div>
-							<div class="key" text-to-add=">>" title="Bitshift right">>></div>
-							<div class="key" text-to-add="bitxor" title="Bitwise xor">xor<sub>b</sub></div>
+							<div class="key" text-to-add="{">}</div>
+
+							<div class="key" text-to-add="|" title="Absolute value (shortcut: |)">|x|</div>
+							
+							<div class="key" text-to-add="molmass(@" title="Get the molar mass of an element or compound (not yet implemented)">mass</div>
+							<div class="key" text-to-add="soluble(@" title="Find if a binary salt is soluble (not yet implemented)">solu</div>
+							<div class="key" text-to-add="charge(@" title="Find the common charges of ions (elemental & polyatomic) (not yet implemented)">chrg</div>
+							
 							<div class="key" text-to-add="floor(" title="Floor (round down)">floor</div>							
 							<div class="key" text-to-add="ceil(" title="Floor (round up)">ceil</div>							
 							<div class="key" text-to-add="round(" title="Floor (round to closest integer, 5 = up)">round</div>	
+							<div class="key" text-to-add="sign(" title="Sign (positive -> 1, negative -> -1, 0 -> 0)">sign</div>	
 							
 							<div class="key num-key" text-to-add="theta" title="Theta">&theta;</div>
 							<div class="key" text-to-add=":=" title="Variable assignment operator := (ex. x := 2)">:=</div>
-							<div class="key" text-to-add="_" title="Variable subscript">a<sub>x</sub></div>
+							<div class="key" text-to-add="_" title="Variable subscript (shortcut: _)">a<sub>x</sub></div>
 						</div>
 					</div>
 					
-					<div id="answer-list">
-						<p class="answer-list-tip"><strong>Saved Results</strong> &nbsp;|&nbsp; <span class="mobile-hide">Press <kbd>ENTER</kbd> in the textbox to save current result &nbsp;|&nbsp; </span><a class="answer-list-clear">Clear</a></p>
+					<div id="memory">
+						<div class="contiguous">
+							<div class="memory-tile" var="x">x</div>
+							<div class="memory-tile" var="y">y</div>
+							<div class="memory-tile" var="z">z</div>
+						</div>
+						
+						<div class="contiguous">
+							<div class="memory-tile" var="a">a</div>
+							<div class="memory-tile" var="b">b</div>
+							<div class="memory-tile" var="c">c</div>
+						</div>
+						
+						<div class="contiguous">
+							<div class="memory-tile" var="theta">&theta;</div>
+							<div class="memory-tile" var="w">w</div>
+							<div class="memory-tile" var="t">t</div>
+						</div>
+						
+						<div class="contiguous">
+							<div class="memory-tile" var="u">u</div>
+							<div class="memory-tile" var="v">v</div>
+							<div class="memory-tile" var="w">w</div>
+						</div>
+						
+						<div class="mobile-hide-inline-block contiguous">
+							<div class="memory-tile" var="m">m</div>
+							<div class="memory-tile" var="n">n</div>
+							<div class="memory-tile" var="k">k</div>
+						</div>
+							
+						<div class="mobile-hide-inline-block contiguous">
+							<div class="memory-tile" var="x_1">x<sub>1</sub></div>
+							<div class="memory-tile" var="x_2">x<sub>2</sub></div>
+							<div class="memory-tile" var="x_3">x<sub>3</sub></div>
+						</div>
+						
+						<div class="mobile-hide-inline-block contiguous">
+							<div class="memory-tile" var="y_1">y<sub>1</sub></div>
+							<div class="memory-tile" var="y_2">y<sub>2</sub></div>
+							<div class="memory-tile" var="y_3">y<sub>3</sub></div>
+						</div>
+						
+						<div class="mobile-hide-inline-block contiguous">
+							<div class="memory-tile" var="t_1">t<sub>1</sub></div>
+							<div class="memory-tile" var="t_2">t<sub>2</sub></div>
+							<div class="memory-tile" var="t_3">t<sub>3</sub></div>
+						</div>
+						
+						<p class="memory-tip"><strong>Memory</strong><span class="mobile-hide"> &nbsp;|&nbsp; Right click to assign the current result to a variable; left click to insert the variable into the textbox.</span></p>
+					</div>
+					
+					<div id="history">
+						<p class="history-tip"><strong>History</strong> &nbsp;|&nbsp; 
+							<span class="mobile-hide">Press <kbd>ENTER</kbd> in the textbox to the save current result &nbsp;| </span>
+						<a class="history-clear">Clear</a></p>
 					</div>
 					
 					<div id="config">
 						<h3>Configuration</h3>
-						<p class="config-tip" title="Hexane has a built-in SigFigs engine."><strong>Significant figures engine</strong> - when to round numbers?</p>
+						<p class="config-tip" title="Normally, the calculator keeps track of the number of sig figs in each number but does not actually
+round them to the apparent number of sig figs (reduce their precision). Rounding / precision reduction is done only under the circumstances as you may specify below.
+Different settings may be appropriate for different situations.">
+							<span class="mobile-hide"><strong>Significant Figures</strong> - </span>When to round numbers?</p>
 						<form action="" id="config-sf">
-							<input name="sf" type="radio" id="sf-c1" class="active" value="1"/>
-								<label for="sf-c1" class="active" title="Rounds the number to the correct number of sig figs after every single operation.">After each operation</label>
-							<input name="sf" type="radio" id="sf-c2" class="active" value="2" checked=true/>
+							<fieldset>
+								<input name="sf" type="radio" id="sf-c1" class="active" value="1"/>
+								<label for="sf-c1" class="active" title="Rounds the number after every single operation. Note that this may give inaccurate final results.">After each operation</label>
+							</fieldset>
+							<fieldset>
+								<input name="sf" type="radio" id="sf-c2" class="active" value="2" checked="true"/>
 								<label for="sf-c2" class="active" 
-								title="Rounds the number to the correct number of sig figs when the operation type changes,e.g. from + to * or from / to -.
+									title="Rounds when the operator type changes, e.g. from + to * or from / to -.
 + and - are considered to be in the same type, and so are *, / and mod. This is the default option.">
-									When the operation type changes
-									</label>
-							<input name="sf" type="radio" id="sf-c0" class="active" value="0"/>
-								<label for="sf-c0" class="active" title="Does not round at all during the process of computation &
-only rounds to sig figs when all operations have completed.">At the end of all operations</label>
-							<input name="sf" type="radio" id="sf-c-1" class="active" value="-1"/>
-								<label for="sf-c-1" class="active" title="Totally disables the sig fig engine.">Turn SigFigs off</label>
+									When the operator type changes
+								</label>
+							</fieldset>
+							<fieldset>
+								<input name="sf" type="radio" id="sf-c0" class="active" value="0"/>
+								<label for="sf-c0" class="active" title="Does not round at all during the process of computation.
+Under this mode, the calculator only round as all operations have completed and the answer is being displayed to the user.">After all operations have completed</label>
+							</fieldset>
+							<fieldset>
+								<input name="sf" type="radio" id="sf-c-1" class="active" value="-1"/>
+								<label for="sf-c-1" class="active" title="Choose this to totally disable the sig fig engine. All numbers will be treated as infinitely precise (otherwise specificable using #)">Turn sig figs off</label>
+							</fieldset>
 						</form>
 					</div>
 					
@@ -217,8 +293,12 @@ only rounds to sig figs when all operations have completed.">At the end of all o
         <footer class="wrapper">
             <h3>Hexane.tk &copy; Alex Yu 2017. All rights reserved.</h3>
         </footer>
+		<script src="mathquill-0.10.1/mathquill.js" type="text/javascript"></script>
+		<script src="js/signum.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+		<script src="js/hexane.eval.signum.js" type="text/javascript"></script>
+		
     </div>
 
-    <script data-main="js/main" src="js/require.js"></script>
 </body>
 </html>
