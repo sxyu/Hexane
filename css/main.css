@@ -45,6 +45,7 @@ a, .active{
 
 .contiguous{
 	display: inline-block;
+	margin:0;
 	margin-right: 6px;
 }
 
@@ -98,6 +99,8 @@ body {
     background: #eee;
 	opacity:0;
 }
+
+sup {font-size:xx-small; vertical-align:super;}
 
 /* ===================
     ALL
@@ -271,10 +274,9 @@ nav a:hover {
 .title sup{
 	text-transform: lowercase;
 	margin-left:-10px;
-	vertical-align: sup;
+	vertical-align: baseline;
 	position: relative;
 	top: -12px;
-	
 	font-size:20px;
 }
 
@@ -301,7 +303,21 @@ nav a:hover {
 	-ms-transition: all 1s ease;
 	transition: all 1s ease;	
 	
-	overflow:auto;
+	overflow-x:auto;
+	overflow-y:visible;
+	
+	touch-action: none;
+    -ms-touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mq-math-mode span.mq-supsub.mq-sup-only {
+	margin-bottom: -0.2em;
+	text-align: left;
 }
 
 #editor{
@@ -309,8 +325,13 @@ nav a:hover {
 }
 
 #expr-field .mq-root-block{
-	overflow:auto;
+	overflow-x:visible;
+	overflow-y:visible;
 	min-height:60px;
+}
+
+.mq-root-block, .mq-math-mode span.mq-root-block{
+	overflow:visible;
 }
 
 #expr-field *{
@@ -344,11 +365,17 @@ nav a{
 	padding-top:0;
 	padding-bottom:0;
 	height:70px;
-	line-height:60px;
+	line-height:65px;
 	background:#393939;
 	color:#fafafa;
 	overflow-x:auto;
 	overflow-y:hidden;
+}
+
+#history .history-text,
+#memory .memory-tile,
+#keypad {
+	font-family: Consolas, Courier New, times, Symbola, monospace;
 }
 
 #keypad{
@@ -358,7 +385,6 @@ nav a{
 	position:relative;
 	padding-top:25px;
 	padding-bottom: 19px;
-	font-family: Courier New, monospace;
 	font-size:0;
 	-moz-user-select: none;
     -khtml-user-select: none;
@@ -465,6 +491,7 @@ nav a{
 	text-align:left;
 	padding:0 25px 0 15px;
 	margin-right:10px;
+	margin-bottom:4px;
 	background: #a96433;
 	
 	overflow: hidden;
@@ -477,12 +504,13 @@ nav a{
 	-ms-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 }
+#memory .contiguous{
+	height:55px;
+}
 #history .history-tile:hover, #memory .memory-tile:hover{
 	background: #a15527;
 }
 #history .history-text{
-	font-family: Courier New, monospace;
-	
 	-moz-user-select: text;
     -khtml-user-select: text;
     -webkit-user-select: text;
@@ -548,7 +576,6 @@ nav a{
 	width: 14px;
 	margin-right:8px;
 	text-align: center;
-	font-family: Courier New, monospace;
 }
 
 #config{

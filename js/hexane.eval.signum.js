@@ -71,9 +71,6 @@
     recoverable: (boolean: TRUE when the parser has a error recovery rule available for this particular error)
   }
 */
-
-if (Hexane == undefined || Hexane == null) Hexane = new function(){};
-
 Hexane.Eval = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,3],$V2=[1,4],$V3=[1,5],$V4=[1,7],$V5=[1,8],$V6=[1,9],$V7=[1,10],$V8=[1,11],$V9=[1,12],$Va=[1,13],$Vb=[1,14],$Vc=[1,16],$Vd=[1,15],$Ve=[1,17],$Vf=[1,18],$Vg=[1,19],$Vh=[1,20],$Vi=[1,21],$Vj=[1,22],$Vk=[1,24],$Vl=[1,25],$Vm=[1,26],$Vn=[1,27],$Vo=[1,28],$Vp=[1,29],$Vq=[1,30],$Vr=[1,31],$Vs=[1,32],$Vt=[1,33],$Vu=[1,34],$Vv=[1,35],$Vw=[1,36],$Vx=[1,37],$Vy=[1,38],$Vz=[1,39],$VA=[1,40],$VB=[1,41],$VC=[1,42],$VD=[1,43],$VE=[1,44],$VF=[1,45],$VG=[1,46],$VH=[5,7,8,9,10,11,12,13,14,15,16,18,19,20,22,23,24,25,26,27,28,29,30,31,32,33,35,37,39,41],$VI=[2,46],$VJ=[1,62],$VK=[1,61],$VL=[1,64],$VM=[1,63],$VN=[5,7,8,9,10,11,12,13,14,15,16,18,19,20,22,23,25,26,27,28,29,30,31,32,33,35,37,39,41],$VO=[5,7,8,9,10,11,12,13,14,15,16,26,27,28,29,30,31,35,37,39,41],$VP=[5,7,8,9,12,14,15,16,26,27,28,29,30,31,35,37,39,41],$VQ=[5,7,12,14,16,35,37,39,41],$VR=[5,7,8,9,10,11,12,13,14,15,16,18,20,25,26,27,28,29,30,31,32,33,35,37,39,41],$VS=[5,7,12,14,15,16,26,27,28,29,30,31,35,37,39,41],$VT=[1,119],$VU=[7,35];
 var parser = {trace: function trace() { },
@@ -231,7 +228,7 @@ case 52:
 this.$ = Hexane.vars[$$[$0]];
 break;
 case 53:
-this.$ = $$[$0].toString().substring(1);
+this.$ = $$[$0].toString().substring(1, $$[$0].toString().length-1);
 break;
 case 54:
 this.$ = $$[$0-1].times(Hexane.vars[$$[$0]]);
@@ -844,7 +841,7 @@ case 49:return 31
 break;
 case 50:return 50
 break;
-case 51:return 50
+case 51:return 48
 break;
 case 52:return 48
 break;
@@ -852,62 +849,60 @@ case 53:return 48
 break;
 case 54:return 48
 break;
-case 55:return 48
+case 55:return 10
 break;
-case 56:return 10
+case 56:return 11
 break;
-case 57:return 11
+case 57:return 9
 break;
-case 58:return 9
+case 58:return 8
 break;
-case 59:return 8
+case 59:return 25
 break;
-case 60:return 25
+case 60:return 33
 break;
-case 61:return 33
+case 61:return 22
 break;
-case 62:return 22
+case 62:return 23
 break;
-case 63:return 23
+case 63:return 49
 break;
-case 64:return 49
+case 64:return 26
 break;
-case 65:return 26
+case 65:return 27
 break;
-case 66:return 27
+case 66:return 26
 break;
-case 67:return 26
+case 67:return 28
 break;
-case 68:return 28
+case 68:return 29
 break;
-case 69:return 29
+case 69:return 32
 break;
-case 70:return 32
+case 70:return 38
 break;
-case 71:return 38
+case 71:return 39
 break;
-case 72:return 39
+case 72:return 33
 break;
-case 73:return 33
+case 73:return 36
 break;
-case 74:return 36
+case 74:return 37
 break;
-case 75:return 37
+case 75:return 34
 break;
-case 76:return 34
+case 76:return 35
 break;
-case 77:return 35
+case 77:return 7
 break;
-case 78:return 7
+case 78:return 5
 break;
-case 79:return 5
-break;
-case 80:return 'INVALID'
+case 79:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:#?[0-9]+\.?([0-9#]+)?)/,/^(?:(#?\.?[0-9#]+))/,/^(?:(\\frac\{))/,/^(?:(\\cdot))/,/^(?:(\\left\())/,/^(?:(\\right\)))/,/^(?:(\\left\[))/,/^(?:(\\right\]))/,/^(?:(\\left\\\{))/,/^(?:(\\right\\\}))/,/^(?:(\\left\|))/,/^(?:(\\right\|))/,/^(?:(\\log_\{))/,/^(?:(\\log_))/,/^(?:(\\sqrt\{))/,/^(?:(\\sqrt\[))/,/^(?:(\\oplus))/,/^(?:(\\times))/,/^(?:(\\otimes))/,/^(?:(\\divide))/,/^(?:(\\div))/,/^(?:pi\b)/,/^(?:\\pi\b)/,/^(?:e\b)/,/^(?:(true))/,/^(?:(false))/,/^(?:(\\operatorname\{true\}))/,/^(?:(\\operatorname\{false\}))/,/^(?:(E))/,/^(?:(mod))/,/^(?:(\\operatorname\{mod\}))/,/^(?:(not))/,/^(?:(\\operatorname\{not\}))/,/^(?:(and))/,/^(?:(\\operatorname\{and\}))/,/^(?:(or))/,/^(?:(\\operatorname\{or\}))/,/^(?:(xor))/,/^(?:(\\operatorname\{xor\}))/,/^(?:(bitand))/,/^(?:(\\operatorname\{bitand\}))/,/^(?:(bitor))/,/^(?:(\\operatorname\{bitor\}))/,/^(?:(bitxor))/,/^(?:(\\operatorname\{bitxor\}))/,/^(?:(bitnot))/,/^(?:(\\operatorname\{bitnot\}))/,/^(?:(\\le))/,/^(?:(\\ge))/,/^(?:@[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:@[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:\\[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:\\[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:(\\%))/,/^(?:>>)/,/^(?:<<)/,/^(?::=)/,/^(?:==)/,/^(?:!=)/,/^(?:=)/,/^(?:<)/,/^(?:>)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:%)/,/^(?:\[)/,/^(?:\])/,/^(?:\()/,/^(?:\))/,/^(?:,)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:#?[0-9]+\.?([0-9#]+)?)/,/^(?:(#?\.?[0-9#]+))/,/^(?:(\\frac\{))/,/^(?:(\\cdot))/,/^(?:(\\left\())/,/^(?:(\\right\)))/,/^(?:(\\left\[))/,/^(?:(\\right\]))/,/^(?:(\\left\\\{))/,/^(?:(\\right\\\}))/,/^(?:(\\left\|))/,/^(?:(\\right\|))/,/^(?:(\\log_\{))/,/^(?:(\\log_))/,/^(?:(\\sqrt\{))/,/^(?:(\\sqrt\[))/,/^(?:(\\oplus))/,/^(?:(\\times))/,/^(?:(\\otimes))/,/^(?:(\\divide))/,/^(?:(\\div))/,/^(?:pi\b)/,/^(?:\\pi\b)/,/^(?:e\b)/,/^(?:(true))/,/^(?:(false))/,/^(?:(\\operatorname\{true\}))/,/^(?:(\\operatorname\{false\}))/,/^(?:(E))/,/^(?:(mod))/,/^(?:(\\operatorname\{mod\}))/,/^(?:(not))/,/^(?:(\\operatorname\{not\}))/,/^(?:(and))/,/^(?:(\\operatorname\{and\}))/,/^(?:(or))/,/^(?:(\\operatorname\{or\}))/,/^(?:(xor))/,/^(?:(\\operatorname\{xor\}))/,/^(?:(bitand))/,/^(?:(\\operatorname\{bitand\}))/,/^(?:(bitor))/,/^(?:(\\operatorname\{bitor\}))/,/^(?:(bitxor))/,/^(?:(\\operatorname\{bitxor\}))/,/^(?:(bitnot))/,/^(?:(\\operatorname\{bitnot\}))/,/^(?:(\\le))/,/^(?:(\\ge))/,/^(?:"(.+?)?")/,/^(?:\\[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:\\[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:(\\%))/,/^(?:>>)/,/^(?:<<)/,/^(?::=)/,/^(?:==)/,/^(?:!=)/,/^(?:=)/,/^(?:<)/,/^(?:>)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:%)/,/^(?:\[)/,/^(?:\])/,/^(?:\()/,/^(?:\))/,/^(?:,)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79],"inclusive":true}}
 });
 return lexer;
 })();

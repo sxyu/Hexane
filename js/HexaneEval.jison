@@ -60,8 +60,7 @@
 ("\\le")              return '<='
 ("\\ge")              return '>='
 
-"@"[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")       return 'FORMULA'
-"@"[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                              return 'FORMULA'
+"\""(.+?)?"\"" 					   return 'FORMULA'
 
 "\\"[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?"_{"([0-9a-zA-Z"_$"]+"}")   return 'NAME'
 "\\"[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?                          return 'NAME'
@@ -244,7 +243,7 @@ e
 	| NAME
         {$$ = Hexane.vars[$1];}
 	| FORMULA
-	    {$$ = $1.toString().substring(1);}
+	    {$$ = $1.toString().substring(1, $1.toString().length-1);}
 		
 	| '@' NAME
 	    {$$ = $2.toString();}

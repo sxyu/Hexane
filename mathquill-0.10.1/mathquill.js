@@ -3005,7 +3005,7 @@ var TextBlock = P(Node, function(_, super_) {
 
     var textPcDom = self.jQ[0].firstChild;
     pray('only node in TextBlock span is Text node', textPcDom.nodeType === 3);
-    // nodeType === 3 has meant a Text node since ancient times:
+    // nodeType === 3 has meant a Text node since ancients:
     //   http://reference.sitepoint.com/javascript/Node/nodeType
 
     var textPc = TextPiece(textPcDom.data);

@@ -4,18 +4,31 @@
  *  License: MIT
  *  Created for use with Hexane (hexane.tk)*/
 
-// value: may be any one of the following
-//        1. numerical value
-//        2. string representing a number (sig figs auto computed)
-//        3. another SigNum (sig figs copied over)
-//        default is 0
-// sf: # of sig figs, use Infinity if the number should be infinitely precise
-//        default is Infinity if "value" is set to a numerical value. 
-//        otherwise uses the sig figs derived from the "value"
-//        (string or SigNum) by default.
-//        Setting this overrides any of these derived values.
-// creatingOp: the operator used to create this SigNum, if any. If this was c   reated directly then this should be ''
-//        For internal use, mostly
+ 
+// Polyfill for log10, sign
+Math.log10 || (Math.log10 = function(d) {
+	return Math.log(d) / Math.log(10);
+});
+
+Math.sign || (Math.sign = function(d) {
+    if (d > 0) return 1;
+    else if (d < 0) return -1;
+    return 0;
+});
+	
+/** value: may be any one of the following
+ *        1. numerical value
+ *        2. string representing a number (sig figs auto computed)
+ *        3. another SigNum (sig figs copied over)
+ *        default is 0
+ * sf: # of sig figs, use Infinity if the number should be infinitely precise
+ *        default is Infinity if "value" is set to a numerical value. 
+ *        otherwise uses the sig figs derived from the "value"
+ *        (string or SigNum) by default.
+ *        Setting this overrides any of these derived values.
+ * creatingOp: the operator used to create this SigNum, if any. If this was c   reated directly then this should be ''
+ *        For internal use, mostly
+ */
 function SigNum (value, sf, creatingOp) {
     if (value === undefined || value === null) value = 0;
     if (creatingOp === undefined || creatingOp === null) creatingOp = '';
@@ -105,7 +118,9 @@ function SigNum (value, sf, creatingOp) {
         this.value = value;
     }
 
-    // generic round-to-decimal-place function from SO
+    /**
+     * generic round-to-decimal-place function from SO
+	 */
     var round = function(value, exp) {
         if (typeof exp === 'undefined' || +exp === 0)
             return Math.round(value);
@@ -125,8 +140,10 @@ function SigNum (value, sf, creatingOp) {
         return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
     };
 
-    // Round the actual value of the SigNum to significant figures it
-    // should contain (normally the actual value does not change)
+    /**
+     * Round the actual value of the SigNum to significant figures it
+     * should contain (normally the actual value does not change)
+	 */
     this.roundToSF = function(){
         if (this.sf <= 0){
             // console.log('Warning: invalid negative sig fig value ignored');
@@ -138,7 +155,9 @@ function SigNum (value, sf, creatingOp) {
         return this;
     };
 
-    // Helper function for rounding SigFigs according to the rounding mode
+    /**
+     * Helper function for rounding SigFigs according to the rounding mode
+	 */
     var roundIfNotOp = function(op, c){
         // Never round if Sig Figs are off in the first place
         if (SigNum.enableSF == false) return;
@@ -157,16 +176,20 @@ function SigNum (value, sf, creatingOp) {
         lastOp = op;
     };
 
-    // Make a deep copy of this SigNum object
+    /**
+     * Make a deep copy of this SigNum object
+	 */
     this.copy = function(){
         return new SigNum(this.value, this.sf, lastOp);
     };
 
-    // The number of decimal places this number is precise to. Used for +,-
-    // More specifically, thisreturns x where 10^(-x) is the
-    // most precise digit contianed within this number
-    // (returns 0 if number is only precise to ones, a negative number
-    //  if it is precise to some higher digit.)
+	/**
+     * The number of decimal places this number is precise to. Used for +,-
+     * More specifically, thisreturns x where 10^(-x) is the
+     * most precise digit contianed within this number
+     * (returns 0 if number is only precise to ones, a negative number
+     * if it is precise to some higher digit.)
+	 */
     this.decimalPlaces = function(){
         if (this.sf <= 0){
             // console.log('Warning: invalid negative sig fig value ignored');
@@ -179,8 +202,10 @@ function SigNum (value, sf, creatingOp) {
         return -lg;
     };
 
-    // Add this to another number (SigNum or otherwise)
-    // and return a new SigNum.
+	/**
+     * Add this to another number (SigNum or normal)
+     * and return a new SigNum.
+	 */
     this.plus = function(b){
         roundIfNotOp('+', this);
 
@@ -200,8 +225,10 @@ function SigNum (value, sf, creatingOp) {
         return c;
     };
 
-    // Subtract this from another number (SigNum or otherwise)
-    // and return a new SigNum.
+	/**
+     * Subtract this from another number (SigNum or normal)
+     * and return a new SigNum.
+	 */
     this.minus = function(b){
         roundIfNotOp('+', this);
 
@@ -220,9 +247,11 @@ function SigNum (value, sf, creatingOp) {
 
         return c;
     };
-
-    // Multiply this with another number (SigNum or otherwise)
-    // and return a new SigNum.
+	
+    /**
+     * Multiply this with another number (SigNum or normal)
+     * and return a new SigNum.
+	 */
     this.times = function(b){
         roundIfNotOp('*', this);
         var c = new SigNum(0, Infinity, lastOp);
@@ -256,8 +285,10 @@ function SigNum (value, sf, creatingOp) {
         return c;
     };
 
-    // Divide this by another number (SigNum or otherwise)
-    // and return a new SigNum.
+    /**
+     * Divide this by another number (SigNum or normal)
+     * and return a new SigNum.
+	 */
     this.div = function(b){
         roundIfNotOp('*', this);
         var c = new SigNum(0, Infinity, lastOp);
@@ -272,9 +303,11 @@ function SigNum (value, sf, creatingOp) {
         }
         return c;
     };
-
-    // Compute the modulo of this and another number (SigNum or otherwise)
-    // and return the result in a new SigNum.
+	
+    /**
+     * Compute the modulo of this and another number (SigNum or normal)
+     * and return the result in a new SigNum.
+	 */
     this.mod = function(b){
         roundIfNotOp('*', this);
         var c = new SigNum(0, Infinity, lastOp);
@@ -291,9 +324,10 @@ function SigNum (value, sf, creatingOp) {
         return c;
     };
 
-
-    // Raise this to the power of another number (SigNum or otherwise)
-    // and return a new SigNum.
+    /**
+     * Raise this to the power of another number (SigNum or normal)
+     * and return a new SigNum.
+	 */
     this.expo = function(b){
         roundIfNotOp('^', this);
 
@@ -323,26 +357,30 @@ function SigNum (value, sf, creatingOp) {
         return c;
     };
     
-    // Compute the log of this number with another number as the base.
-    // and return a new SigNum.
-    // If no other number is specified, ln is used by default.
+    /**
+     * Compute the log of this number with another number as the base.
+     * and return a new SigNum.
+     * If no other number is specified, ln is used by default.
+	 */
     this.log = function(b){
         roundIfNotOp('log', this);
 
         var c = new SigNum(0, Infinity, lastOp);
 
         if (b === undefined) c.value = Math.log(this.value);
-        else if (b == 10) c.value = Math.log10(this.value);
-        else if (b == 2) c.value = Math.log2(this.value);
-        else c.value = Math.log2(this.value) / Math.log2(b);
+        else if (b == 10 && Math.log10) c.value = Math.log10(this.value);
+        else if (b == 2 && Math.log2) c.value = Math.log2(this.value);
+        else c.value = Math.log(this.value) / Math.log(b);
             
         c.sf = this.sf + Math.floor(Math.log10(Math.abs(c.value))) + 1;
 
         return c;
     };
 
-    // Compute the ln of this number and return a new SigNum.
-    // If no other number is specified, log base 10 is used by default.
+    /**
+     * Compute the ln of this number and return a new SigNum.
+     * If no other number is specified, log base 10 is used by default.
+     */
     this.ln = function(){
         roundIfNotOp('log', this);
 
@@ -443,18 +481,24 @@ function SigNum (value, sf, creatingOp) {
 SigNum.EnumRoundingMode = 
     Object.freeze({"NONE":0, "AFTER_EACH_OP":1, "AFTER_EACH_OP_TYPE":2});
 
-// How to round after operations (if not rounded then sig figs 
-// are preserved but actual numerical value is not modified)
+/**
+ * How to round after operations (if not rounded then sig figs 
+ * are preserved but actual numerical value is not modified)
+ */
 SigNum.roundingMode = SigNum.EnumRoundingMode.AFTER_EACH_OP_TYPE;
 
-// If false, sig figs are not used while displaying numbers and
-// numbers are never rounded during operations 
-// (note that the numbers may continue to keep track of 
-//  how many sig figs they have).
+/**
+ * If false, sig figs are not used while displaying numbers and
+ * numbers are never rounded during operations 
+ * (note that the numbers may continue to keep track of 
+ * how many sig figs they have).
+ */
 SigNum.enableSF = true;
 
-// Helper function for really simple functions that are simply mapped to 
-// counterparts in the JS Math object
+/**
+ * Helper function for creating really simple functions calling 
+ * functions in the Math object
+ */
 var autoMapFunction = function(fn, t){
     if (t.constructor == SigNum){
         t.roundToSF();
@@ -470,6 +514,12 @@ var autoMapFunction = function(fn, t){
         return c;
     }
 };
+
+SigNum.root = function(a, ind){
+    if (a.constructor != SigNum) a = new SigNum(a);
+    return a.expo((new SigNum(1)).div(ind));
+};
+
 
 // Simple functions directly mapped to those in the JS Math object
 SigNum.sqrt = function(c){ return autoMapFunction(Math.sqrt, c); };
@@ -538,8 +588,11 @@ SigNum.random = function(c){ return new SigNum(Math.random()); };
 SigNum.PI = new SigNum(Math.PI.toString());
 SigNum.E = new SigNum(Math.E.toString());
 
-// Convert a SigNum object to a string representing the full number 
-// (no exponents, fractions etc.) with the appropriate number of sigfigs
+/**
+ * Convert a SigNum object to a string representing the full number 
+ * (no exponents, fractions etc.) with the appropriate number of sigfigs
+ * @return {string} string representation
+ */
 SigNum.prototype.toFullNumber = function(){
     if (this.sf <= 0){
         // console.log('Warning: invalid negative sig fig value ignored');
@@ -550,7 +603,7 @@ SigNum.prototype.toFullNumber = function(){
 
     // Temporary measure to simply use the system toString function
     if (SigNum.enableSF == false || this.sf == Infinity)
-        return c.value.toString();
+        return (Math.sign(this.value) * c.value).toString();
 
     c.roundToSF();
 
@@ -575,14 +628,15 @@ SigNum.prototype.toFullNumber = function(){
     var ct = 0;
 
     for (var i=-1; i>high; --i){
-        ++ct; if (ct > 650){ console.log("Warning: forced to break out of non-terminating loop.");  break;}
+        ++ct; if (ct > 650){ console.log("Warning: forced to break out of infinite loop.");  break;}
         res = res.concat('0');
     } 
     var endzeroct = 0;
 
     ct = 0;
     for (var i=high; i>=Math.max(low, high-15); --i){
-        ++ct; if (ct > 650){ console.log("Warning: forced to break out of non-terminating loop.");  break;}
+		// prevent potential infinite loops
+        ++ct; if (ct > 650){ console.log("Warning: forced to break out of infinite loop.");  break;}
         var tmp = val/Math.pow(10, i) % 10;
  
         var dist = Math.abs(Math.ceil(tmp) - tmp);
@@ -615,20 +669,22 @@ SigNum.prototype.toFullNumber = function(){
     else{
         ct = 0;
         for (var i=Math.max(low, high-15)-1; i >= 0; --i){
-            ++ct; if (ct > 1000){ console.log("Warning: forced to break out of non-terminating loop.");  break;}
+            ++ct; if (ct > 1000){ console.log("Warning: forced to break out of infinite loop.");  break;}
             res = res.concat('0');
         }
     }
 
     if (endzeroct > 0 && !haspt &&
-        (SigNum.enableSF === true && isFinite(c.sf)))
+        SigNum.enableSF === true && isFinite(c.sf))
         res = res.concat('(' + c.sf + 'sf)');
 
     return res;
 };
 
-// Convert a SigNum object to its scientific notation representation
-// (e.g. 6.02e+23) with the appropriate number of sigfigs
+/**
+ * Convert a SigNum object to its scientific notation representation
+ * (e.g. 6.02e+23) with the appropriate number of sigfigs
+ */
 SigNum.prototype.toExponential = function(){
     if (this.sf <= 0){
         // console.log('Warning: invalid negative sig fig value ignored');
@@ -651,7 +707,7 @@ SigNum.prototype.toExponential = function(){
 
     for (var i=high; i>=low; --i){
         var tmp = val/Math.pow(10, i) % 10;
-        ++ct; if (ct > 1000){ console.log("Warning: forced to break out of non-terminating loop.");  break;}
+        ++ct; if (ct > 1000){ console.log("Warning: forced to break out of infinite loop.");  break;}
 
         var dist = Math.abs(Math.ceil(tmp) - tmp);
         if (dist < cutoff && dist !== 0) tmp += 1;
@@ -670,21 +726,28 @@ SigNum.prototype.toExponential = function(){
     return res;
 };
 
-// power of ten above which numbers are represented with scientific notation.
+/**
+ * power of ten above which numbers are represented with scientific notation.
+ */
 var NUM_SCI_SPLIT=5; 
 
-// Convert a SigNum object to a string,
-// automatically chosing an appropriate conversion method.
+/**
+ * Convert a SigNum object to a string,
+ * automatically chosing an appropriate conversion method.
+ */
 SigNum.prototype.toString = function(){
-    if (Math.abs(this.value) >= Math.pow(10, NUM_SCI_SPLIT) ||
-        Math.abs(this.value) <= Math.pow(10, -NUM_SCI_SPLIT))
+    if (this.value != 0 && (
+	    Math.abs(this.value) >= Math.pow(10, NUM_SCI_SPLIT) ||
+        Math.abs(this.value) <= Math.pow(10, -NUM_SCI_SPLIT)))
         return this.toExponential();
     else
         return this.toFullNumber();
 };
 
-// Automatically convert this to a number when requested. 
-// Caution: this will cause the sig figs data to be lost!
+/**
+ * Automatically convert this to a number when requested. 
+ * Caution: this will cause the sig figs data to be lost!
+ */
 SigNum.prototype.valueOf = function(){
     var c = this.copy();
     c.roundToSF();

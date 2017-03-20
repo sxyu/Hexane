@@ -11,12 +11,7 @@ The evaluator script was generated using Jison (Bison for JS).
 I did it this way for two reasons:
 1. It's fast and easy to use. You don't need to log in.
 2. It doesn't put much load on the server (free hosting!).
----
-Logo Credits:
-Cooking graphic by Freepik (http://www.flaticon.com/authors/freepik)
-from Flaticon (http://www.flaticon.com/) is licensed under 
-Creative Commons BY 3.0 (see: http://creativecommons.org/licenses/by/3.0/). 
-Made with Logo Maker (http://logomakr.com)
+
 ---
 Why "humans.txt"? 
 "It's an initiative for knowing the people behind a website. It's a TXT file that contains information about the different people who have contributed to building the website."

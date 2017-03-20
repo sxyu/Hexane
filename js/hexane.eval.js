@@ -227,7 +227,7 @@ case 52:
 this.$ = Hexane.vars[$$[$0]];
 break;
 case 53:
-this.$ = $$[$0].toString().substring(1);
+this.$ = $$[$0].toString().substring(1, $$[$0].toString().length-1);
 break;
 case 54:
 this.$ = $$[$0].toString();
@@ -843,7 +843,7 @@ case 49:return 31
 break;
 case 50:return 50
 break;
-case 51:return 50
+case 51:return 48
 break;
 case 52:return 48
 break;
@@ -851,62 +851,60 @@ case 53:return 48
 break;
 case 54:return 48
 break;
-case 55:return 48
+case 55:return 10
 break;
-case 56:return 10
+case 56:return 11
 break;
-case 57:return 11
+case 57:return 9
 break;
-case 58:return 9
+case 58:return 8
 break;
-case 59:return 8
+case 59:return 25
 break;
-case 60:return 25
+case 60:return 33
 break;
-case 61:return 33
+case 61:return 22
 break;
-case 62:return 22
+case 62:return 23
 break;
-case 63:return 23
+case 63:return 49
 break;
-case 64:return 49
+case 64:return 27
 break;
-case 65:return 27
+case 65:return 26
 break;
 case 66:return 26
 break;
-case 67:return 26
+case 67:return 28
 break;
-case 68:return 28
+case 68:return 29
 break;
-case 69:return 29
+case 69:return 32
 break;
-case 70:return 32
+case 70:return 38
 break;
-case 71:return 38
+case 71:return 39
 break;
-case 72:return 39
+case 72:return 33
 break;
-case 73:return 33
+case 73:return 36
 break;
-case 74:return 36
+case 74:return 37
 break;
-case 75:return 37
+case 75:return 34
 break;
-case 76:return 34
+case 76:return 35
 break;
-case 77:return 35
+case 77:return 7
 break;
-case 78:return 7
+case 78:return 5
 break;
-case 79:return 5
-break;
-case 80:return 'INVALID'
+case 79:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:#[0-9]+\.?([0-9]+)?)/,/^(?:(\.?[0-9]+))/,/^(?:(\\frac\{))/,/^(?:(\\cdot))/,/^(?:(\\left\())/,/^(?:(\\right\)))/,/^(?:(\\left\[))/,/^(?:(\\right\]))/,/^(?:(\\left\\\{))/,/^(?:(\\right\\\}))/,/^(?:(\\left\|))/,/^(?:(\\right\|))/,/^(?:(\\log_\{))/,/^(?:(\\log_))/,/^(?:(\\sqrt\{))/,/^(?:(\\sqrt\[))/,/^(?:(\\oplus))/,/^(?:(\\times))/,/^(?:(\\otimes))/,/^(?:(\\divide))/,/^(?:(\\div))/,/^(?:pi\b)/,/^(?:\\pi\b)/,/^(?:e\b)/,/^(?:(true))/,/^(?:(false))/,/^(?:(\\operatorname\{true\}))/,/^(?:(\\operatorname\{false\}))/,/^(?:(E))/,/^(?:(mod))/,/^(?:(\\operatorname\{mod\}))/,/^(?:(not))/,/^(?:(\\operatorname\{not\}))/,/^(?:(and))/,/^(?:(\\operatorname\{and\}))/,/^(?:(or))/,/^(?:(\\operatorname\{or\}))/,/^(?:(xor))/,/^(?:(\\operatorname\{xor\}))/,/^(?:(bitand))/,/^(?:(\\operatorname\{bitand\}))/,/^(?:(bitor))/,/^(?:(\\operatorname\{bitor\}))/,/^(?:(bitxor))/,/^(?:(\\operatorname\{bitxor\}))/,/^(?:(bitnot))/,/^(?:(\\operatorname\{bitnot\}))/,/^(?:(\\le))/,/^(?:(\\ge))/,/^(?:@[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:@[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:\\[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:\\[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:(\\%))/,/^(?:>>)/,/^(?:<<)/,/^(?::=)/,/^(?:!=)/,/^(?:==)/,/^(?:=)/,/^(?:<)/,/^(?:>)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:%)/,/^(?:\[)/,/^(?:\])/,/^(?:\()/,/^(?:\))/,/^(?:,)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:#[0-9]+\.?([0-9]+)?)/,/^(?:(\.?[0-9]+))/,/^(?:(\\frac\{))/,/^(?:(\\cdot))/,/^(?:(\\left\())/,/^(?:(\\right\)))/,/^(?:(\\left\[))/,/^(?:(\\right\]))/,/^(?:(\\left\\\{))/,/^(?:(\\right\\\}))/,/^(?:(\\left\|))/,/^(?:(\\right\|))/,/^(?:(\\log_\{))/,/^(?:(\\log_))/,/^(?:(\\sqrt\{))/,/^(?:(\\sqrt\[))/,/^(?:(\\oplus))/,/^(?:(\\times))/,/^(?:(\\otimes))/,/^(?:(\\divide))/,/^(?:(\\div))/,/^(?:pi\b)/,/^(?:\\pi\b)/,/^(?:e\b)/,/^(?:(true))/,/^(?:(false))/,/^(?:(\\operatorname\{true\}))/,/^(?:(\\operatorname\{false\}))/,/^(?:(E))/,/^(?:(mod))/,/^(?:(\\operatorname\{mod\}))/,/^(?:(not))/,/^(?:(\\operatorname\{not\}))/,/^(?:(and))/,/^(?:(\\operatorname\{and\}))/,/^(?:(or))/,/^(?:(\\operatorname\{or\}))/,/^(?:(xor))/,/^(?:(\\operatorname\{xor\}))/,/^(?:(bitand))/,/^(?:(\\operatorname\{bitand\}))/,/^(?:(bitor))/,/^(?:(\\operatorname\{bitor\}))/,/^(?:(bitxor))/,/^(?:(\\operatorname\{bitxor\}))/,/^(?:(bitnot))/,/^(?:(\\operatorname\{bitnot\}))/,/^(?:(\\le))/,/^(?:(\\ge))/,/^(?:"(.+?)?")/,/^(?:\\[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:\\[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:[a-zA-Z"$"]+([0-9a-zA-Z"$"]+)?_\{([0-9a-zA-Z"_$"]+\}))/,/^(?:[a-zA-Z"_$"]+([0-9a-zA-Z"_$"]+)?)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:(\\%))/,/^(?:>>)/,/^(?:<<)/,/^(?::=)/,/^(?:!=)/,/^(?:==)/,/^(?:=)/,/^(?:<)/,/^(?:>)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:%)/,/^(?:\[)/,/^(?:\])/,/^(?:\()/,/^(?:\))/,/^(?:,)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79],"inclusive":true}}
 });
 return lexer;
 })();
