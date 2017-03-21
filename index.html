@@ -14,13 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="index,follow">
 	
-    <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="mathquill-0.10.1/mathquill.css"/>
-	<link rel="stylesheet" href="css/fonts/embed.css"/>
+    <link rel="stylesheet" href="css/production.css">
 	
-	<script src="js/jquery-1.12.4.min.js" type="text/javascript"></script>
-		
 	<!-- <noscript> -->
 		<!-- <style type="text/css"> -->
 			<!-- body{ -->
@@ -48,258 +43,258 @@
 	<meta name="theme-color" content="#fc5555">
 </head>
 <body>
-    <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
-    <div class="header-container">
-        <header class="wrapper clearfix">
-            <h1 class="title">
-				<img id="header-logo" src="img/hexane-sm.png" alt="H"/>
-				<span class="title-bold">Hexane</span> <span class="title-subsite" id="title-subsite">C<sub>6</sub>H<sub>14</sub></span> <sup title="Alpha Version - There may be some instability">&alpha;</sup>
-			</h1>
-            <nav>
-                <ul>
-                    <li><a href="#">Calc</a></li>
-                    <li><a href="#">Balance</a></li>
-                    <li><a href="#">More</a></li>
-                </ul>
-            </nav>
-        </header>
-    </div>
-
-    <div class="main-container">
-        <div class="main wrapper clearfix">
-
-            <article>
-				<section>				
-					<div id="answer"><span id="result-field"></span></div>
-					
-					<div id="editor"><span id="expr-field"></span></div>
-					
-					<div id="keypad">
-						<div class="key-row">
-							<!-- text-to-add: add text to the MathQuill textbox; 
-						 		 keys-to-type: simulate key presses into the MathQuill textbox
-								 latex-to-write: add LaTeX markup -->
-							<div class="key num-key" latex-to-write="1">1</div>
-							<div class="key num-key" latex-to-write="2">2</div>
-							<div class="key num-key" latex-to-write="3">3</div>
-							
-							<div class="key" latex-to-write="+">+</div>							
-							
-							<div class="key ctrl-key double-wid" keys-to-type="Backspace" title="Delete previous item">⌫</div>
-							<div class="key ctrl-key" keys-to-type="Del" title="Delete next item">⌦</div>
-
-							
-							<!-- Note: if both are specified, latex-to-write is evaluated before keys-to-type  -->
-							<div class="key" latex-to-write="#" title="Mark number as infinitely precise (SigFigs = Infinity)">#</div>
-							
-							<div class="key" latex-to-write="log_{10}" keys-to-type="Right" title="Log Base 10 (= typing log_10 in the textbox)">log</div>
-							<div class="key" latex-to-write="log_{}" shift="-1" title="Log base x (- typing log_ in the textbox)">log<sub>x</sub></div>
-							<div class="key" latex-to-write="\sqrt{}" shift="-1" title="Square root (= typing sqrt in the textbox)">&#8730;x</div>
-							<div class="key" latex-to-write="\sqrt[]{}" shift="-2" title="Nth root (= typing nthroot in the textbox)"><sup>n</sup>&#8730;x</div>
-							
-							<div class="key num-key" latex-to-write="true">true</div>
-							<div class="key num-key" latex-to-write="false">false</div>
-							<div class="key" latex-to-write="sin\left(\right)" shift="-1" >sin</div>
-							<div class="key" latex-to-write="cos\left(\right)" shift="-1">cos</div>
-							<div class="key" latex-to-write="tan\left(\right)" shift="-1">tan</div>
-							<div class="key num-key" latex-to-write="\pi" title="Pi (equivalent to typing pi)">&pi;</div>
-							<div class="key num-key" latex-to-write="e" title="Euler's number">e</div>
-							<div class="key num-key" latex-to-write="A" title="Avogadro's number">A</div>
-						</div>
-						
-						<div class="key-row">
-							<div class="key num-key" latex-to-write="4">4</div>
-							<div class="key num-key" latex-to-write="5">5</div>
-							<div class="key num-key" latex-to-write="6">6</div>
-							
-							<div class="key" latex-to-write="\times" title="Multiplication (shortcut: *)">&times;</div>
-							
-							<div class="key ctrl-key" id="enter-btn" title="Save the current result to history (see the history block below)">Save</div>
-							<div class="key ctrl-key double-wid" id="allclear-btn" title="Clear textbox">Clear</div>
-							
-							<div class="key" latex-to-write='"' title='Mark the beginning & end of a chemical formula (example use: Ka("H2PO4"))'>"</div>
-													
-							<div class="key" latex-to-write="^2" title="Square (equivalent to typing ^2)" >a<sup>2</sup></div>
-							<div class="key" latex-to-write="^{}" shift="-1" title="Exponent (shortcut: ^)">a<sup>x</sup></div>
-							<div class="key" latex-to-write="mod" title="Modulo operator">mod</div>
-							<div class="key" latex-to-write="and" title="Logical and">and</div>
-							<div class="key" latex-to-write="or" title="Logical or">or</div>
-							<div class="key" latex-to-write="not" title="Logical not">not</div>
-							<div class="key" latex-to-write="asin\left(\right)" shift="-1">asin</div>
-							<div class="key" latex-to-write="acos\left(\right)" shift="-1">acos</div>
-							<div class="key" latex-to-write="atan\left(\right)" shift="-1" >atan</div>
-							<div class="key num-key" latex-to-write="x">x</div>
-							<div class="key num-key" latex-to-write="y">y</div>
-							<div class="key num-key" latex-to-write="z">z</div>
-						</div>
-						
-						<div class="key-row">
-							<div class="key num-key" latex-to-write="7">7</div>
-							<div class="key num-key" latex-to-write="8">8</div>
-							<div class="key num-key" latex-to-write="9">9</div>
-
-							<div class="key" latex-to-write="-">-</div>
-
-							<div class="key ctrl-key" keys-to-type="Home" title="Go to the beginning of the line">⟸</div>
-							<div class="key ctrl-key" keys-to-type="Up">▲</div>
-							<div class="key ctrl-key" keys-to-type="End" title="Go to the end of the line">⟹</div>
-							
-							<div class="key" text-to-add="(">(</div>
-							<div class="key" text-to-add=")">)</div>
-							
-							<div class="key" latex-to-write="%" title="Percent">%</div>
-							
-							<div class="key" latex-to-write='Ka\left("\right)' shift="-1" title="Get the Ka of an acid">K<sub>a</sub></div>
-							<div class="key" latex-to-write='Kb\left("\right)' shift="-1" title="Get the Kb of a base">K<sub>b</sub></div>
-							<div class="key" latex-to-write='Ksp\left("\right)' shift="-1" title="Get the Ksp of a salt">K<sub>sp</sub></div>							
-							
-							<div class="key" latex-to-write="!" title="Factorial">!</div>
-							<div class="key" latex-to-write="qdtc\left(\right)" shift="-1" title="Quadratic solver: qdtc(a,b,c)">qdtc</div>
-							<div class="key" latex-to-write="qdtcp\left(\right)" shift="-1" title="Quadratic solver (only returns the larger value): qdtc(a,b,c)">qdtc<sup>+</sup></div>
-							<div class="key" latex-to-write="random\left(\right)" shift="-1" title="Generate random rumber: random() OR random(high) OR random(low, high)">rand</div>
-							<div class="key num-key" latex-to-write="a">a</div>
-							<div class="key num-key" latex-to-write="b">b</div>
-							<div class="key num-key" latex-to-write="c">c</div>
-							
-						</div>
-							
-						<div class="key-row">
-							<div class="key" latex-to-write="\cdot10^{}" shift="-1" title="Multiply by 10 raised to the xth power (or use E)">&times;10<sup>x</sup></div>
-							<div class="key" latex-to-write=".">.</div>
-							<div class="key num-key" latex-to-write="0">0</div>
-							
-							<div class="key" text-to-add="/" title="Create fraction (divide by; shortcut: /)">&divide;</div>
-							
-							<div class="key ctrl-key" keys-to-type="Left">◀</div>
-							<div class="key ctrl-key" keys-to-type="Down">▼</div>
-							<div class="key ctrl-key" keys-to-type="Right">▶</div>
-							<div class="key" latex-to-write="{">{</div>
-							<div class="key" latex-to-write="{">}</div>
-
-							<div class="key" latex-to-write="|" title="Absolute value (shortcut: |)">|x|</div>
-							
-							<div class="key" latex-to-write='molmass\left("\right)' shift="-1" title="Get the molar mass of an element or compound">mass</div>
-							<div class="key" latex-to-write='soluble\left("\right)' shift="-1" title="Find if a binary salt is soluble (> 0.1 M)">solu</div>
-							<div class="key" latex-to-write='charge\left("\right)' shift="-1" title="Find the common charges of ions (elemental & polyatomic)">chrg</div>
-							
-							<div class="key" latex-to-write='floor\left(\right)' shift="-1" title="Floor (round down)">floor</div>							
-							<div class="key" latex-to-write='ceil\left(\right)' shift="-1" title="Ceiling (round up)">ceil</div>							
-							<div class="key" latex-to-write='round\left(\right)' shift="-1" title="Round (round to closest integer, 5 = up)">round</div>	
-							<div class="key" latex-to-write='sign\left(\right)' shift="-1" title="Sign (positive -> 1, negative -> -1, 0 -> 0)">sign</div>	
-							
-							<div class="key num-key" latex-to-write='\theta' title="Theta">&theta;</div>
-							<div class="key" latex-to-write=":=" title="Variable assignment operator := (ex. x := 2)">:=</div>
-							<div class="key" latex-to-write="_{}" shift="-1" title="Variable subscript (shortcut: _)">a<sub>x</sub></div>
-						</div>
-					</div>
-					
-					<div id="memory">
-						<div class="contiguous">
-							<div class="memory-tile" var="x">x</div>
-							<div class="memory-tile" var="y">y</div>
-							<div class="memory-tile" var="z">z</div>
-						</div>
-						
-						<div class="contiguous">
-							<div class="memory-tile" var="a">a</div>
-							<div class="memory-tile" var="b">b</div>
-							<div class="memory-tile" var="c">c</div>
-						</div>
-						
-						<div class="contiguous">
-							<div class="memory-tile" var="theta" latex-to-write='\theta'>&theta;</div>
-							<div class="memory-tile" var="omega" latex-to-write='\omega'>&omega;</div>
-							<div class="memory-tile" var="t">t</div>
-						</div>
-						
-						<div class="contiguous">
-							<div class="memory-tile" var="u">u</div>
-							<div class="memory-tile" var="v">v</div>
-							<div class="memory-tile" var="w">w</div>
-						</div>
-						
-						<div class="mobile-hide-inline-block contiguous">
-							<div class="memory-tile" var="m">m</div>
-							<div class="memory-tile" var="n">n</div>
-							<div class="memory-tile" var="k">k</div>
-						</div>
-							
-						<div class="mobile-hide-inline-block contiguous">
-							<div class="memory-tile" var="x_1">x<sub>1</sub></div>
-							<div class="memory-tile" var="x_2">x<sub>2</sub></div>
-							<div class="memory-tile" var="x_3">x<sub>3</sub></div>
-						</div>
-						
-						<div class="mobile-hide-inline-block contiguous">
-							<div class="memory-tile" var="y_1">y<sub>1</sub></div>
-							<div class="memory-tile" var="y_2">y<sub>2</sub></div>
-							<div class="memory-tile" var="y_3">y<sub>3</sub></div>
-						</div>
-						
-						<div class="mobile-hide-inline-block contiguous">
-							<div class="memory-tile" var="t_1">t<sub>1</sub></div>
-							<div class="memory-tile" var="t_2">t<sub>2</sub></div>
-							<div class="memory-tile" var="t_3">t<sub>3</sub></div>
-						</div>
-						
-						<p class="memory-tip"><strong>Memory</strong><span class="mobile-hide"> &nbsp;|&nbsp; Right click a variable to assign, left click to reuse.</span></p>
-					</div>
-					
-					<div id="history">
-						<p class="history-tip"><strong>History</strong> &nbsp;|&nbsp; 
-							<span class="mobile-hide">Press <kbd>ENTER</kbd> in the textbox to the save current result &nbsp;| </span>
-						<a class="history-clear">Clear</a></p>
-					</div>
-					
-					<div id="config">
-						<h3>Configuration</h3>
-						<p class="config-tip" title="Normally, the calculator keeps track of the number of sig figs in each number but doesn't actually
-reduce their precision during arithmetic operations. The numbers are only rounded under the conditions specified below.">
-							<span class="mobile-hide"><strong>Significant Figures</strong> - </span>When to round numbers?</p>
-						<form action="" id="config-sf">
-							<fieldset>
-								<input name="sf" type="radio" id="sf-c1" class="active" value="1"/>
-								<label for="sf-c1" class="active" title="Rounds the number after every single operation. Note that this may give inaccurate final results.">After each operation</label>
-							</fieldset>
-							<fieldset>
-								<input name="sf" type="radio" id="sf-c2" class="active" value="2" checked="true"/>
-								<label for="sf-c2" class="active" 
-									title="Rounds when the operator type changes, e.g. from + to * or from / to -.
-Note that + and - are considered to be in the same type, and so are *, / and mod. This is the default option.">
-									When the operator type changes
-								</label>
-							</fieldset>
-							<fieldset>
-								<input name="sf" type="radio" id="sf-c0" class="active" value="0"/>
-								<label for="sf-c0" class="active" title="Under this mode, the calculator does not round at all during the process of computation 
-and only actually rounds numbers after all operations have completed.">After all operations have completed</label>
-							</fieldset>
-							<fieldset>
-								<input name="sf" type="radio" id="sf-c-1" class="active" value="-1"/>
-								<label for="sf-c-1" class="active" title="Choose this to totally disable the sig fig engine. All numbers will be treated as infinitely precise (otherwise specificable using #)">Turn sig figs off</label>
-							</fieldset>
-						</form>
-					</div>
-					
-				</section>
-            </article>
-
-        </div> <!-- #main -->
-    </div> <!-- #main-container -->
-
-    <div class="footer-container">
-        <footer class="wrapper">
-            <h3>Hexane.tk &copy; Alex Yu 2017. All rights reserved.</h3>
-        </footer>
-		<script src="mathquill-0.10.1/mathquill.js" type="text/javascript"></script>
-		<script src="js/signum.js" type="text/javascript"></script>
-		<script src="js/main.js" type="text/javascript"></script>
-		<script src="js/hexane.eval.signum.js" type="text/javascript"></script>
+	<div id="loading-spinner"></div>
+	<noscript>Sorry, but Hexane requires javascript to work properly. Please enable javascript in your browser or upgrade to a browser that supports javascript.</noscript>
+	
+	<div class="site-container">
+		<!--[if lt IE 8]>
+			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
 		
-    </div>
+		<div class="header-container">
+			<header class="wrapper clearfix">
+				<h1 class="title">
+					<img id="header-logo" src="img/hexane-sm.png" alt="H"/>
+					<span class="title-bold">Hexane</span> <span class="title-subsite" id="title-subsite">C<sub>6</sub>H<sub>14</sub></span> <sup title="Alpha Version - There may be some instability">&alpha;</sup>
+				</h1>
+				<nav>
+					<ul>
+						<li><a href="#">Calc</a></li>
+						<li><a href="#">Balance</a></li>
+						<li><a href="#">More</a></li>
+					</ul>
+				</nav>
+			</header>
+		</div>
 
+		<div class="main-container">
+			<div class="main wrapper clearfix">
+
+				<article>
+					<section>				
+						<div id="answer"><span id="result-field"></span></div>
+						
+						<div id="editor"><span id="expr-field"></span></div>
+						
+						<div id="keypad">
+							<div class="key-row">
+								<!-- text-to-add: add text to the MathQuill textbox; 
+									 keys-to-type: simulate key presses into the MathQuill textbox
+									 latex-to-write: add LaTeX markup -->
+								<div class="key num-key" latex-to-write="1">1</div>
+								<div class="key num-key" latex-to-write="2">2</div>
+								<div class="key num-key" latex-to-write="3">3</div>
+								
+								<div class="key" latex-to-write="+">+</div>							
+								
+								<div class="key ctrl-key double-wid" keys-to-type="Backspace" title="Delete previous item">⌫</div>
+								<div class="key ctrl-key" keys-to-type="Del" title="Delete next item">⌦</div>
+
+								
+								<!-- Note: if both are specified, latex-to-write is evaluated before keys-to-type  -->
+								<div class="key" latex-to-write="#" title="Mark number as infinitely precise (SigFigs = Infinity)">#</div>
+								
+								<div class="key" latex-to-write="log_{10}" keys-to-type="Right" title="Log Base 10 (= typing log_10 in the textbox)">log</div>
+								<div class="key" latex-to-write="log_{}" shift="-1" title="Log base x (- typing log_ in the textbox)">log<sub>x</sub></div>
+								<div class="key" latex-to-write="\sqrt{}" shift="-1" title="Square root (= typing sqrt in the textbox)">&#8730;x</div>
+								<div class="key" latex-to-write="\sqrt[]{}" shift="-2" title="Nth root (= typing nthroot in the textbox)"><sup>n</sup>&#8730;x</div>
+								
+								<div class="key num-key" latex-to-write="true">true</div>
+								<div class="key num-key" latex-to-write="false">false</div>
+								<div class="key" latex-to-write="sin\left(\right)" shift="-1" >sin</div>
+								<div class="key" latex-to-write="cos\left(\right)" shift="-1">cos</div>
+								<div class="key" latex-to-write="tan\left(\right)" shift="-1">tan</div>
+								<div class="key num-key" latex-to-write="\pi" title="Pi (equivalent to typing pi)">&pi;</div>
+								<div class="key num-key" latex-to-write="e" title="Euler's number">e</div>
+								<div class="key num-key" latex-to-write="A" title="Avogadro's number">A</div>
+							</div>
+							
+							<div class="key-row">
+								<div class="key num-key" latex-to-write="4">4</div>
+								<div class="key num-key" latex-to-write="5">5</div>
+								<div class="key num-key" latex-to-write="6">6</div>
+								
+								<div class="key" latex-to-write="\times" title="Multiplication (shortcut: *)">&times;</div>
+								
+								<div class="key ctrl-key" id="enter-btn" title="Save the current result to history (see the history block below)">Save</div>
+								<div class="key ctrl-key double-wid" id="allclear-btn" title="Clear textbox">Clear</div>
+								
+								<div class="key" latex-to-write='"' title='Mark the beginning & end of a chemical formula (example use: Ka("H2PO4"))'>"</div>
+														
+								<div class="key" latex-to-write="^2" title="Square (equivalent to typing ^2)" >a<sup>2</sup></div>
+								<div class="key" latex-to-write="^{}" shift="-1" title="Exponent (shortcut: ^)">a<sup>x</sup></div>
+								<div class="key" latex-to-write="mod" title="Modulo operator">mod</div>
+								<div class="key" latex-to-write="and" title="Logical and">and</div>
+								<div class="key" latex-to-write="or" title="Logical or">or</div>
+								<div class="key" latex-to-write="not" title="Logical not">not</div>
+								<div class="key" latex-to-write="asin\left(\right)" shift="-1">asin</div>
+								<div class="key" latex-to-write="acos\left(\right)" shift="-1">acos</div>
+								<div class="key" latex-to-write="atan\left(\right)" shift="-1" >atan</div>
+								<div class="key num-key" latex-to-write="x">x</div>
+								<div class="key num-key" latex-to-write="y">y</div>
+								<div class="key num-key" latex-to-write="z">z</div>
+							</div>
+							
+							<div class="key-row">
+								<div class="key num-key" latex-to-write="7">7</div>
+								<div class="key num-key" latex-to-write="8">8</div>
+								<div class="key num-key" latex-to-write="9">9</div>
+
+								<div class="key" latex-to-write="-">-</div>
+
+								<div class="key ctrl-key" keys-to-type="Home" title="Go to the beginning of the line">⟸</div>
+								<div class="key ctrl-key" keys-to-type="Up">▲</div>
+								<div class="key ctrl-key" keys-to-type="End" title="Go to the end of the line">⟹</div>
+								
+								<div class="key" text-to-add="(">(</div>
+								<div class="key" text-to-add=")">)</div>
+								
+								<div class="key" latex-to-write="%" title="Percent">%</div>
+								
+								<div class="key" latex-to-write='Ka\left("\right)' shift="-1" title="Get the Ka of an acid">K<sub>a</sub></div>
+								<div class="key" latex-to-write='Kb\left("\right)' shift="-1" title="Get the Kb of a base">K<sub>b</sub></div>
+								<div class="key" latex-to-write='Ksp\left("\right)' shift="-1" title="Get the Ksp of a salt">K<sub>sp</sub></div>							
+								
+								<div class="key" latex-to-write="!" title="Factorial">!</div>
+								<div class="key" latex-to-write="qdtc\left(\right)" shift="-1" title="Quadratic solver: qdtc(a,b,c)">qdtc</div>
+								<div class="key" latex-to-write="qdtcp\left(\right)" shift="-1" title="Quadratic solver (only returns the larger value): qdtc(a,b,c)">qdtc<sup>+</sup></div>
+								<div class="key" latex-to-write="random\left(\right)" shift="-1" title="Generate random rumber: random() OR random(high) OR random(low, high)">rand</div>
+								<div class="key num-key" latex-to-write="a">a</div>
+								<div class="key num-key" latex-to-write="b">b</div>
+								<div class="key num-key" latex-to-write="c">c</div>
+								
+							</div>
+								
+							<div class="key-row">
+								<div class="key" latex-to-write="\cdot10^{}" shift="-1" title="Multiply by 10 raised to the xth power (or use E)">&times;10<sup>x</sup></div>
+								<div class="key" latex-to-write=".">.</div>
+								<div class="key num-key" latex-to-write="0">0</div>
+								
+								<div class="key" text-to-add="/" title="Create fraction (divide by; shortcut: /)">&divide;</div>
+								
+								<div class="key ctrl-key" keys-to-type="Left">◀</div>
+								<div class="key ctrl-key" keys-to-type="Down">▼</div>
+								<div class="key ctrl-key" keys-to-type="Right">▶</div>
+								<div class="key" latex-to-write="{">{</div>
+								<div class="key" latex-to-write="{">}</div>
+
+								<div class="key" latex-to-write="|" title="Absolute value (shortcut: |)">|x|</div>
+								
+								<div class="key" latex-to-write='molmass\left("\right)' shift="-1" title="Get the molar mass of an element or compound">mass</div>
+								<div class="key" latex-to-write='soluble\left("\right)' shift="-1" title="Find if a binary salt is soluble (> 0.1 M)">solu</div>
+								<div class="key" latex-to-write='charge\left("\right)' shift="-1" title="Find the common charges of ions (elemental & polyatomic)">chrg</div>
+								
+								<div class="key" latex-to-write='floor\left(\right)' shift="-1" title="Floor (round down)">floor</div>							
+								<div class="key" latex-to-write='ceil\left(\right)' shift="-1" title="Ceiling (round up)">ceil</div>							
+								<div class="key" latex-to-write='round\left(\right)' shift="-1" title="Round (round to closest integer, 5 = up)">round</div>	
+								<div class="key" latex-to-write='sign\left(\right)' shift="-1" title="Sign (positive -> 1, negative -> -1, 0 -> 0)">sign</div>	
+								
+								<div class="key num-key" latex-to-write='\theta' title="Theta">&theta;</div>
+								<div class="key" latex-to-write=":=" title="Variable assignment operator := (ex. x := 2)">:=</div>
+								<div class="key" latex-to-write="_{}" shift="-1" title="Variable subscript (shortcut: _)">a<sub>x</sub></div>
+							</div>
+						</div>
+						
+						<div id="memory">
+							<div class="contiguous">
+								<div class="memory-tile" var="x">x</div>
+								<div class="memory-tile" var="y">y</div>
+								<div class="memory-tile" var="z">z</div>
+							</div>
+							
+							<div class="contiguous">
+								<div class="memory-tile" var="a">a</div>
+								<div class="memory-tile" var="b">b</div>
+								<div class="memory-tile" var="c">c</div>
+							</div>
+							
+							<div class="contiguous">
+								<div class="memory-tile" var="\theta" latex-to-write='\theta'>&theta;</div>
+								<div class="memory-tile" var="\omega" latex-to-write='\omega'>&omega;</div>
+								<div class="memory-tile" var="t">t</div>
+							</div>
+							
+							<div class="contiguous">
+								<div class="memory-tile" var="u">u</div>
+								<div class="memory-tile" var="v">v</div>
+								<div class="memory-tile" var="w">w</div>
+							</div>
+							
+							<div class="mobile-hide-inline-block contiguous">
+								<div class="memory-tile" var="m">m</div>
+								<div class="memory-tile" var="n">n</div>
+								<div class="memory-tile" var="k">k</div>
+							</div>
+								
+							<div class="mobile-hide-inline-block contiguous">
+								<div class="memory-tile" var="x_1">x<sub>1</sub></div>
+								<div class="memory-tile" var="x_2">x<sub>2</sub></div>
+								<div class="memory-tile" var="x_3">x<sub>3</sub></div>
+							</div>
+							
+							<div class="mobile-hide-inline-block contiguous">
+								<div class="memory-tile" var="y_1">y<sub>1</sub></div>
+								<div class="memory-tile" var="y_2">y<sub>2</sub></div>
+								<div class="memory-tile" var="y_3">y<sub>3</sub></div>
+							</div>
+							
+							<div class="mobile-hide-inline-block contiguous">
+								<div class="memory-tile" var="t_1">t<sub>1</sub></div>
+								<div class="memory-tile" var="t_2">t<sub>2</sub></div>
+								<div class="memory-tile" var="t_3">t<sub>3</sub></div>
+							</div>
+							
+							<p class="memory-tip"><strong>Memory</strong><span class="mobile-hide"> &nbsp;|&nbsp; Right click a variable to assign, left click to reuse.</span></p>
+						</div>
+						
+						<div id="history">
+							<p class="history-tip"><strong>History</strong><span class="mobile-hide"> &nbsp;|&nbsp; Press <kbd>ENTER</kbd> in the textbox to the save current result</span> &nbsp;|
+							<a class="history-clear">Clear</a></p>
+						</div>
+						
+						<div id="config">
+							<h3>Configuration</h3>
+							<p class="config-tip" title="Normally, the calculator keeps track of the number of sig figs in each number but doesn't actually
+	reduce their precision during arithmetic operations. The numbers are only rounded under the conditions specified below.">
+								<span class="mobile-hide"><strong>Significant Figures</strong> - </span>When to round numbers?</p>
+							<form action="" id="config-sf">
+								<fieldset>
+									<input name="sf" type="radio" id="sf-c1" class="active" value="1"/>
+									<label for="sf-c1" class="active" title="Rounds the number after every single operation. Note that this may give inaccurate final results.">After each operation</label>
+								</fieldset>
+								<fieldset>
+									<input name="sf" type="radio" id="sf-c2" class="active" value="2" checked="true"/>
+									<label for="sf-c2" class="active" 
+										title="Rounds when the operator type changes, e.g. from + to * or from / to -.
+	Note that + and - are considered to be in the same type, and so are *, / and mod. This is the default option.">
+										When the operator type changes
+									</label>
+								</fieldset>
+								<fieldset>
+									<input name="sf" type="radio" id="sf-c0" class="active" value="0"/>
+									<label for="sf-c0" class="active" title="Under this mode, the calculator does not round at all during the process of computation 
+	and only actually rounds numbers after all operations have completed.">After all operations have completed</label>
+								</fieldset>
+								<fieldset>
+									<input name="sf" type="radio" id="sf-c-1" class="active" value="-1"/>
+									<label for="sf-c-1" class="active" title="Choose this to totally disable the sig fig engine. All numbers will be treated as infinitely precise (otherwise specificable using #)">Turn sig figs off</label>
+								</fieldset>
+							</form>
+						</div>
+						
+					</section>
+				</article>
+
+			</div> <!-- #main -->
+		</div> <!-- #main-container -->
+
+		<div class="footer-container">
+			<footer class="wrapper">
+				<h3>Hexane.tk &copy; Alex Yu 2017. All rights reserved.</h3>
+			</footer>
+		</div>
+	</div>
+	
+	<script src="js/production.js" type="text/javascript"></script>
 </body>
 </html>

@@ -955,7 +955,7 @@ $(document).ready(function() {
 	
 	// remove objects from global namespace
     var $ = jQuery;
-    jQuery.noConflict(true);
+	jQuery.noConflict();
 	
 	// get MQ interface
     var MQ = MathQuill.getInterface(2);
@@ -1108,7 +1108,7 @@ $(document).ready(function() {
 							'<span class="history-text">' + str +
 							'</span> <span class="history-delete" title="Delete saved result"></span></div>');
 		}
-		txt += '\n<p class="history-tip"><strong>History</strong> &nbsp;|&nbsp;<span class="mobile-hide">Press <kbd>enter</kbd>' +
+		txt += '\n<p class="history-tip"><strong>History</strong> &nbsp;|&nbsp; <span class="mobile-hide">Press <kbd>enter</kbd>' +
 		       ' in the textbox to save the current result (max 50 results) &nbsp;| </span><a class="history-clear">Clear</a></p>';
 		historyList.html(txt);
 		
@@ -1326,7 +1326,8 @@ $(document).ready(function() {
         catch (ex) { console.log(ex.message) }
 	
 	// Fade in page when loaded
-    $('body').animate({opacity:1}, 1000);
+    $('.site-container').animate({opacity:1}, 1000);
+	$('#loading-spinner').animate({opacity:0}, 1000, function(){ $('#loading-spinner').remove() });
     exprField.select();
     exprField.focus(); 
 });

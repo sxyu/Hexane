@@ -754,7 +754,9 @@ SigNum.prototype.valueOf = function(){
     return c.value;
 };
 
-// Convert a string or number to a SigNum object
-SigNum.new = function(obj){
+/**
+ * Convert a string or number to a SigNum object
+ */
+SigNum.create = function(obj){
     return new SigNum(obj);
 };
