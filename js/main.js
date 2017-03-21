@@ -68,7 +68,8 @@ var Hexane = new function(){
 
     // Helper function for tokenizing chemical formulae
     this.tokenizeChemFormula = function(formula){
-        formula = formula.replace('\\left', '').replace('\\right', '');
+		formula = formula.replace('\\left', '').replace('\\right', '');
+		
         var res = [];
 
         formula += 'E';
@@ -125,6 +126,12 @@ var Hexane = new function(){
             }
 
             else if (c == '('){
+				if (curElem && curElem.length > 0){
+					if (num === null) num = 1;
+                    curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
+                    curElem = ''
+                }
+				
                 curLvl = [];
                 stack.push(curLvl);
                 txtStack.push('');
@@ -132,6 +139,7 @@ var Hexane = new function(){
 
             else if (c == ')'){
                 if (curElem && curElem.length > 0){
+					if (num === null) num = 1;
                     curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
                     curElem = ''
                 }
@@ -188,10 +196,23 @@ var Hexane = new function(){
         sign: function(a) { return SigNum.sign(a); },
         
         //chem stuff
-        ka: function(a) { return Hexane.data.ka[a.toString()]; },
-        pka: function(a) { return -SigNum.log10(Hexane.data.ka[a.toString()]); },
-        kb: function(b) { return Hexane.data.kb[b.toString()]; },
-        pkb: function(b) { return -SigNum.log10(Hexane.data.kb[b.toString()]); },
+        ka: function(a) { return Hexane.funcs.Ka(a); },
+        Ka: function(a) { return Hexane.data.ka[a.toString()]; },
+        pka: function(a) { return Hexane.funcs.pKa(a); },
+        pKa: function(a) { return -SigNum.log10(Hexane.data.ka[a.toString()]); },
+		kb: function(a) { return Hexane.funcs.Kb(b); },
+        Kb: function(b) { return Hexane.data.kb[b.toString()]; },
+        pkb: function(b) { return Hexane.funcs.pKb(b); },
+        pKb: function(b) { return -SigNum.log10(Hexane.data.kb[b.toString()]); },
+		
+        ksp: function(formula) { return Hexane.funcs.Ksp(formula); },
+        Ksp: function(formula) { return Hexane.data.ksp[formula.toString()]; },
+		
+		isacid: function(a) {
+			var ka = Hexane.data.ka[a.toString()];
+			var kb = Hexane.data.kb[a.toString()];
+			return (kb == null && ka != null) || ka > kb;
+		},
         
         elemmass: function(ele) { return Hexane.data.mass[ele.toString()]; },
         molmass: function(formula) {
@@ -204,12 +225,163 @@ var Hexane = new function(){
                     mass = mass.plus(Hexane.data.mass[t.name].times(new SigNum(t.count)));  
                 }
                 else if (t.type == 'polyatomic'){
-                    mass = mass.plus(Hexane.funcs['molmass'](t.name).times(new SigNum(t.count)));
+                    mass = mass.plus(Hexane.funcs.molmass(t.name).times(new SigNum(t.count)));
                 }
             }
 
             return mass;
-        },
+        },	
+		
+		charge: function(formula){
+			var idx = Hexane.data.symbols.indexOf(formula);
+			var ret;
+			
+			if (idx >= 0){
+				ret = Hexane.data.charges[idx];
+			}
+			else{
+				ret = Hexane.data.polycharges[formula];
+			}
+			
+			if (ret == null || ret == undefined) return null;
+				
+			if (ret.length == 1) ret = ret[0];
+			return ret;
+		},
+		
+		soluble: function(formula){
+			formula = formula.replace('\\left', '').replace('\\right', '');
+			var tokens = Hexane.tokenizeChemFormula(formula);
+			
+			if (tokens.length < 2) return 'unknown';
+			
+			var n1 = tokens[0].name;
+			var n2 = tokens[1].name;
+			
+			var ct1 = tokens[0].count;
+			var ct2 = tokens[1].count;
+			
+			if (tokens.length > 2) {
+				// Compounds with single polyatomic ions like CaOH and NH4OH ( a bit messy :( )
+				n1 = ''; n2 = '';
+				var l = 0;
+				
+				if (formula[0] == '('){
+					l = formula.indexOf(')') + 1;
+					n1 = formula.substring(1, l-1)
+				}
+				else{
+					for (var p in Hexane.data.polycharges){
+						if (formula.startsWith(p)){
+							n1 = p;
+							l = p.length;
+							break;
+						}
+					}
+					
+					if (n1 == '') {
+						n1 = formula[0];
+						++l;
+						while (formula[l] >= 'a' && formula[l] <= 'z'){
+							n1 += formula[l];
+							++l;
+						}
+					}
+				}
+				
+				ct1 = null;
+				while (formula[l] >= '0' && formula[l] <= '9'){
+					if (ct1 == null) ct1 = 0;
+					ct1 = ct1 * 10 + Number(formula[l]);
+					++l;
+				}
+				if (ct1 == null) ct1 = 1;		
+					
+				formula = formula.substring(l);
+				l = 0;
+				
+				if (formula[0] == '('){
+					l = formula.indexOf(')') + 1;
+					n2 = formula.substring(1, l-1)
+				}
+				else{
+					for (var p in Hexane.data.polycharges){
+						if (formula.startsWith(p)){
+							n2 = p;
+							l = p.length;
+							break;
+						}
+					}
+					
+					if (n2 == '') {
+						n2 = formula[0];
+						++l;
+						while (formula[l] >= 'a' && formula[l] <= 'z'){
+							n2 += formula[l];
+							++l;
+						}
+					}
+				}
+				
+				ct2 = null;
+				while (formula[l] >= '0' && formula[l] <= '9'){
+					if (ct2 == null) ct2 = 0;
+					ct2 = ct2 * 10 + number(formula[l]);
+					++l;
+				}
+				if (ct2 == null) ct2 = 1;						
+			}
+			// console.log([n1,n2,ct1,ct2].join());
+			
+			var p1 = Hexane.funcs.charge(n1);
+			var p2 = Hexane.funcs.charge(n2);
+			
+			if (p1.constructor != Array) p1 = [p1];
+			if (p2.constructor != Array) p2 = [p2];
+
+			if (p1.length == 0 || p2.length == 0 || (p1.length > 1 && p2.length > 1)) return 'unknown';
+			
+			var c1 = p1[0] + 0;
+			var c2 = p2[0] + 0;
+			
+			if (p1.length > 1 && p2.length == 1){ // multivalent metals
+				c1 = -c2 * ct2 / ct1;
+			}
+			
+			else if (p1.length == 1 && p2.length > 1){
+				c2 = -c1 * ct1 / ct2;
+			}
+			
+			if (c1 % 1 > 1E-256 || c2 % 1 > 1E-256) return 'unknown'; // found non-integral charge value, stop program
+			
+			// rules
+			if (['Li', 'Na', 'K', 'Rb', 'Cs', 'Fr', 'H', 'NH4'].indexOf(n1) != -1 || ['NO3', 'ClO3', 'ClO4'].indexOf(n2) != -1) return true;
+			else if (['Cl', 'Br', 'I'].indexOf(n2) != -1){
+				if (n1 == 'Ag' || (n1 == 'Pb' && c1 == 2) || (n1 == 'Cu' && c1 == 1)) return false;
+				else return true;
+			}
+			
+			else if (n2 == 'SO4'){
+				if (['Ag', 'Ca', 'Sr', 'Ba'].indexOf(n1) != -1 || (n1 == 'Pb' && c1 == 2)) return false;
+				else return true;
+			}
+			
+			else if (n2 == 'S'){
+				if (['Be', 'Mg', 'Ca', 'Sr', 'Ba'].indexOf(n1) != -1) return true;
+				else return false;
+			}
+			
+			else if (n2 == 'OH'){
+				if (n1 == 'Sr') return true;
+				else return false;
+			}
+			
+			else if (['PO4', 'CO3', 'SO3', 'Cr2O7'].indexOf(n2) != -1){
+				return false;
+			}
+			
+			return 'unknown';
+		},
         
         random: function(a,b) { if (b === undefined){
                                     if (a === undefined)	return SigNum.random();
@@ -261,6 +433,127 @@ var Hexane = new function(){
     }
     
     this.data = new function(){
+		this.symbols = [
+			'H',
+			'He',
+			'Li',
+			'Be',
+			'B',
+			'C',
+			'N',
+			'O',
+			'F',
+			'Ne',
+			'Na',
+			'Mg',
+			'Al',
+			'Si',
+			'P',
+			'S',
+			'Cl',
+			'Ar',
+			'K',
+			'Ca',
+			'Sc',
+			'Ti',
+			'V',
+			'Cr',
+			'Mn',
+			'Fe',
+			'Co',
+			'Ni',
+			'Cu',
+			'Zn',
+			'Ga',
+			'Ge',
+			'As',
+			'Se',
+			'Br',
+			'Kr',
+			'Rb',
+			'Sr',
+			'Y',
+			'Zr',
+			'Nb',
+			'Mo',
+			'Tc',
+			'Ru',
+			'Rh',
+			'Pd',
+			'Ag',
+			'Cd',
+			'In',
+			'Sn',
+			'Sb',
+			'Te',
+			'I',
+			'Xe',
+			'Cs',
+			'Ba',
+			'La',
+			'Ce',
+			'Pr',
+			'Nd',
+			'Pm',
+			'Sm',
+			'Eu',
+			'Gd',
+			'Tb',
+			'Dy',
+			'Ho',
+			'Er',
+			'Tm',
+			'Yb',
+			'Lu',
+			'Hf',
+			'Ta',
+			'W',
+			'Re',
+			'Os',
+			'Ir',
+			'Pt',
+			'Au',
+			'Hg',
+			'Tl',
+			'Pb',
+			'Bi',
+			'Po',
+			'At',
+			'Rn',
+			'Fr',
+			'Ra',
+			'Ac',
+			'Th',
+			'Pa',
+			'U',
+			'Np',
+			'Pu',
+			'Am',
+			'Cm',
+			'Bk',
+			'Cf',
+			'Es',
+			'Fm',
+			'Md',
+			'No',
+			'Lr',
+			'Rf',
+			'Db',
+			'Sg',
+			'Bh',
+			'Hs',
+			'Mt',
+			'Ds',
+			'Rg',
+			'Cn',
+			'Uut',
+			'Fl',
+			'Uup',
+			'Lv',
+			'Uus',
+			'Uuo',
+		]
+		
         this.ka = {
             'HClO4': new SigNum(Infinity), 
             'HI': new SigNum(Infinity), 
@@ -305,7 +598,6 @@ var Hexane = new function(){
         this.kb = {
             'NH2-': new SigNum(Infinity), 
             'O': new SigNum(Infinity), 
-
             'OH': new SigNum(1.0, 2), 
             'PO4': new SigNum(4.5e-2, 2), 
             'HO2': new SigNum(4.2e-3, 2), 
@@ -344,6 +636,39 @@ var Hexane = new function(){
             'H2SO4': new SigNum(0),
             'HSO4': new SigNum(0),
         };
+		
+		this.ksp = {
+			'BaCO3': new SigNum(2.6e-9, 2),
+			'BaCrO4': new SigNum(1.2e-10, 2),
+			'BaSO4': new SigNum(1.1e-10, 2),
+			'CaCO3': new SigNum(5.0e-9, 2),
+			'CaC2O4': new SigNum(2.3e-9, 2),
+			'CaSO4': new SigNum(7.1e-5, 2),
+			'CuI': new SigNum(1.3e-12, 2),
+			'Cu(IO3)2': new SigNum(6.9e-8, 2),
+			'CuS': new SigNum(6.0e-37, 2),
+			'Fe(OH)2': new SigNum(4.9e-17, 2),
+			'FeS': new SigNum(6.0e-19, 2),
+			'Fe(OH)3': new SigNum(2.6e-39, 2),
+			'PbBr2': new SigNum(6.6e-6, 2),
+			'PbCl2': new SigNum(1.2e-5, 2),
+			'Pb(IO3)2': new SigNum(3.7e-13, 2),
+			'PbI2': new SigNum(8.5e-9, 2),
+			'PbSO4': new SigNum(1.8e-8, 2),
+			'MgCO3': new SigNum(6.8e-6, 2),
+			'Mg(OH)2': new SigNum(5.6e-12, 2),
+			'AgBrO3': new SigNum(5.3e-5, 2),
+			'AgBr': new SigNum(5.4e-13, 2),
+			'Ag2CO3': new SigNum(8.5e-12, 2),
+			'AgCl': new SigNum(1.8e-10, 2),
+			'Ag2CrO4': new SigNum(1.1e-12, 2),
+			'AgIO3': new SigNum(3.2e-8, 2),
+			'AgI': new SigNum(8.5e-17, 2),
+			'SrCO3': new SigNum(5.6e-10, 2),
+			'SrF2': new SigNum(4.3e-9, 2),
+			'SrSO4': new SigNum(3.4e-7, 2),
+			'ZnS': new SigNum(2.0e-25, 2),
+		};
         
         this.mass = {
             'H': new SigNum("1.008"), 
@@ -466,6 +791,163 @@ var Hexane = new function(){
             'Uus': new SigNum(NaN), 
             'Uuo': new SigNum(NaN),
         };
+		
+		this.charges = [
+			[new SigNum(1)], 
+			[new SigNum(0)], 
+			[new SigNum(1)], 
+			[new SigNum(2)], 
+			[new SigNum(-3), new SigNum(3)], 
+			[new SigNum(4)], 
+			[new SigNum(-3)], 
+			[new SigNum(-2)], 
+			[new SigNum(-1)], 
+			[new SigNum(0)], 
+			[new SigNum(1)], 
+			[new SigNum(2)], 
+			[new SigNum(3)], 
+			[new SigNum(4), new SigNum(-4)], 
+			[new SigNum(5), new SigNum(3), new SigNum(-3)], 
+			[new SigNum(-2), new SigNum(2), new SigNum(4), new SigNum(6)], 
+			[new SigNum(-1)], 
+			[new SigNum(0)], 
+			[new SigNum(1)], 
+			[new SigNum(2)], 
+			[new SigNum(3)], 
+			[new SigNum(4), new SigNum(3)], 
+			[new SigNum(2), new SigNum(3), new SigNum(4), new SigNum(5)], 
+			[new SigNum(2), new SigNum(3), new SigNum(6)], 
+			[new SigNum(2), new SigNum(4), new SigNum(7)], 
+			[new SigNum(2), new SigNum(3)], 
+			[new SigNum(2), new SigNum(3)], 
+			[new SigNum(2)], 
+			[new SigNum(1), new SigNum(2)], 
+			[new SigNum(2)], 
+			[new SigNum(3)], 
+			[new SigNum(-4), new SigNum(2), new SigNum(4)], 
+			[new SigNum(-3), new SigNum(3), new SigNum(5)], 
+			[new SigNum(-2), new SigNum(4), new SigNum(6)], 
+			[new SigNum(-1), new SigNum(1), new SigNum(5)], 
+			[new SigNum(0)], 
+			[new SigNum(1)], 
+			[new SigNum(2)], 
+			[new SigNum(3)], 
+			[new SigNum(4)], 
+			[new SigNum(3), new SigNum(5)], 
+			[new SigNum(3), new SigNum(6)], 
+			[new SigNum(6)], 
+			[new SigNum(3), new SigNum(4), new SigNum(8)], 
+			[new SigNum(4)], 
+			[new SigNum(2), new SigNum(4)], 
+			[new SigNum(1)], 
+			[new SigNum(2)], 
+			[new SigNum(3)], 
+			[new SigNum(2), new SigNum(4)], 
+			[new SigNum(-3), new SigNum(3), new SigNum(5)], 
+			[new SigNum(-2), new SigNum(4), new SigNum(6)], 
+			[new SigNum(-1)], 
+			[new SigNum(0)], 
+			[new SigNum(1)], 
+			[new SigNum(2)], 
+			[new SigNum(3)], 
+			[new SigNum(3), new SigNum(4)], 
+			[new SigNum(3)], 
+			[new SigNum(3), new SigNum(4)], 
+			[new SigNum(3)], 
+			[new SigNum(3)], 
+			[new SigNum(3)], 
+			[new SigNum(3)], 
+			[new SigNum(3), new SigNum(4)], 
+			[new SigNum(3)], 
+			[new SigNum(3)], 
+			[new SigNum(3)], 
+			[new SigNum(3)], 
+			[new SigNum(3)], 
+			[new SigNum(3)], 
+			[new SigNum(4)], 
+			[new SigNum(5)], 
+			[new SigNum(6)], 
+			[new SigNum(2), new SigNum(4), new SigNum(6), new SigNum(7)], 
+			[new SigNum(3), new SigNum(4), new SigNum(6), new SigNum(8)], 
+			[new SigNum(3), new SigNum(4), new SigNum(6)], 
+			[new SigNum(2), new SigNum(4), new SigNum(6)], 
+			[new SigNum(1), new SigNum(2), new SigNum(3)], 
+			[new SigNum(1), new SigNum(2)], 
+			[new SigNum(1), new SigNum(3)], 
+			[new SigNum(2), new SigNum(4)], 
+			[new SigNum(3)], 
+			[new SigNum(2), new SigNum(4)], 
+			[], 
+			[new SigNum(0)], 
+			[], 
+			[new SigNum(2)], 
+			[new SigNum(3)], 
+			[new SigNum(4)], 
+			[new SigNum(5)], 
+			[new SigNum(3), new SigNum(4), new SigNum(6)], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[], 
+			[]
+		];
+
+		this.polycharges = { 
+			'NH4': new SigNum(1), 
+			'H3O': new SigNum(1), 
+			'C2H3O2': new SigNum(-1), 
+			'CH3COOH': new SigNum(-1), 
+			'HCO3': new SigNum(-1), 
+			'HSO4': new SigNum(-1), 
+			'ClO': new SigNum(-1), 
+			'ClO3': new SigNum(-1), 
+			'ClO2': new SigNum(-1), 
+			'OCN': new SigNum(-1), 
+			'CN': new SigNum(-1), 
+			'H2PO4': new SigNum(-1), 
+			'OH': new SigNum(-1), 
+			'NO3': new SigNum(-1), 
+			'NO2': new SigNum(-1), 
+			'ClO4': new SigNum(-1), 
+			'MnO4': new SigNum(-1), 
+			'SCN': new SigNum(-1), 
+			'BrO3': new SigNum(-1),
+			'IO3': new SigNum(-1),
+			'CO3': new SigNum(-2), 
+			'CrO4': new SigNum(-2), 
+			'Cr2O7': new SigNum(-2), 
+			'C2O4': new SigNum(-2), 
+			'HPO4': new SigNum(-2), 
+			'O2': new SigNum(-2), 
+			'SO4': new SigNum(-2), 
+			'SO3': new SigNum(-2), 
+			'S2O3': new SigNum(-2), 
+			'BO3': new SigNum(-3), 
+			'PO4': new SigNum(-3), 
+			'PO3': new SigNum(-3),
+		}
+
     };
 };
 
