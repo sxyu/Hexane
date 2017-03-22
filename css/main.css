@@ -26,13 +26,22 @@ hr {
     padding: 0;
 }
 
+a{
+	text-decoration:none;
+	color:#a74233;
+}
+
+a:hover{
+	color:#ac2321;
+}
+
 a, .active{
 	cursor: pointer;
-	-webkit-transition: background 0.5s ease;
-	-moz-transition: background 0.5s ease;
-	-o-transition: background 0.5s ease;
-	-ms-transition: background 0.5s ease;
-	transition: background 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	transition: all 0.5s ease;
 }
 
 .mobile-hide, .mobile-hide-block, .mobile-hide-inline-block, .mobile-hide-inline-block.contiguous{

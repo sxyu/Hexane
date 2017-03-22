@@ -66,91 +66,6 @@ var Hexane = new function(){
     // Command history. This needs to be integrated into the GUI.
     this.history = [];
 
-    // Helper function for tokenizing chemical formulae
-    this.tokenizeChemFormula = function(formula){
-		formula = formula.replace('\\left', '').replace('\\right', '');
-		
-        var res = [];
-
-        formula += 'E';
-
-        var curElem = '';
-        var num = null;
-
-        var stack = [res];
-        var txtStack = [''];
-
-        var curLvl = res;
-
-        var brktEnd = false;
-
-        for (var i=0; i<formula.length; ++i){
-
-            var c = formula[i];
-            if (i < formula.length-1) txtStack[txtStack.length-1] += c;
-
-            if (brktEnd && !(c >= '0' && c <= '9')){
-                brktEnd = false;
-
-                stack.pop();
-                if (num === null) num = 1;
-
-                var txt = txtStack.pop();
-
-                var innerTxt = txt.substring(0, txt.lastIndexOf(')'));
-                stack[stack.length-1].push({ 'type':'polyatomic', 'name': innerTxt, 'items':curLvl , 'count':num });
-                txtStack[txtStack.length-1] += txt;
-
-                curLvl = stack[stack.length-1];
-
-                num = null;
-            }
-
-            if (c >= 'A' && c <= 'Z'){
-                if (curElem && curElem.length > 0){
-                    if (num === null) num = 1;
-                    curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
-
-                    curElem = '';
-                }
-                num = null;
-                curElem += c; 
-            }
-            else if (c >= 'a' && c <= 'z'){
-                curElem += c; 
-            }
-            else if (c >= '0' && c <= '9'){
-                if (num === null)
-                    num = 0;
-                num = num * 10 + (c - '0');
-            }
-
-            else if (c == '('){
-				if (curElem && curElem.length > 0){
-					if (num === null) num = 1;
-                    curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
-                    curElem = ''
-                }
-				
-                curLvl = [];
-                stack.push(curLvl);
-                txtStack.push('');
-            }
-
-            else if (c == ')'){
-                if (curElem && curElem.length > 0){
-					if (num === null) num = 1;
-                    curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
-                    curElem = ''
-                }
-                num = null;
-                brktEnd = true;
-            }
-        }
-
-        return res;
-    }
-    
     // Built-in functions. Later we should support user-defined functions.
     this.funcs = {
         // Function for getting and setting sig figs from the front end
@@ -197,16 +112,16 @@ var Hexane = new function(){
         
         //chem stuff
         ka: function(a) { return Hexane.funcs.Ka(a); },
-        Ka: function(a) { return Hexane.data.ka[a.toString()]; },
+        Ka: function(a) { return Hexane.data.ka[a.toString().replace('_', '').replace('{', '').replace('}', '')]; },
         pka: function(a) { return Hexane.funcs.pKa(a); },
-        pKa: function(a) { return -SigNum.log10(Hexane.data.ka[a.toString()]); },
+        pKa: function(a) { return -SigNum.log10(Hexane.data.ka[a.toString().replace('_', '').replace('{', '').replace('}', '')]); },
 		kb: function(a) { return Hexane.funcs.Kb(b); },
-        Kb: function(b) { return Hexane.data.kb[b.toString()]; },
+        Kb: function(b) { return Hexane.data.kb[b.toString().replace('_', '').replace('{', '').replace('}', '')]; },
         pkb: function(b) { return Hexane.funcs.pKb(b); },
-        pKb: function(b) { return -SigNum.log10(Hexane.data.kb[b.toString()]); },
+        pKb: function(b) { return -SigNum.log10(Hexane.data.kb[b.toString().replace('_', '').replace('{', '').replace('}', '')]); },
 		
         ksp: function(formula) { return Hexane.funcs.Ksp(formula); },
-        Ksp: function(formula) { return Hexane.data.ksp[formula.toString()]; },
+        Ksp: function(formula) { return Hexane.data.ksp[formula.toString().replace('_', '').replace('{', '').replace('}', '')]; },
 		
 		isacid: function(a) {
 			var ka = Hexane.data.ka[a.toString()];
@@ -233,6 +148,7 @@ var Hexane = new function(){
         },	
 		
 		charge: function(formula){
+			formula = formula.replace('_', '').replace('{', '').replace('}', '');
 			var idx = Hexane.data.symbols.indexOf(formula);
 			var ret;
 			
@@ -250,7 +166,7 @@ var Hexane = new function(){
 		},
 		
 		soluble: function(formula){
-			formula = formula.replace('\\left', '').replace('\\right', '');
+			formula = formula.replace('\\left', '').replace('\\right', '').replace('_', '').replace('{', '').replace('}', '');
 			var tokens = Hexane.tokenizeChemFormula(formula);
 			
 			if (tokens.length < 2) return 'unknown';

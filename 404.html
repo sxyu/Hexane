@@ -6,44 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
-        * {
-            line-height: 1.2;
-            margin: 0;
-        }
-
         html {
             color: #888;
-            display: table;
-            font-family: sans-serif;
             height: 100%;
-            text-align: center;
             width: 100%;
         }
 
         body {
-            display: table-cell;
-            vertical-align: middle;
             margin: 2em auto;
         }
+		
+		div.main-container{ background-color: #fafafa; color: #333; }
 
-        h1 {
-            color: #555;
+        .main-container h1, .main-container h2 {
+            color: #444;
             font-size: 2em;
             font-weight: 400;
+			text-align:center;
         }
 
-        p {
-            margin: 0 auto;
+        .main-container p {
+            margin: 10px auto;
             width: 280px;
+			text-align:center;
         }
-
+	
+		.main-container .wrapper.main{
+			padding: 100px 0;
+		}
+		
+		div.footer-container{
+			background-color:#eee;
+			color: #222;
+		}
+		
         @media only screen and (max-width: 280px) {
 
-            body, p {
+            .main-container p {
                 width: 95%;
             }
 
-            h1 {
+            .main-container h1 {
                 font-size: 1.5em;
                 margin: 0 0 0.3em;
             }
@@ -51,10 +54,57 @@
         }
 
     </style>
+	
+	<link rel="stylesheet" type="text/css" href="css/production.css">
+	
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png?v=1.10">
+	<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png?v=1.10">
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png?v=1.10">
+	<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png?v=1.10">
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png?v=1.10">
+	<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png?v=1.10">
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png?v=1.10">
+	<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png?v=1.10">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png?v=1.10">
+	<link rel="icon" type="image/png" href="favicon-32x32.png?v=1.10" sizes="32x32">
+	<link rel="icon" type="image/png" href="android-chrome-192x192.png?v=1.10" sizes="192x192">
+	<link rel="icon" type="image/png" href="favicon-16x16.png?v=1.10" sizes="16x16">
+	<link rel="manifest" href="manifest.json?v=1.10">
+	<link rel="mask-icon" href="safari-pinned-tab.svg?v=1.10" color="#f06560">
+	<meta name="apple-mobile-web-app-title" content="Hexane">
+	<meta name="application-name" content="Hexane">
+	<meta name="msapplication-TileColor" content="#f06560">
+	<meta name="msapplication-TileImage" content="mstile-144x144.png?v=1.10">
+	<meta name="theme-color" content="#de4944">
 </head>
 <body>
-    <h1>Page Not Found</h1>
-    <p>Sorry, but the page you were trying to view does not exist.</p>
+	<div class="header-container">
+		<header class="wrapper clearfix">
+			<h1 class="title">
+				<img id="header-logo" src="img/hexane-sm.png" alt="H"/>
+				<span class="title-bold">Hexane</span> <span class="title-subsite" id="title-subsite">C<sub>6</sub>H<sub>14</sub></span> <sup title="Alpha Version - There may be some instability">&alpha;</sup>
+			</h1>
+		</header>
+	</div>
+
+	<div class="main-container">
+		<div class="main wrapper clearfix">
+			<article>
+				<section>				
+					<h2>Error 404</h2>
+					<h1>Page Not Found</h1>
+					<p>Sorry, but the page you were trying to view does not exist.</p>
+					<p><a href="/">Go back to the Hexane Calculator</a></p>
+				</section>
+			</article>
+		</div>
+	</div>
+	
+	<div class="footer-container">
+		<footer class="wrapper">
+			<h3>Hexane.tk &copy; Alex Yu 2017. All rights reserved.</h3>
+		</footer>
+	</div>
 </body>
 </html>
 <!-- IE needs 512+ bytes: http://blogs.msdn.com/b/ieinternals/archive/2010/08/19/http-error-pages-in-internet-explorer.aspx -->

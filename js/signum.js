@@ -1,4 +1,4 @@
-/*! SigNum.js v1.0.0: numbers supporting calculations with
+/*! SigNum.js v1.0.1: numbers supporting calculations with
  *                    significant figures
  *  Copyright 2017 Alex Yu (U-Hill Secondary)
  *  License: MIT

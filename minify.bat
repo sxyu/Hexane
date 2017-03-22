@@ -10,9 +10,13 @@ java -jar %yui% production.temp.css > production.css
 del production.temp.css
 
 cd %js%
+java -jar %yui% spin.js > spin.min.js
 
-type jquery-1.12.4.min.js spin.js signum.js ..\mathquill-0.10.1\mathquill.js main.js hexane.eval.signum.js  > production.temp.js
-java -jar %yui% production.temp.js > production.js
+type jquery-1.12.4.min.js signum.js ..\mathquill-0.10.1\mathquill.js main.js hexane.eval.signum.js hexane.balance.js  > production.temp.js
+java -jar %yui% production.temp.js > production.temp2.js
 del production.temp.js
+
+type vectorious.min.js production.temp2.js > production.js
+del production.temp2.js
 
 cd %base%
