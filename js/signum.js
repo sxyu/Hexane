@@ -274,7 +274,7 @@ function SigNum (value, sf, creatingOp) {
             c.value = this.value * b;
             var lg = Math.floor(Math.log10(Math.abs(c.value)));
 			
-			if (Math.log10(Math.abs(b) % 1 > 1e-300)){
+			if (Math.log10(Math.abs(b) % 1 > 1e-300) && Math.abs(b) > 1){
 				c.sf = this.sf;
 			}
 			else{

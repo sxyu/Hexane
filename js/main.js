@@ -1101,7 +1101,12 @@ $(document).ready(function() {
 			
 			if (!Modernizr.touch) exprField.focus();
 		});
-				
+		
+		$('.history-delete').mouseup(function(e){	
+			window.event.cancelBubble = true;
+			e.stopPropagation();
+		});
+		
 		$('.history-delete').click(function(e){
 			var tile = $(this).parent();
 			Hexane.prevAns.splice(Number(tile.attr('position')), 1);
@@ -1113,6 +1118,7 @@ $(document).ready(function() {
 					rebuildAnsList();
 				}
 			);
+			
 			window.event.cancelBubble = true;
 			e.stopPropagation();
 		});
