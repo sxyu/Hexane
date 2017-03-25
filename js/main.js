@@ -46,6 +46,21 @@ Math.sign || (Math.sign = function(d) {
     return 0;
 });
 
+// GET function for conveniently retrieing GET parameters
+
+var GET = function(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+    .substr(1)
+        .split("&")
+        .forEach(function (item) {
+        tmp = item.split("=");
+        if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+    });
+    return result;
+};
+
 /* Modernizr 2.8.3 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-fontface-backgroundsize-borderimage-borderradius-boxshadow-flexbox-hsla-multiplebgs-opacity-rgba-textshadow-cssanimations-csscolumns-generatedcontent-cssgradients-cssreflections-csstransforms-csstransforms3d-csstransitions-applicationcache-canvas-canvastext-draganddrop-hashchange-history-audio-video-indexeddb-input-inputtypes-localstorage-postmessage-sessionstorage-websockets-websqldatabase-webworkers-geolocation-inlinesvg-smil-svg-svgclippaths-touch-webgl-shiv-mq-cssclasses-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes-load
  */
@@ -297,6 +312,10 @@ var Hexane = new function(){
 			}
 			
 			return 'unknown';
+		},
+		
+		balance: function(equation){
+			return Hexane.Balance.balance(equation.toString());
 		},
         
         random: function(a,b) { if (b === undefined){
@@ -975,6 +994,11 @@ $(document).ready(function() {
 		}
 	}
 	
+	/**
+	 * If true, the next exprField edit event won't trigger a state change.
+	 */
+	var ignoreEdit = false; 
+	
     var exprField = MQ.MathField(exprFieldSpan, {
         spaceBehavesLikeTab: true,
         charsThatBreakOutOfSupSub: '+-=<>',
@@ -983,10 +1007,17 @@ $(document).ready(function() {
         leftRightIntoCmdGoes: 'up',
         handlers: {
             edit: function() {
-					Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
+					
 					// latexSpan.textContent = exprField.latex();
 					localStorage.setItem('exprLatex', exprField.latex());
                     evalExpr();
+					
+					if (ignoreEdit)
+						ignoreEdit = false;
+					else if (exprField.latex() != GET('expr')){
+						Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
+						history.replaceState(null, 'Scientific Calculator | Hexane', "?expr=" + encodeURIComponent(exprField.latex()));
+					}
             },
             enter: function() { // alert(exprField.latex());
 				if (resval !== undefined && resval !== null){
@@ -1183,8 +1214,16 @@ $(document).ready(function() {
 	});
 	
         try{
-            var exprLatex = localStorage.getItem('exprLatex');
+			// Use expression specified in GET parameter or load stored value
+            var exprLatex = GET('expr') || localStorage.getItem('exprLatex');
             exprField.latex(exprLatex || '');
+			history.pushState(null, 'Scientific Calculator | Hexane', "?expr=" + encodeURIComponent(exprLatex));
+			
+			window.onpopstate = function() {
+				ignoreEdit = true;
+				exprField.latex( GET('expr') || localStorage.getItem('exprLatex') || '');
+				Hexane.history = Hexane.history.slice(0,-1);
+			};
             
             var prevAns = localStorage.getItem('prevAns');
             if (prevAns !== undefined && prevAns !== null && prevAns.trim() != ''){
@@ -1240,7 +1279,7 @@ $(document).ready(function() {
             updateMemoryTitles();
         }
         catch (ex) { console.log(ex.message) }
-	
+			
 	// Fade in page when loaded
     $('.site-container').animate({opacity:1}, 1000);
 	$('#loading-spinner').animate({opacity:0}, 1000, function(){ $('#loading-spinner').remove() });

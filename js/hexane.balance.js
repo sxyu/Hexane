@@ -5,12 +5,12 @@
  
  Hexane || (Hexane = {});
  
-
+ 
 /**
  *  Helper function for tokenizing chemical formulae into individual elements & polyatomic ions
  */
 Hexane.tokenizeChemFormula = function(formula){
-	formula = formula.replace('\\right', '').replace('\\right', '');
+	formula = formula.replace('\\left', '').replace('\\right', '').replace(']',')');
 	
 	var res = [];
 
@@ -29,6 +29,9 @@ Hexane.tokenizeChemFormula = function(formula){
 	for (var i=0; i<formula.length; ++i){
 
 		var c = formula[i];
+		
+		if ('_{}'.indexOf(c) != -1) continue;
+		
 		if (i < formula.length-1) txtStack[txtStack.length-1] += c;
 
 		if (brktEnd && !(c >= '0' && c <= '9')){
@@ -67,7 +70,7 @@ Hexane.tokenizeChemFormula = function(formula){
 			num = num * 10 + (c - '0');
 		}
 
-		else if (c == '('){
+		else if (c == '(' || c == '['){
 			if (curElem && curElem.length > 0){
 				if (num === null) num = 1;
 				curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
@@ -118,17 +121,33 @@ Hexane.decomposeChemFormula = function(formula){
 	return ans;
 }
 
-
  Hexane.Balance = (function(){
 	var obj = {};
+	
+	/**
+	 *  Find the LCM of two numbers, a and b, by computing a * b / gcd. The GCD is found using the Euclidean algorithm.
+	 */
+	var lcm = function(a, b){
+		var lcm = a * b;
+		
+		if (b < a) { var tmp = a; a = b; b = tmp; }
+		while (b > 1e-128){
+			var r = a % b;
+			a = b;
+			b = r;
+		}
+		
+		return lcm / a;
+	};
+
 	
 	/**
 	 *  Balance a chemical equation of the form A + ... + B = C + ... + D . 
 	 *  @returns {Array} An array consisting of two subarrays each containing appropriate coefficients for the compounds on each side of the equation.
 	 */
-	obj.balance = function(equation){
+	obj.balanceNumerical = function(equation){
 		equation = equation.replace('>', '=').replace('-', '').replace('<', '');
-		var spl = equation.split('=');
+		var spl = equation.split('='); 	
 		
 		if (spl.length != 2) return null; // not 2 sides
 		
@@ -160,6 +179,8 @@ Hexane.decomposeChemFormula = function(formula){
 		
 		w = left.length + right.length;
 		
+		// put into a matrix
+		
 		var mat = new Matrix(h, w);
 		
 		var ct = 0;
@@ -173,13 +194,99 @@ Hexane.decomposeChemFormula = function(formula){
 			++ct;
 		}
 		
-		var zeros = new Matrix(h,1);
+		// gaussian elimination
 		
-		return mat.reduce(zeros).toString();
+		var rref = mat.gauss().toArray();
+		var sov = mat.solve(new Matrix(w, 1));
+		var sol = new Matrix(1, w);
+		var lastpivot = -1;
+		var noSolution = true;
 		
-		var sol = mat.solve(zeros).toArray();
-		return sol;
-	}
+		for (var i=0; i<rref.length; ++i){
+			var pvt = -1;
+			for (var j=lastpivot+1; j<rref[i].length; ++j){
+				if (Math.abs(rref[i][j]) > 1e-10){
+					if (pvt === -1){
+						pvt = j;
+						lastpivot = pvt;
+						sol.data[j] = 0;
+					}
+					else{
+						sol.data[pvt] -= rref[i][j];
+						sol.data[j] = 1;
+						noSolution = false;
+					}
+				}
+			}
+		}		
+		
+		if (noSolution) return null;
+		
+		var mul = 1;
+		var MAX = 100001;
+		var EPSI = 1e-10;
+		var denom = new Matrix(1, w);
+		// console.log(sol.toString());
+		
+		// brute force for denominator (problem is trivial)
+		for (var i=0; i<w; ++i){
+			for (var j=1; j<MAX; ++j){
+				if (Math.abs(sol.data[i] * j - Math.round(sol.data[i] * j)) < EPSI){
+					denom.data[i] = j;
+					break;
+				}
+			}
+		}
+		// console.log(denom.toString());
+		
+		// find lcm of all numbers 
+		for (var i=0; i<w; ++i){
+			var d = denom.data[i];
+			mul = lcm(mul, d);
+		}
+		
+		for (var i=0; i<w; ++i){
+			sol.data[i] = Math.round(sol.data[i] * mul);
+		}
+		
+		return sol.toArray()[0];
+	};
+	
+	/**
+	 *  Balance a chemical equation of the form A + ... + B = C + ... + D . 
+	 *  @returns {String} A string representing the balanced equation.
+	 */
+	obj.balance = function(equation){
+		var sol = obj.balanceNumerical(equation);
+		if (!sol) return "Error";
+		
+		var eqsign = '';
+		
+		for (var i=0; i<equation.length; ++i){
+			var c = equation[i];
+			if ('=<>-'.indexOf(c) != -1) eqsign += c;
+		}
+		
+		equation = equation.replace('>', '=').replace('-', '').replace('<', '');
+		var spl = equation.split('=');
+		var left = spl[0].split('+');
+		var right = spl[1].split('+');
+		
+		var ans = '';
+		for (var i=0; i<left.length; ++i){
+			if (i != 0) ans += ' + ';
+			ans += sol[i] + ' ' + left[i].trim();
+		}
+		
+		ans += ' ' + eqsign + ' ';
+		
+		for (var i=0; i<right.length; ++i){
+			if (i != 0) ans += ' + ';
+			ans += sol[i + left.length] + ' ' + right[i].trim();
+		}
+		
+		return ans;
+	};
 	
 	return obj;
  })();
