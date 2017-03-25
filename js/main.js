@@ -1260,17 +1260,21 @@ $(document).ready(function() {
 			ptable.css('display', 'block');
 			ptable.animate({'opacity': 1}, 1000);		
 		}
+		if (!Modernizr.touch) exprField.focus();
 	});
 	
 	$('#periodic-table-close').click(function(){
 		var ptable = $('#periodic-table');
 		ptable.css('opacity', 1);
 		ptable.animate({'opacity': 0}, 1000, function(){ ptable.css('display', 'none'); });		
+		if (!Modernizr.touch) exprField.focus();
 	});
 	
 	$('#periodic-table td').click(function(){
 		var $this = $(this);
 		exprField.write($this.children('.elem-name').text());
+		
+		if (!Modernizr.touch) exprField.focus();
 	});
 	
         try{
