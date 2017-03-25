@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Scientific Calculator | Hexane</title>
+    <title>Scientific Calculator - Hexane</title>
     <meta name="description" content="Hexane calculator - expression evaluator designed for chemistry students">
     <meta name="author" content="Alex Yu">
 	<meta name="copyright" content="All content copyright 2017 Hexane/Alex Yu">
@@ -24,24 +24,24 @@
 		<!-- </style> -->
 	<!-- </noscript> -->
 	
-	<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png?v=1.10">
-	<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png?v=1.10">
-	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png?v=1.10">
-	<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png?v=1.10">
-	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png?v=1.10">
-	<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png?v=1.10">
-	<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png?v=1.10">
-	<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png?v=1.10">
-	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png?v=1.10">
-	<link rel="icon" type="image/png" href="favicon-32x32.png?v=1.10" sizes="32x32">
-	<link rel="icon" type="image/png" href="android-chrome-192x192.png?v=1.10" sizes="192x192">
-	<link rel="icon" type="image/png" href="favicon-16x16.png?v=1.10" sizes="16x16">
-	<link rel="manifest" href="manifest.json?v=1.10">
-	<link rel="mask-icon" href="safari-pinned-tab.svg?v=1.10" color="#f06560">
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+	<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="manifest.json">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#f06560">
 	<meta name="apple-mobile-web-app-title" content="Hexane">
 	<meta name="application-name" content="Hexane">
 	<meta name="msapplication-TileColor" content="#f06560">
-	<meta name="msapplication-TileImage" content="mstile-144x144.png?v=1.10">
+	<meta name="msapplication-TileImage" content="mstile-144x144.png">
 	<meta name="theme-color" content="#de4944">
 </head>
 <body>
@@ -97,12 +97,15 @@
 								<div class="key" latex-to-write="#" title="Mark number as infinitely precise (SigFigs = Infinity)">#</div>
 								
 								<div class="key" latex-to-write="log_{10}" keys-to-type="Right" title="Log Base 10 (= typing log_10 in the textbox)">log</div>
-								<div class="key" latex-to-write="log_{}" shift="-1" title="Log base x (- typing log_ in the textbox)">log<sub>x</sub></div>
-								<div class="key" latex-to-write="\sqrt{}" shift="-1" title="Square root (= typing sqrt in the textbox)">&#8730;x</div>
-								<div class="key" latex-to-write="\sqrt[]{}" shift="-2" title="Nth root (= typing nthroot in the textbox)"><sup>n</sup>&#8730;x</div>
+								<div class="key" latex-to-write="log_{}" shift="-1" title="Log base x (- typing log_ in the textbox)"><span>log<sub>x</sub></span></div>
+								<div class="key" latex-to-write="\sqrt{}" shift="-1" title="Square root (= typing sqrt in the textbox)"><span>&#8730;x</span></div>
+								<div class="key" latex-to-write="\sqrt[]{}" shift="-2" title="Nth root (= typing nthroot in the textbox)"><span><sup>n</sup>&#8730;x</span></div>
 								
-								<div class="key num-key" latex-to-write="true">true</div>
-								<div class="key num-key" latex-to-write="false">false</div>
+								<div class="key num-key" latex-to-write="true">T</div>
+								<div class="key num-key" latex-to-write="false">F</div>
+								
+								<div class="key" latex-to-write="!" title="Factorial">!</div>
+								
 								<div class="key" latex-to-write="sin\left(\right)" shift="-1" >sin</div>
 								<div class="key" latex-to-write="cos\left(\right)" shift="-1">cos</div>
 								<div class="key" latex-to-write="tan\left(\right)" shift="-1">tan</div>
@@ -123,11 +126,12 @@
 								
 								<div class="key" latex-to-write='"' title='Mark the beginning & end of a chemical formula (example use: Ka("H2PO4"))'>"</div>
 														
-								<div class="key" latex-to-write="^2" title="Square (equivalent to typing ^2)" >a<sup>2</sup></div>
-								<div class="key" latex-to-write="^{}" shift="-1" title="Exponent (shortcut: ^)">a<sup>x</sup></div>
+								<div class="key" latex-to-write="^2" title="Square (equivalent to typing ^2)" ><span>a<sup>2</sup></span></div>
+								<div class="key" latex-to-write="^{}" shift="-1" title="Exponent (shortcut: ^)"><span>a<sup>x</sup></span></div>
 								<div class="key" latex-to-write="mod" title="Modulo operator">mod</div>
 								<div class="key" latex-to-write="and" title="Logical and">and</div>
 								<div class="key" latex-to-write="or" title="Logical or">or</div>
+								<div class="key" latex-to-write="xor" title="Logical xor">xor</div>
 								<div class="key" latex-to-write="not" title="Logical not">not</div>
 								<div class="key" latex-to-write="asin\left(\right)" shift="-1">asin</div>
 								<div class="key" latex-to-write="acos\left(\right)" shift="-1">acos</div>
@@ -153,13 +157,16 @@
 								
 								<div class="key" latex-to-write="%" title="Percent">%</div>
 								
-								<div class="key" latex-to-write='Ka\left("\right)' shift="-1" title="Get the Ka of an acid">K<sub>a</sub></div>
-								<div class="key" latex-to-write='Kb\left("\right)' shift="-1" title="Get the Kb of a base">K<sub>b</sub></div>
-								<div class="key" latex-to-write='Ksp\left("\right)' shift="-1" title="Get the Ksp of a salt">K<sub>sp</sub></div>							
+								<div class="key num-key" id="periodic-btn" title="Open the periodic table of elements">He</div>
 								
-								<div class="key" latex-to-write="!" title="Factorial">!</div>
+								<div class="key" latex-to-write='Ka\left("\right)' shift="-1" title="Get the Ka of an acid"><span>K<sub>a</sub></span></div>
+								<div class="key" latex-to-write='Kb\left("\right)' shift="-1" title="Get the Kb of a base"><span>K<sub>b</sub></span></div>
+								<div class="key" latex-to-write='Ksp\left("\right)' shift="-1" title="Get the Ksp of a salt"><span>K<sub>sp</sub></span></div>							
+								
+								<div class="key" latex-to-write="sf\left(\right)" title="Get or set (by using a second parameter) the number of significant figures in a number">sf</div>
+								
 								<div class="key" latex-to-write="qdtc\left(\right)" shift="-1" title="Quadratic solver: qdtc(a,b,c)">qdtc</div>
-								<div class="key" latex-to-write="qdtcp\left(\right)" shift="-1" title="Quadratic solver (only returns the larger value): qdtc(a,b,c)">qdtc<sup>+</sup></div>
+								<div class="key" latex-to-write="qdtcp\left(\right)" shift="-1" title="Quadratic solver (only returns the larger value): qdtc(a,b,c)"><span>qdtc<sup>+</sup></span></div>
 								<div class="key" latex-to-write="random\left(\right)" shift="-1" title="Generate random rumber: random() OR random(high) OR random(low, high)">rand</div>
 								<div class="key num-key" latex-to-write="a">a</div>
 								<div class="key num-key" latex-to-write="b">b</div>
@@ -168,7 +175,7 @@
 							</div>
 								
 							<div class="key-row">
-								<div class="key" latex-to-write="\cdot10^{}" shift="-1" title="Multiply by 10 raised to the xth power (or use E)">&times;10<sup>x</sup></div>
+								<div class="key" latex-to-write="\cdot10^{}" shift="-1" title="Multiply by 10 raised to the xth power (or use E)"><span>&times;10<sup>x</sup></span></div>
 								<div class="key num-key" latex-to-write="0">0</div>
 								<div class="key" latex-to-write=".">.</div>
 								
@@ -182,9 +189,11 @@
 
 								<div class="key" latex-to-write="|" title="Absolute value (shortcut: |)">|x|</div>
 								
+								<div class="key ctrl-key" id="batch-btn" title="(Coming Soon) Open the batch lookup window to balance multiple equations or look up multiple Ka's, Kb's, etc. at once">&#x2261;</div>
+								
 								<div class="key" latex-to-write='molmass\left("\right)' shift="-1" title="Get the molar mass of an element or compound">mass</div>
 								<div class="key" latex-to-write='soluble\left("\right)' shift="-1" title="Find if a binary salt is soluble (> 0.1 M)">solu</div>
-								<div class="key" latex-to-write='charge\left("\right)' shift="-1" title="Find the common charges of ions (elemental & polyatomic)">chrg</div>
+								<div class="key" latex-to-write='charge\left("\right)' shift="-1" title="Find the common charge values of an ion (elemental or polyatomic)">chrg</div>
 								<div class="key" latex-to-write='balance\left("\right)' shift="-1" title="Balance a chemical equation of the form A ... B = C ... D (= may be replaced with >, ->, or <->)">A&rarr;B</div>
 								
 								<div class="key" latex-to-write='floor\left(\right)' shift="-1" title="Floor (round down)">floor</div>							
@@ -193,7 +202,7 @@
 								
 								<div class="key num-key" latex-to-write='\theta' title="Theta">&theta;</div>
 								<div class="key" latex-to-write=":=" title="Variable assignment operator := (ex. x := 2)">:=</div>
-								<div class="key" latex-to-write="_{}" shift="-1" title="Variable subscript (shortcut: _)">a<sub>x</sub></div>
+								<div class="key" latex-to-write="_{}" shift="-1" title="Variable subscript (shortcut: _)"><span>a<sub>x</sub></span></div>
 							</div>
 						</div>
 						
@@ -283,7 +292,183 @@
 								</fieldset>
 							</form>
 						</div>
-						
+						<div id="periodic-table">				
+							<table>
+								<tr>
+									<td class="table-spacer"></td>
+									<th title="Alkali metal">1</th>
+									<th title="Alkaline earth metal">2</th>
+									<th title="Group 3 element">3</th>
+									<th title="Group 4 element">4</th>
+									<th title="Group 5 element">5</th>
+									<th title="Group 6 element">6</th>
+									<th title="Group 7 element">7</th>
+									<th title="Group 8 element">8</th>
+									<th title="Group 9 element">9</th>
+									<th title="Group 10 element">10</th>
+									<th title="Coinage metal">11</th>
+									<th title="Group 12 element">12</th>
+									<th title="Boron group">13</th>
+									<th title="Carbon group">14</th>
+									<th title="Pnictogen">15</th>
+									<th title="Chalcogen">16</th>
+									<th title="Halogen">17</th>
+									<th title="Noble gas">18</th>
+								</tr>
+								<tr>
+									<th title="Period 1 element">1</th>
+									<td title="Hydrogen"><span class="elem-num">1</span><span class="elem-name">H</span></td>
+									<td colspan="16" class="table-spacer"></td>
+									<td title="Helium"><span class="elem-num">2</span><span class="elem-name">He</span></td>
+								</tr>
+								<tr>
+									<th title="Period 2 element">2</th>
+									<td title="Lithium"><span class="elem-num">3</span><span class="elem-name">Li</span></td>
+									<td title="Beryllium"><span class="elem-num">4</span><span class="elem-name">Be</span></td>
+									<td colspan="10" class="table-spacer"></td>
+									<td title="Boron"><span class="elem-num">5</span><span class="elem-name">B</span></td>
+									<td title="Carbon"><span class="elem-num">6</span><span class="elem-name">C</span></td>
+									<td title="Nitrogen"><span class="elem-num">7</span><span class="elem-name">N</span></td>
+									<td title="Oxygen"><span class="elem-num">8</span><span class="elem-name">O</span></td>
+									<td title="Fluorine"><span class="elem-num">9</span><span class="elem-name">F</span></td>
+									<td title="Neon"><span class="elem-num">10</span><span class="elem-name">Ne</span></td>
+								</tr>
+								<tr>
+									<th title="Period 3 element">3</th>
+									<td title="Sodium"><span class="elem-num">11</span><span class="elem-name">Na</span></td>
+									<td title="Magnesium"><span class="elem-num">12</span><span class="elem-name">Mg</span></td>
+									<td colspan="10" class="table-spacer"></td>
+									<td title="Aluminium"><span class="elem-num">13</span><span class="elem-name">Al</span></td>
+									<td title="Silicon"><span class="elem-num">14</span><span class="elem-name">Si</span></td>
+									<td title="Phosphorus"><span class="elem-num">15</span><span class="elem-name">P</span></td>
+									<td title="Sulfur"><span class="elem-num">16</span><span class="elem-name">S</span></td>
+									<td title="Chlorine"><span class="elem-num">17</span><span class="elem-name">Cl</span></td>
+									<td title="Argon"><span class="elem-num">18</span><span class="elem-name">Ar</span></td>
+								</tr>
+								<tr>
+									<th title="Period 4 element">4</th>
+									<td title="Potassium"><span class="elem-num">19</span><span class="elem-name">K</span></td>
+									<td title="Calcium"><span class="elem-num">20</span><span class="elem-name">Ca</span></td>
+									<td title="Scandium"><span class="elem-num">21</span><span class="elem-name">Sc</span></td>
+									<td title="Titanium"><span class="elem-num">22</span><span class="elem-name">Ti</span></td>
+									<td title="Vanadium"><span class="elem-num">23</span><span class="elem-name">V</span></td>
+									<td title="Chromium"><span class="elem-num">24</span><span class="elem-name">Cr</span></td>
+									<td title="Manganese"><span class="elem-num">25</span><span class="elem-name">Mn</span></td>
+									<td title="Iron"><span class="elem-num">26</span><span class="elem-name">Fe</span></td>
+									<td title="Cobalt"><span class="elem-num">27</span><span class="elem-name">Co</span></td>
+									<td title="Nickel"><span class="elem-num">28</span><span class="elem-name">Ni</span></td>
+									<td title="Copper"><span class="elem-num">29</span><span class="elem-name">Cu</span></td>
+									<td title="Zinc"><span class="elem-num">30</span><span class="elem-name">Zn</span></td>
+									<td title="Gallium"><span class="elem-num">31</span><span class="elem-name">Ga</span></td>
+									<td title="Germanium"><span class="elem-num">32</span><span class="elem-name">Ge</span></td>
+									<td title="Arsenic"><span class="elem-num">33</span><span class="elem-name">As</span></td>
+									<td title="Selenium"><span class="elem-num">34</span><span class="elem-name">Se</span></td>
+									<td title="Bromine"><span class="elem-num">35</span><span class="elem-name">Br</span></td>
+									<td title="Krypton"><span class="elem-num">36</span><span class="elem-name">Kr</span></td>
+								</tr>
+								<tr>
+									<th title="Period 5 element">5</th>
+									<td title="Rubidium"><span class="elem-num">37</span><span class="elem-name">Rb</span></td>
+									<td title="Strontium"><span class="elem-num">38</span><span class="elem-name">Sr</span></td>
+									<td title="Yttrium"><span class="elem-num">39</span><span class="elem-name">Y</span></td>
+									<td title="Zirconium"><span class="elem-num">40</span><span class="elem-name">Zr</span></td>
+									<td title="Niobium"><span class="elem-num">41</span><span class="elem-name">Nb</span></td>
+									<td title="Molybdenum"><span class="elem-num">42</span><span class="elem-name">Mo</span></td>
+									<td title="Technetium"><span class="elem-num">43</span><span class="elem-name">Tc</span></td>
+									<td title="Ruthenium"><span class="elem-num">44</span><span class="elem-name">Ru</span></td>
+									<td title="Rhodium"><span class="elem-num">45</span><span class="elem-name">Rh</span></td>
+									<td title="Palladium"><span class="elem-num">46</span><span class="elem-name">Pd</span></td>
+									<td title="Silver"><span class="elem-num">47</span><span class="elem-name">Ag</span></td>
+									<td title="Cadmium"><span class="elem-num">48</span><span class="elem-name">Cd</span></td>
+									<td title="Indium"><span class="elem-num">49</span><span class="elem-name">In</span></td>
+									<td title="Tin"><span class="elem-num">50</span><span class="elem-name">Sn</span></td>
+									<td title="Antimony"><span class="elem-num">51</span><span class="elem-name">Sb</span></td>
+									<td title="Tellurium"><span class="elem-num">52</span><span class="elem-name">Te</span></td>
+									<td title="Iodine"><span class="elem-num">53</span><span class="elem-name">I</span></td>
+									<td title="Xenon"><span class="elem-num">54</span><span class="elem-name">Xe</span></td>
+								</tr>
+								<tr>
+									<th title="Period 6 element">6</th>
+									<td title="Caesium"><span class="elem-num">55</span><span class="elem-name">Cs</span></td>
+									<td title="Barium"><span class="elem-num">56</span><span class="elem-name">Ba</span></td>
+									<td title="Lanthanides"><span class="elem-num elem-expand">*</span><span class="elem-name elem-expand">La</span></td>
+									<td title="Hafnium"><span class="elem-num">72</span><span class="elem-name">Hf</span></td>
+									<td title="Tantalum"><span class="elem-num">73</span><span class="elem-name">Ta</span></td>
+									<td title="Tungsten"><span class="elem-num">74</span><span class="elem-name">W</span></td>
+									<td title="Rhenium"><span class="elem-num">75</span><span class="elem-name">Re</span></td>
+									<td title="Osmium"><span class="elem-num">76</span><span class="elem-name">Os</span></td>
+									<td title="Iridium"><span class="elem-num">77</span><span class="elem-name">Ir</span></td>
+									<td title="Platinum"><span class="elem-num">78</span><span class="elem-name">Pt</span></td>
+									<td title="Gold"><span class="elem-num">79</span><span class="elem-name">Au</span></td>
+									<td title="Mercury (element)"><span class="elem-num">80</span><span class="elem-name">Hg</span></td>
+									<td title="Thallium"><span class="elem-num">81</span><span class="elem-name">Tl</span></td>
+									<td title="Lead"><span class="elem-num">82</span><span class="elem-name">Pb</span></td>
+									<td title="Bismuth"><span class="elem-num">83</span><span class="elem-name">Bi</span></td>
+									<td title="Polonium"><span class="elem-num">84</span><span class="elem-name">Po</span></td>
+									<td title="Astatine"><span class="elem-num">85</span><span class="elem-name">At</span></td>
+									<td title="Radon"><span class="elem-num">86</span><span class="elem-name">Rn</span></td>
+								</tr>
+								<tr>
+									<th title="Period 7 element">7</th>
+									<td title="Francium"><span class="elem-num">87</span><span class="elem-name">Fr</span></td>
+									<td title="Radium"><span class="elem-num">88</span><span class="elem-name">Ra</span></td>
+									<td title="Actinides"><span class="elem-num elem-expand">**</span><span class="elem-name elem-expand">Ac</span></td>
+									<td title="Rutherfordium"><span class="elem-num">104</span><span class="elem-name">Rf</span></td>
+									<td title="Dubnium"><span class="elem-num">105</span><span class="elem-name">Db</span></td>
+									<td title="Seaborgium"><span class="elem-num">106</span><span class="elem-name">Sg</span></td>
+									<td title="Bohrium"><span class="elem-num">107</span><span class="elem-name">Bh</span></td>
+									<td title="Hassium"><span class="elem-num">108</span><span class="elem-name">Hs</span></td>
+									<td title="Meitnerium"><span class="elem-num">109</span><span class="elem-name">Mt</span></td>
+									<td title="Darmstadtium"><span class="elem-num">110</span><span class="elem-name">Ds</span></td>
+									<td title="Roentgenium"><span class="elem-num">111</span><span class="elem-name">Rg</span></td>
+									<td title="Copernicium"><span class="elem-num">112</span><span class="elem-name">Cn</span></td>
+									<td title="Ununtrium"><span class="elem-num">113</span><span class="elem-name">Uut</span></td>
+									<td title="Flerovium"><span class="elem-num">114</span><span class="elem-name">Fl</span></td>
+									<td title="Ununpentium"><span class="elem-num">115</span><span class="elem-name">Uup</span></td>
+									<td title="Livermorium"><span class="elem-num">116</span><span class="elem-name">Lv</span></td>
+									<td title="Ununseptium"><span class="elem-num">117</span><span class="elem-name">Uus</span></td>
+									<td title="Ununoctium"><span class="elem-num">118</span><span class="elem-name">Uuo</span></td>
+								</tr>
+								<tr>
+									<th colspan="4">Lanthanides<br/></th>
+									<td title="Lanthanum"><span class="elem-num">57</span><span class="elem-name">La</span></td>
+									<td title="Cerium"><span class="elem-num">58</span><span class="elem-name">Ce</span></td>
+									<td title="Praseodymium"><span class="elem-num">59</span><span class="elem-name">Pr</span></td>
+									<td title="Neodymium"><span class="elem-num">60</span><span class="elem-name">Nd</span></td>
+									<td title="Promethium"><span class="elem-num">61</span><span class="elem-name">Pm</span></td>
+									<td title="Samarium"><span class="elem-num">62</span><span class="elem-name">Sm</span></td>
+									<td title="Europium"><span class="elem-num">63</span><span class="elem-name">Eu</span></td>
+									<td title="Gadolinium"><span class="elem-num">64</span><span class="elem-name">Gd</span></td>
+									<td title="Terbium"><span class="elem-num">65</span><span class="elem-name">Tb</span></td>
+									<td title="Dysprosium"><span class="elem-num">66</span><span class="elem-name">Dy</span></td>
+									<td title="Holmium"><span class="elem-num">67</span><span class="elem-name">Ho</span></td>
+									<td title="Erbium"><span class="elem-num">68</span><span class="elem-name">Er</span></td>
+									<td title="Thulium"><span class="elem-num">69</span><span class="elem-name">Tm</span></td>
+									<td title="Ytterbium"><span class="elem-num">70</span><span class="elem-name">Yb</span></td>
+									<td title="Lutetium"><span class="elem-num">71</span><span class="elem-name">Lu</span></td>
+								</tr>
+								<tr>
+									<th colspan="4">Actinides<br /></th>
+									<td title="Actinium"><span class="elem-num">89</span><span class="elem-name">Ac</span></td>
+									<td title="Thorium"><span class="elem-num">90</span><span class="elem-name">Th</span></td>
+									<td title="Protactinium"><span class="elem-num">91</span><span class="elem-name">Pa</span></td>
+									<td title="Uranium"><span class="elem-num">92</span><span class="elem-name">U</span></td>
+									<td title="Neptunium"><span class="elem-num">93</span><span class="elem-name">Np</span></td>
+									<td title="Plutonium"><span class="elem-num">94</span><span class="elem-name">Pu</span></td>
+									<td title="Americium"><span class="elem-num">95</span><span class="elem-name">Am</span></td>
+									<td title="Curium"><span class="elem-num">96</span><span class="elem-name">Cm</span></td>
+									<td title="Berkelium"><span class="elem-num">97</span><span class="elem-name">Bk</span></td>
+									<td title="Californium"><span class="elem-num">98</span><span class="elem-name">Cf</span></td>
+									<td title="Einsteinium"><span class="elem-num">99</span><span class="elem-name">Es</span></td>
+									<td title="Fermium"><span class="elem-num">100</span><span class="elem-name">Fm</span></td>
+									<td title="Mendelevium"><span class="elem-num">101</span><span class="elem-name">Md</span></td>
+									<td title="Nobelium"><span class="elem-num">102</span><span class="elem-name">No</span></td>
+									<td title="Lawrencium"><span class="elem-num">103</span><span class="elem-name">Lr</span></td>
+								</tr>
+							</table>
+							<div id="periodic-table-close">&times;</div>
+						</div>
+							
 					</section>
 				</article>
 

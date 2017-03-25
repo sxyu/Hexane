@@ -997,7 +997,9 @@ $(document).ready(function() {
 	/**
 	 * If true, the next exprField edit event won't trigger a state change.
 	 */
-	var ignoreEdit = false; 
+	var ignoreEdit = false;
+	
+	var timer = null;
 	
     var exprField = MQ.MathField(exprFieldSpan, {
         spaceBehavesLikeTab: true,
@@ -1007,17 +1009,19 @@ $(document).ready(function() {
         leftRightIntoCmdGoes: 'up',
         handlers: {
             edit: function() {
-					
-					// latexSpan.textContent = exprField.latex();
-					localStorage.setItem('exprLatex', exprField.latex());
-                    evalExpr();
-					
-					if (ignoreEdit)
-						ignoreEdit = false;
-					else if (exprField.latex() != GET('expr')){
-						Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
-						history.replaceState(null, 'Scientific Calculator | Hexane', "?expr=" + encodeURIComponent(exprField.latex()));
-					}
+					if (timer) clearTimeout(timer);
+					timer = setTimeout(function(){
+						// latexSpan.textContent = exprField.latex();
+						localStorage.setItem('exprLatex', exprField.latex());
+						evalExpr();
+						
+						if (ignoreEdit)
+							ignoreEdit = false;
+						else if (exprField.latex() != GET('expr')){
+							Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
+							history.replaceState(null, 'Scientific Calculator - Hexane', "?expr=" + encodeURIComponent(exprField.latex()));
+						}
+					}, 300);
             },
             enter: function() { // alert(exprField.latex());
 				if (resval !== undefined && resval !== null){
@@ -1059,10 +1063,41 @@ $(document).ready(function() {
 		       ' in the textbox to save the current result (max 50 results) &nbsp;| </span><a class="history-clear">Clear</a></p>';
 		historyList.html(txt);
 		
-		$('.history-tile').click(function(e){
-			var tile = $(this);
-			exprField.write(tile.attr('value'));
-			$(window).scrollTop(80);
+		var histTimer = null;
+		
+		$('.history-tile').bind('contextmenu', function(e){
+			return false;
+		});
+		
+		$('.history-tile').mousedown(function(e){
+			histTimer = new Date();
+			
+		}).mouseup(function(event){
+			$this = $(this);
+			var name =  $this.attr('var');
+			
+			// enable click & hold
+			var timeDiff = (new Date())-histTimer >= 1000;
+			
+			if (event.button == 0 && !timeDiff){
+				exprField.write($this.attr('value'));
+				$(window).scrollTop(80);
+			}
+			else{
+				Hexane.prevAns.splice(Number($this.attr('position')), 1);
+				saveAnsList();
+				
+				$this.animate({opacity:0}, 500, 'linear',
+					function(){
+						$this.remove();
+						rebuildAnsList();
+					}
+				);
+			}
+			
+			histTimer = null;
+			
+			if (!Modernizr.touch) exprField.focus();
 		});
 				
 		$('.history-delete').click(function(e){
@@ -1213,11 +1248,34 @@ $(document).ready(function() {
 		if (! Modernizr.touch) exprField.focus();
 	});
 	
+	$('#periodic-btn').click(function(){
+		var ptable = $('#periodic-table');
+		if (ptable.css('display') == 'block'){
+			ptable.animate({'opacity': 0}, 1000, function(){ ptable.css('display', 'none'); });		
+		}
+		else{
+			ptable.css('opacity', 0);
+			ptable.css('display', 'block');
+			ptable.animate({'opacity': 1}, 1000);		
+		}
+	});
+	
+	$('#periodic-table-close').click(function(){
+		var ptable = $('#periodic-table');
+		ptable.css('opacity', 1);
+		ptable.animate({'opacity': 0}, 1000, function(){ ptable.css('display', 'none'); });		
+	});
+	
+	$('#periodic-table td').click(function(){
+		var $this = $(this);
+		exprField.write($this.children('.elem-name').text());
+	});
+	
         try{
 			// Use expression specified in GET parameter or load stored value
             var exprLatex = GET('expr') || localStorage.getItem('exprLatex');
             exprField.latex(exprLatex || '');
-			history.pushState(null, 'Scientific Calculator | Hexane', "?expr=" + encodeURIComponent(exprLatex));
+			history.pushState(null, 'Scientific Calculator - Hexane', "?expr=" + encodeURIComponent(exprLatex));
 			
 			window.onpopstate = function() {
 				ignoreEdit = true;
@@ -1282,7 +1340,14 @@ $(document).ready(function() {
 			
 	// Fade in page when loaded
     $('.site-container').animate({opacity:1}, 1000);
-	$('#loading-spinner').animate({opacity:0}, 1000, function(){ $('#loading-spinner').remove() });
+	$('#loading-spinner').animate({opacity:0}, 1000, function(){ 
+		$('#loading-spinner').remove() 
+	});
+	if (Modernizr.touch){
+		setTimeout(function(){
+			$("body").animate({ scrollTop: $('.header-container').height() }, 600);
+		}, 500);	
+	}
     exprField.select();
     exprField.focus(); 
 });
