@@ -1009,7 +1009,7 @@ $(document).ready(function() {
         leftRightIntoCmdGoes: 'up',
         handlers: {
             edit: function() {
-					if (timer) clearTimeout(timer);
+					if (timer) { clearTimeout(timer); timer = 1; }
 					timer = setTimeout(function(){
 						// latexSpan.textContent = exprField.latex();
 						localStorage.setItem('exprLatex', exprField.latex());
@@ -1021,7 +1021,9 @@ $(document).ready(function() {
 							Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
 							history.replaceState(null, 'Scientific Calculator - Hexane', "?expr=" + encodeURIComponent(exprField.latex()));
 						}
-					}, 300);
+						
+						timer = null;
+					}, (timer ? 300 : 0));
             },
             enter: function() { // alert(exprField.latex());
 				if (resval !== undefined && resval !== null){
