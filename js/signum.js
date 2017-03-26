@@ -1,7 +1,7 @@
 /*! SigNum.js v1.0.1: numbers supporting calculations with
  *                    significant figures
  *  Copyright 2017 Alex Yu (U-Hill Secondary)
- *  License: MIT
+ *  License: Apache 2.0
  *  Created for use with Hexane (hexane.tk)*/
 
  

@@ -1,6 +1,6 @@
 /*! Hexane.Balance.js: JS Chemical Equation Balancer. Depends on vectorious by mateogianolio: https://github.com/mateogianolio/vectorious.
  *  Copyright 2017 Alex Yu (U-Hill Secondary)
- *  License: MIT
+ *  License: Apache 2.0
  *  Created for use with Hexane (hexane.tk)*/
  
  Hexane || (Hexane = {});
