@@ -68,8 +68,8 @@ Try: `"K4[Fe(SCN)6]+K2Cr2O7+H2SO4=Fe2(SO4)3+Cr2(SO4)3+CO2+H2O+K2SO4+KNO3"`
 
 The following are not strictly chemical functions but are still often useful in chemical calculations:
 - `sf`: Get (`sf(3.0)`) or set (`sf(300,2)`) the number of significant figures in a number.
-- `qdtc`: Takes three parameters and outputs the solution(s) to a quadratic equation.
-- `qdtcp` `qdtcn`: only return one of the possible two qdtc solutions so you can keep working with the answer.
+- `qdtc`: Takes three parameters a, b, c and outputs the solution(s) to the quadratic equation ax^2 + bx + c = 0.
+- `qdtcp` `qdtcn`: only return at most one of the two possible qdtc solutions to produce a numerical result you can work with.
 
 ### More Documentation Coming Soon
 
