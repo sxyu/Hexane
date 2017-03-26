@@ -1,7 +1,9 @@
-**Hexane**
+#Hexane
 
-[hexane.tk]
+URL: [hexane.tk](http://hexane.tk)
 
-A calculator supporting calculations with significant figures
+![H](http://hexane.tk/android-chrome-144x144.png)	
+
+Hexane is an online calculator supporting calculations with significant figures. It is designed for use by chemistry students.
 
 More documentation coming soon...
