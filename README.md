@@ -46,12 +46,13 @@ Hexane allows you to store values in variables so you can use them again later. 
 Another way to reuse answers is to save them to history.
 - Press `Enter` in the textbox to save the current result
 - You may also press `Save` on the keypad to save the current result.
-- Press on of the history tiles (below the memory module) to enter the value into the textbox. Right click or press the delete button on any one of the tiles to delete it. 
+- Press on any of the history tiles (the history module is below the memory module) to enter the tile's stored value into the textbox. Right click or press the delete button on any one of the tiles to delete it. 
 - Press the `clear` button to delete all the tiles.
 
-### Chemistry Functions
+### Chemistry-Related Functions
 
-Hexane provides a number of built-in chemistry-related functions for convenience. To use them, enter the function name, type `("`, enter the chemical formula as appropriate, and then close off the formula with `")`. The brackets `()` enclose the function parameters and the quotes `""` mark the chemical formula. You may choose to use subscripts in the chemical formulae (H<sub>2</sub>O instead of H2O) but are not required to.
+Hexane provides a number of built-in chemistry-related functions. To use them, enter the function name, type `("`, enter the chemical formula as appropriate, and then close off the
+formula with `")`. The brackets (`()`) enclose the function parameters whereas the quotes (`""`) mark the chemical formula. You may choose to use subscripts in the chemical formulae (H<sub>2</sub>O instead of H2O) but are not required to.
 
 To enter a chemical formula on a mobile device, it may be more convenient to use the periodic table keyboard (open with the `He` key on the keypad).
 
@@ -70,6 +71,10 @@ The following are not strictly chemical functions but are still often useful in 
 - `sf`: Get (`sf(3.0)`) or set (`sf(300,2)`) the number of significant figures in a number.
 - `qdtc`: Takes three parameters a, b, c and outputs the solution(s) to the quadratic equation ax^2 + bx + c = 0.
 - `qdtcp` `qdtcn`: only return at most one of the two possible qdtc solutions to produce a numerical result you can work with.
+
+### Other Functions
+
+Hexane provides a number of other functions. You may use them in a similar
 
 ### More Documentation Coming Soon
 

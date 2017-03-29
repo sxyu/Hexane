@@ -3,14 +3,18 @@
  *  License: Apache 2.0
  *  Created for use with Hexane (hexane.tk)*/
  
- Hexane || (Hexane = {});
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'g'), replacement);
+};
  
+Hexane || (Hexane = {});
  
 /**
  *  Helper function for tokenizing chemical formulae into individual elements & polyatomic ions
  */
 Hexane.tokenizeChemFormula = function(formula){
-	formula = formula.replace('\\left', '').replace('\\right', '').replace(']',')');
+	formula = formula.replaceAll('\\left', '').replaceAll('\\right', '').replaceAll(']',')');
 	
 	var res = [];
 
@@ -18,6 +22,9 @@ Hexane.tokenizeChemFormula = function(formula){
 
 	var curElem = '';
 	var num = null;
+	var chrg = null;
+	
+	var isChrg = false;
 
 	var stack = [res];
 	var txtStack = [''];
@@ -30,51 +37,95 @@ Hexane.tokenizeChemFormula = function(formula){
 
 		var c = formula[i];
 		
-		if ('_{}'.indexOf(c) != -1) continue;
+		if ('{}'.indexOf(c) != -1) continue;
 		
 		if (i < formula.length-1) txtStack[txtStack.length-1] += c;
 
-		if (brktEnd && !(c >= '0' && c <= '9')){
+		if (brktEnd && !(c >= '0' && c <= '9') && c != '_' && c != '^'){
 			brktEnd = false;
 
 			stack.pop();
 			if (num === null) num = 1;
+			if (chrg === null) chrg = 0;
 
 			var txt = txtStack.pop();
 
 			var innerTxt = txt.substring(0, txt.lastIndexOf(')'));
-			stack[stack.length-1].push({ 'type':'polyatomic', 'name': innerTxt, 'items':curLvl , 'count':num });
+			stack[stack.length-1].push({ 'type':'polyatomic', 'name': innerTxt, 'items':curLvl , 'count':num, 'charge': chrg });
 			txtStack[txtStack.length-1] += txt;
 
 			curLvl = stack[stack.length-1];
 
 			num = null;
+			isChrg = false;
+			chrg = null;
 		}
 
 		if (c >= 'A' && c <= 'Z'){
 			if (curElem && curElem.length > 0){
 				if (num === null) num = 1;
-				curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
+				if (chrg === null) chrg = 0;
+				curLvl.push({ 'type':'element', 'name':curElem, 'count':num, 'charge': chrg });
 
 				curElem = '';
 			}
 			num = null;
+			isChrg = false;
+			chrg = null;
 			curElem += c; 
 		}
 		else if (c >= 'a' && c <= 'z'){
 			curElem += c; 
 		}
+		
 		else if (c >= '0' && c <= '9'){
-			if (num === null)
-				num = 0;
-			num = num * 10 + (c - '0');
+			if (isChrg){
+				if (chrg === null) chrg = 0;
+				chrg = chrg * 10 + (c - '0');
+			}
+			else{
+				if (num === null) num = 0;
+				num = num * 10 + (c - '0');
+			}
+		}
+		
+		else if (c == '+'){
+			if (isChrg){
+				if (!chrg) chrg = 1;
+			}
+			else if (num){
+				if (!num) num = 1;
+			}
+		}
+		
+		else if (c == '-'){
+			if (isChrg){
+				if (chrg) chrg = -chrg;
+				else chrg = -1;
+			}
+			else if (num){
+				if (num) num = -num;
+				else num = -1;
+			}
+		}
+		
+		else if (c == '^'){
+			isChrg = true;
+		}
+		
+		else if (c == '_'){
+			isChrg = false;
 		}
 
 		else if (c == '(' || c == '['){
 			if (curElem && curElem.length > 0){
 				if (num === null) num = 1;
-				curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
+				if (chrg === null) chrg = 0;
+				curLvl.push({ 'type':'element', 'name':curElem, 'count':num, 'charge': chrg });
 				curElem = ''
+				num = null;
+				isChrg = false;
+				chrg = null;
 			}
 			
 			curLvl = [];
@@ -85,10 +136,13 @@ Hexane.tokenizeChemFormula = function(formula){
 		else if (c == ')'){
 			if (curElem && curElem.length > 0){
 				if (num === null) num = 1;
-				curLvl.push({ 'type':'element', 'name':curElem, 'count':num });
+				if (chrg === null) chrg = 0;
+				curLvl.push({ 'type':'element', 'name':curElem, 'count':num, 'charge': chrg });
 				curElem = ''
 			}
 			num = null;
+			isChrg = false;
+			chrg = null;
 			brktEnd = true;
 		}
 	}
@@ -108,6 +162,7 @@ Hexane.decomposeChemFormula = function(formula){
 		if (t.type == 'element'){
 			if (ans[t.name]) ans[t.name] += t.count;
 			else ans[t.name] = t.count;
+			ans['charge'] = t.charge;
 		}
 		else{ // if t.type == 'polyatomic'
 			var sub = Hexane.decomposeChemFormula(t.name);
@@ -115,6 +170,7 @@ Hexane.decomposeChemFormula = function(formula){
 				if (ans[k]) ans[k] += sub[k] * t.count;
 				else ans[k] = sub[k] * t.count;
 			}
+			ans['charge'] = t.charge;
 		}
 	}
 	
@@ -146,8 +202,8 @@ Hexane.decomposeChemFormula = function(formula){
 	 *  @returns {Array} An array consisting of two subarrays each containing appropriate coefficients for the compounds on each side of the equation.
 	 */
 	obj.balanceNumerical = function(equation){
-		equation = equation.replace('>', '=').replace('-', '').replace('<', '');
-		var spl = equation.split('='); 	
+		equation = equation.replaceAll('->', '=').replaceAll('>', '=').replaceAll('<', '');
+		var spl = equation.replaceAll('{', '').replaceAll('}', '').replace(/\+$/, '').replaceAll('+=', '=').replaceAll('++', '+').split('='); 	
 		
 		if (spl.length != 2) return null; // not 2 sides
 		
@@ -181,7 +237,7 @@ Hexane.decomposeChemFormula = function(formula){
 		
 		// put into a matrix
 		
-		var mat = new Matrix(h, w);
+		var mat = new Matrix(h+1, w);
 		
 		var ct = 0;
 		for (var k in ele){
@@ -192,6 +248,13 @@ Hexane.decomposeChemFormula = function(formula){
 				mat.set(ct, left.length + i, -right[i][k] || 0);;
 			}
 			++ct;
+		}
+		
+		for (var i=0; i<left.length; ++i){
+			mat.set(h, i, left[i]['charge'] || 0);
+		}
+		for (var i=0; i<right.length; ++i){
+			mat.set(h, left.length + i, -right[i]['charge'] || 0);
 		}
 		
 		// gaussian elimination
@@ -264,17 +327,22 @@ Hexane.decomposeChemFormula = function(formula){
 		
 		for (var i=0; i<equation.length; ++i){
 			var c = equation[i];
-			if ('=<>-'.indexOf(c) != -1) eqsign += c;
+			if ('=<>'.indexOf(c) != -1) eqsign += c;
 		}
 		
-		equation = equation.replace('>', '=').replace('-', '').replace('<', '');
-		var spl = equation.split('=');
+		equation = equation.replaceAll('->', '=').replaceAll('>', '=').replaceAll('<', '');
+		var spl = equation.replaceAll('{', '').replaceAll('}', '').replace(/\+$/, '').replaceAll('+=', '=').replaceAll('++', '+').split('=');
 		var left = spl[0].split('+');
 		var right = spl[1].split('+');
 		
 		var ans = '';
 		for (var i=0; i<left.length; ++i){
 			if (i != 0) ans += ' + ';
+			if (left[i].indexOf('^') != -1) {
+				if (!(left[i].endsWith('-')))
+					left[i] += '+';
+				left[i] = left[i].replace('^', '^{') + '}'
+			}
 			ans += sol[i] + ' ' + left[i].trim();
 		}
 		
@@ -282,6 +350,11 @@ Hexane.decomposeChemFormula = function(formula){
 		
 		for (var i=0; i<right.length; ++i){
 			if (i != 0) ans += ' + ';
+			if (right[i].indexOf('^') != -1) {
+				if (!(right[i].endsWith('-')))
+					right[i] += '+';
+				right[i] = right[i].replace('^', '^{') + '}'
+			}
 			ans += sol[i + left.length] + ' ' + right[i].trim();
 		}
 		

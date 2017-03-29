@@ -1003,7 +1003,7 @@ $(document).ready(function() {
 	
     var exprField = MQ.MathField(exprFieldSpan, {
         spaceBehavesLikeTab: true,
-        charsThatBreakOutOfSupSub: '+-=<>',
+        charsThatBreakOutOfSupSub: '*/=<>ABCDEFGHIJKLMNOPQRSTUVWXYZ',
         autoCommands: 'pi theta omega alpha beta gamma Theta Omega Alpha Beta Gamma sqrt nthroot',
         autoOperatorNames: 'true false mod log',
         leftRightIntoCmdGoes: 'up',
