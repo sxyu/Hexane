@@ -981,9 +981,13 @@ $(document).ready(function() {
 				
 				updateMemoryTitles();
 			
-				if (varsLoaded)
-					localStorage.setItem("vars", JSON.stringify(Hexane.vars));
+				if (varsLoaded){
+					try{
+						localStorage.setItem("vars", JSON.stringify(Hexane.vars));
+					}
+					catch (ignore) {};
 			}
+				}
 		}
 		catch (err) {
 			// var msgs = ["I'm not sure if I understand you.", "This is confusing me!", "Sorry, I'm not sure what you mean.", 
@@ -1012,15 +1016,22 @@ $(document).ready(function() {
 					if (timer) { clearTimeout(timer); timer = 1; }
 					timer = setTimeout(function(){
 						// latexSpan.textContent = exprField.latex();
-						localStorage.setItem('exprLatex', exprField.latex());
+						try{
+							localStorage.setItem('exprLatex', exprField.latex());
+						}
+						catch (ignore) {};
+						
 						evalExpr();
 						
-						if (ignoreEdit)
-							ignoreEdit = false;
-						else if (exprField.latex() != GET('expr')){
-							Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
-							history.replaceState(null, 'Scientific Calculator - Hexane', "?expr=" + encodeURIComponent(exprField.latex()));
+						try{
+							if (ignoreEdit)
+								ignoreEdit = false;
+							else if (exprField.latex() != GET('expr')){
+								Hexane.history = Hexane.history.concat([exprField.latex()]).slice(-50);
+								history.replaceState(null, 'Scientific Calculator - Hexane', "?expr=" + encodeURIComponent(exprField.latex()));
+							}
 						}
+						catch (ignore) {};
 						
 						timer = null;
 					}, (timer ? 300 : 0));
@@ -1061,7 +1072,7 @@ $(document).ready(function() {
 							'<span class="history-text">' + str +
 							'</span> <span class="history-delete" title="Delete saved result"></span></div>');
 		}
-		txt += '\n<p class="history-tip"><strong>History</strong> &nbsp;|&nbsp; <span class="mobile-hide">Press <kbd>enter</kbd>' +
+		txt += '\n<p class="history-tip"><strong>Saved Results</strong> &nbsp;|&nbsp; <span class="mobile-hide">Press <kbd>enter</kbd>' +
 		       ' in the textbox to save the current result (max 50 results) &nbsp;| </span><a class="history-clear">Clear</a></p>';
 		historyList.html(txt);
 		
@@ -1083,7 +1094,7 @@ $(document).ready(function() {
 			
 			if (event.button == 0 && !timeDiff){
 				exprField.write($this.attr('value'));
-				$(window).scrollTop(80);
+				window.scrollTo(0, document.getElementsByClassName('header-container')[0].offsetHeight);
 			}
 			else{
 				Hexane.prevAns.splice(Number($this.attr('position')), 1);
@@ -1207,7 +1218,7 @@ $(document).ready(function() {
 		if (event.button == 0 && !timeDiff){
 		    name = $this.attr('latex-to-write') ? $this.attr('latex-to-write') : $this.attr('var');
             exprField.write(name);
-			$(window).scrollTop(80);
+			window.scrollTo(0, document.getElementsByClassName('header-container')[0].offsetHeight);
 		}
 		else{
 			if (resval !== undefined && resval !== null){
@@ -1218,8 +1229,12 @@ $(document).ready(function() {
 				Hexane.vars[name] = undefined;
 				$this.attr('title', 'undefined');
 			}
-			if (varsLoaded)
-				localStorage.setItem("vars", JSON.stringify(Hexane.vars));
+			if (varsLoaded){
+				try{
+					localStorage.setItem("vars", JSON.stringify(Hexane.vars));
+				}
+				catch (ignore) {};
+			}
 		}
 		
 		memTimer = null;
@@ -1238,7 +1253,10 @@ $(document).ready(function() {
 			SigNum.roundingMode = val;
 		}
 		
-		localStorage.setItem('sfMode', val);
+		try{
+			localStorage.setItem('sfMode', val);
+		}
+		catch (ignore) {};
 		
 		evalExpr();
 	});
@@ -1285,7 +1303,7 @@ $(document).ready(function() {
 	
         try{
 			// Use expression specified in GET parameter or load stored value
-            var exprLatex = GET('expr') || localStorage.getItem('exprLatex');
+            var exprLatex = GET('expr') || localStorage.getItem('exprLatex') || '';
             exprField.latex(exprLatex || '');
 			history.pushState(null, 'Scientific Calculator - Hexane', "?expr=" + encodeURIComponent(exprLatex));
 			
@@ -1321,7 +1339,10 @@ $(document).ready(function() {
                 $('#sf-c' + sfMode).attr('checked', true);
             }
             else{
-                localStorage.setItem('sfMode', 2);
+				try{
+					localStorage.setItem('sfMode', 2);
+				}
+				catch (ignore) {};
                 SigNum.enableSF = true;
                 SigNum.roundingMode = 2;
                 $('#sf-c2').attr('checked', true);
@@ -1357,7 +1378,7 @@ $(document).ready(function() {
 	});
 	if (Modernizr.touch){
 		setTimeout(function(){
-			$("body").animate({ scrollTop: $('.header-container').height() }, 600);
+			window.scrollTo(0, document.getElementsByClassName('header-container')[0].offsetHeight);
 		}, 500);	
 	}
     exprField.select();

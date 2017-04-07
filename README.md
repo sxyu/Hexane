@@ -14,7 +14,7 @@ Hexane is an online calculator supporting calculations with significant figures.
 - Type into the calculator textbox to evaluate any expression
 - The result is displayed at the top both as a *full number* and in *scientific notation*
 - On mobile devices and other devices with touch screens, you may want to use the keypad below to enter expressions.
-- Most of the data in the calculator is stored in your browser. When you refresh the page the content in the textbox remains and variables and history persist. Note that if you clear your cookies/site data, this data may be deleted as well.
+- Most of the data in the calculator is stored in your browser. When you refresh the page the content in the textbox remains and variables and saved results persist. Note that if you clear your cookies/site data, this data may be deleted as well.
 
 ### Typing Math
 
@@ -41,12 +41,12 @@ Hexane allows you to store values in variables so you can use them again later. 
 - Right click to save the current result in the calculator to the specific variable. 
 - The `:=` operator Allows you to assign variables: `a := 3`
 
-### History Module
+### Saved Results Module
 
-Another way to reuse answers is to save them to history.
+Another way to reuse answers is to save them to the "saved result" module.
 - Press `Enter` in the textbox to save the current result
 - You may also press `Save` on the keypad to save the current result.
-- Press on any of the history tiles (the history module is below the memory module) to enter the tile's stored value into the textbox. Right click or press the delete button on any one of the tiles to delete it. 
+- Press on any of the saved result tiles (the saved result module is below the memory module) to enter the tile's stored value into the textbox. Right click or press the delete button on any one of the tiles to delete it. 
 - Press the `clear` button to delete all the tiles.
 
 ### Chemistry-Related Functions
