@@ -99,16 +99,17 @@
 								<div class="key" latex-to-write="log_{10}" keys-to-type="Right" title="Log Base 10 (= typing log_10 in the textbox)">log</div>
 								<div class="key" latex-to-write="log_{}" shift="-1" title="Log base x (= typing log_ in the textbox)"><span>log<sub>x</sub></span></div>
 								<div class="key" latex-to-write="\sqrt{}" shift="-1" title="Square root (= typing sqrt in the textbox)"><span>&#8730;x</span></div>
-								<div class="key" latex-to-write="\sqrt[]{}" shift="-2" title="Nth root (= typing nthroot in the textbox)"><span><sup>n</sup>&#8730;x</span></div>
 								
-								<div class="key num-key" latex-to-write="true">T</div>
-								<div class="key num-key" latex-to-write="false">F</div>
+								<div class="key ctrl-key" latex-to-write='Ka\left("\right)' shift="-1" title="Get the Ka of an acid"><span>K<sub>a</sub></span></div>
+								<div class="key ctrl-key" latex-to-write='soluble\left("\right)' shift="-1" title="Find if a binary salt is soluble (> 0.1 M)">solu</div>
 								
 								<div class="key" latex-to-write="!" title="Factorial">!</div>
+								<div class="key num-key" latex-to-write="true">T</div>
+								<div class="key" latex-to-write="and" title="Logical and">and</div>
 								
 								<div class="key" latex-to-write="sin\left(\right)" shift="-1" >sin</div>
-								<div class="key" latex-to-write="cos\left(\right)" shift="-1">cos</div>
-								<div class="key" latex-to-write="tan\left(\right)" shift="-1">tan</div>
+								<div class="key" latex-to-write="asin\left(\right)" shift="-1">asin</div>
+								
 								<div class="key num-key" latex-to-write="\pi" title="Pi (equivalent to typing pi)">&pi;</div>
 								<div class="key num-key" latex-to-write="e" title="Euler's number">e</div>
 								<div class="key num-key" latex-to-write="A" title="Avogadro's number">A</div>
@@ -128,14 +129,20 @@
 														
 								<div class="key" latex-to-write="^2" title="Square (equivalent to typing ^2)" ><span>a<sup>2</sup></span></div>
 								<div class="key" latex-to-write="^{}" shift="-1" title="Exponent (shortcut: ^)"><span>a<sup>x</sup></span></div>
+								
+								<div class="key" latex-to-write="\sqrt[]{}" shift="-2" title="Nth root (= typing nthroot in the textbox)"><span><sup>n</sup>&#8730;x</span></div>
+								
+								<div class="key ctrl-key" latex-to-write='Kb\left("\right)' shift="-1" title="Get the Kb of a base"><span>K<sub>b</sub></span></div>
+								<div class="key ctrl-key" latex-to-write='charge\left("\right)' shift="-1" title="Find the common charge values of an ion (elemental or polyatomic)">chrg</div>
+								
 								<div class="key" latex-to-write="mod" title="Modulo operator">mod</div>
-								<div class="key" latex-to-write="and" title="Logical and">and</div>
+								<div class="key num-key" latex-to-write="false">F</div>
+								
 								<div class="key" latex-to-write="or" title="Logical or">or</div>
-								<div class="key" latex-to-write="xor" title="Logical xor">xor</div>
-								<div class="key" latex-to-write="not" title="Logical not">not</div>
-								<div class="key" latex-to-write="asin\left(\right)" shift="-1">asin</div>
+								
+								<div class="key" latex-to-write="cos\left(\right)" shift="-1">cos</div>
 								<div class="key" latex-to-write="acos\left(\right)" shift="-1">acos</div>
-								<div class="key" latex-to-write="atan\left(\right)" shift="-1" >atan</div>
+								
 								<div class="key num-key" latex-to-write="x">x</div>
 								<div class="key num-key" latex-to-write="y">y</div>
 								<div class="key num-key" latex-to-write="z">z</div>
@@ -159,15 +166,17 @@
 								
 								<div class="key num-key" id="periodic-btn" title="Open the periodic table of elements">He</div>
 								
-								<div class="key" latex-to-write='Ka\left("\right)' shift="-1" title="Get the Ka of an acid"><span>K<sub>a</sub></span></div>
-								<div class="key" latex-to-write='Kb\left("\right)' shift="-1" title="Get the Kb of a base"><span>K<sub>b</sub></span></div>
-								<div class="key" latex-to-write='Ksp\left("\right)' shift="-1" title="Get the Ksp of a salt"><span>K<sub>sp</sub></span></div>							
+								<div class="key ctrl-key" latex-to-write='Ksp\left("\right)' shift="-1" title="Get the Ksp of a salt"><span>K<sub>sp</sub></span></div>
+								<div class="key ctrl-key" latex-to-write='balance\left("\right)' shift="-1" title="Balance a chemical equation of the form A ... B = C ... D (= may be replaced with >, ->, or <->)">baln</div>
 								
-								<div class="key" latex-to-write="sf\left(\right)" shift="-1" title="Get or set (by using a second parameter) the number of significant figures in a number">sf</div>
-								
-								<div class="key" latex-to-write="qdtc\left(\right)" shift="-1" title="Quadratic solver: qdtc(a,b,c)">qdtc</div>
-								<div class="key" latex-to-write="qdtcp\left(\right)" shift="-1" title="Quadratic solver (only returns the larger value): qdtc(a,b,c)"><span>qdtc<sup>+</sup></span></div>
 								<div class="key" latex-to-write="random\left(\right)" shift="-1" title="Generate random rumber: random() OR random(high) OR random(low, high)">rand</div>
+								<div class="key" latex-to-write="sign\left(\right)" shift="-1" title="Sign function (1 if > 0, -1 if < 0, 0 if 0)">sign</div>
+								
+								<div class="key" latex-to-write="xor" title="Logical xor">xor</div>
+								
+								<div class="key" latex-to-write="tan\left(\right)" shift="-1">tan</div>
+								<div class="key" latex-to-write="atan\left(\right)" shift="-1" >atan</div>
+								
 								<div class="key num-key" latex-to-write="a">a</div>
 								<div class="key num-key" latex-to-write="b">b</div>
 								<div class="key num-key" latex-to-write="c">c</div>
@@ -189,16 +198,22 @@
 
 								<div class="key" latex-to-write="|" title="Absolute value (shortcut: |)">|x|</div>
 								
-								<div class="key ctrl-key" id="batch-btn" title="(Coming Soon) Open the batch lookup window to balance multiple equations or look up multiple Ka's, Kb's, etc. at once">&#x2261;</div>
+								<div class="key ctrl-key" latex-to-write="sf\left(\right)" shift="-1" title="Get or set (by using a second parameter) the number of significant figures in a number">sf</div>
 								
-								<div class="key" latex-to-write='molmass\left("\right)' shift="-1" title="Get the molar mass of an element or compound">mass</div>
-								<div class="key" latex-to-write='soluble\left("\right)' shift="-1" title="Find if a binary salt is soluble (> 0.1 M)">solu</div>
-								<div class="key" latex-to-write='charge\left("\right)' shift="-1" title="Find the common charge values of an ion (elemental or polyatomic)">chrg</div>
-								<div class="key" latex-to-write='balance\left("\right)' shift="-1" title="Balance a chemical equation of the form A ... B = C ... D (= may be replaced with >, ->, or <->)">A&rarr;B</div>
+								<!--<div class="key ctrl-key" id="batch-btn" title="(Coming Soon) Open the batch lookup window to balance multiple equations or look up multiple Ka's, Kb's, etc. at once">&#x2261;</div>-->
+								
+								<div class="key ctrl-key" latex-to-write='molmass\left("\right)' shift="-1" title="Get the molar mass of an element or compound">mass</div>
+								
+								<div class="key ctrl-key" latex-to-write="qdtcp\left(\right)" shift="-1" title="Quadratic solver (only returns the larger value; useful for acid/base calculations): qdtcp(a,b,c)"><span>qdtc<sup>+</sup></span></div>
+								
+								<div class="key" latex-to-write="qdtc\left(\right)" shift="-1" title="Quadratic solver: qdtc(a,b,c)">qdtc</div>
+								
+								<div class="key" latex-to-write='round\left(\right)' shift="-1" title="Round (round to closest integer, 5 = up)">round</div>	
+								
+								<div class="key" latex-to-write="not" title="Logical not">not</div>
 								
 								<div class="key" latex-to-write='floor\left(\right)' shift="-1" title="Floor (round down)">floor</div>							
 								<div class="key" latex-to-write='ceil\left(\right)' shift="-1" title="Ceiling (round up)">ceil</div>							
-								<div class="key" latex-to-write='round\left(\right)' shift="-1" title="Round (round to closest integer, 5 = up)">round</div>	
 								
 								<div class="key num-key" latex-to-write='\theta' title="Theta">&theta;</div>
 								<div class="key" latex-to-write=":=" title="Variable assignment operator := (ex. x := 2)">:=</div>
@@ -320,6 +335,10 @@
 									<td title="Hydrogen"><span class="elem-num">1</span><span class="elem-name">H</span></td>
 									<td colspan="16" class="table-spacer"></td>
 									<td title="Helium"><span class="elem-num">2</span><span class="elem-name">He</span></td>
+									<td colspan="1" class="table-spacer"></td>
+									<td title="Enter number 0" class="ptable-key"><span class="elem-name">0</span></td>
+									<td title="Escape superscript (charge)/subscript (number) level" keys-to-type="Spacebar" class="ptable-esc ptable-key">Esc</td>
+									<td title="Backspace" keys-to-type="Backspace" class="ptable-backspace ptable-key">⌫</td>
 								</tr>
 								<tr>
 									<th title="Period 2 element">2</th>
@@ -332,6 +351,10 @@
 									<td title="Oxygen"><span class="elem-num">8</span><span class="elem-name">O</span></td>
 									<td title="Fluorine"><span class="elem-num">9</span><span class="elem-name">F</span></td>
 									<td title="Neon"><span class="elem-num">10</span><span class="elem-name">Ne</span></td>
+									<td colspan="1" class="table-spacer"></td>
+									<td title="Enter number 1" class="ptable-key"><span class="elem-name">1</span></td>
+									<td title="Enter number 2" class="ptable-key"><span class="elem-name">2</span></td>
+									<td title="Enter number 3" class="ptable-key"><span class="elem-name">3</span></td>
 								</tr>
 								<tr>
 									<th title="Period 3 element">3</th>
@@ -344,6 +367,10 @@
 									<td title="Sulfur"><span class="elem-num">16</span><span class="elem-name">S</span></td>
 									<td title="Chlorine"><span class="elem-num">17</span><span class="elem-name">Cl</span></td>
 									<td title="Argon"><span class="elem-num">18</span><span class="elem-name">Ar</span></td>
+									<td colspan="1" class="table-spacer"></td>
+									<td title="Enter number 4" class="ptable-key"><span class="elem-name">4</span></td>
+									<td title="Enter number 5" class="ptable-key"><span class="elem-name">5</span></td>
+									<td title="Enter number 6" class="ptable-key"><span class="elem-name">6</span></td>
 								</tr>
 								<tr>
 									<th title="Period 4 element">4</th>
@@ -365,6 +392,10 @@
 									<td title="Selenium"><span class="elem-num">34</span><span class="elem-name">Se</span></td>
 									<td title="Bromine"><span class="elem-num">35</span><span class="elem-name">Br</span></td>
 									<td title="Krypton"><span class="elem-num">36</span><span class="elem-name">Kr</span></td>
+									<td colspan="1" class="table-spacer"></td>
+									<td title="Enter number 7" class="ptable-key"><span class="elem-name">7</span></td>
+									<td title="Enter number 8" class="ptable-key"><span class="elem-name">8</span></td>
+									<td title="Enter number 9" class="ptable-key"><span class="elem-name">9</span></td>
 								</tr>
 								<tr>
 									<th title="Period 5 element">5</th>
@@ -386,6 +417,13 @@
 									<td title="Tellurium"><span class="elem-num">52</span><span class="elem-name">Te</span></td>
 									<td title="Iodine"><span class="elem-num">53</span><span class="elem-name">I</span></td>
 									<td title="Xenon"><span class="elem-num">54</span><span class="elem-name">Xe</span></td>
+									<td colspan="1" class="table-spacer"></td>
+									<td title="Minus sign (Negative charge marker)" class="ptable-key"><span class="elem-name">-</span></td>
+									<td title="Specify charge (Superscript) NOTE: to balance redox eq's, add H2O/H+/OH- to appropriate sides."  latex-to-write="^{}" shift="-1" class="ptable-key">x<sup>+-</sup></td>
+									<td title="Specify number of items (Subscript) NOTE: this is optional, just appending numbers to elements works too."  latex-to-write="_{}"  shift="-1" class="ptable-key">x<sub>#</sub></td>
+									
+										
+									
 								</tr>
 								<tr>
 									<th title="Period 6 element">6</th>
@@ -407,6 +445,11 @@
 									<td title="Polonium"><span class="elem-num">84</span><span class="elem-name">Po</span></td>
 									<td title="Astatine"><span class="elem-num">85</span><span class="elem-name">At</span></td>
 									<td title="Radon"><span class="elem-num">86</span><span class="elem-name">Rn</span></td>
+									
+									<td colspan="1" class="table-spacer"></td>
+									<td title="Plus sign (Compound separator/positive charge marker)" class="ptable-key"><span class="elem-name">+</span></td>
+									<td title="Equal sign (Reactant/product separator)" class="ptable-key"><span class="elem-name">=</span></td>
+									<td title="Start/end of formula" class="ptable-key"><span class="elem-name">&quot;</span></td>
 								</tr>
 								<tr>
 									<th title="Period 7 element">7</th>
@@ -428,6 +471,12 @@
 									<td title="Livermorium"><span class="elem-num">116</span><span class="elem-name">Lv</span></td>
 									<td title="Ununseptium"><span class="elem-num">117</span><span class="elem-name">Uus</span></td>
 									<td title="Ununoctium"><span class="elem-num">118</span><span class="elem-name">Uuo</span></td>
+									
+									<td colspan="1" class="table-spacer"></td>
+									<td class="ptable-key" title="Left bracket (For entering polyatomic ions, hydrates, etc.)"><span class="elem-name">(</span></td>
+									<td class="ptable-key" title="Right bracket (For entering polyatomic ions, hydrates, etc.)"><span class="elem-name">)</span></td>
+									<td class="ptable-key" latex-to-write='molmass\left("\right)' shift="-1" title="Get the molar mass of an element or compound">mass</td>
+									
 								</tr>
 								<tr>
 									<th colspan="4">* Lanthanides<br/></th>
@@ -446,6 +495,11 @@
 									<td title="Thulium"><span class="elem-num">69</span><span class="elem-name">Tm</span></td>
 									<td title="Ytterbium"><span class="elem-num">70</span><span class="elem-name">Yb</span></td>
 									<td title="Lutetium"><span class="elem-num">71</span><span class="elem-name">Lu</span></td>
+									
+									<td colspan="1" class="table-spacer"></td>
+									<td class="ptable-key" latex-to-write='Ka\left("\right)' shift="-1" title="Get the Ka of an acid">K<sub>a</sub></td>
+									<td class="ptable-key" latex-to-write='Kb\left("\right)' shift="-1" title="Get the Kb of a base">K<sub>b</sub></td>
+									<td class="ptable-key" latex-to-write='Ksp\left("\right)' shift="-1" title="Get the Ksp of a salt">K<sub>sp</sub></td>
 								</tr>
 								<tr>
 									<th colspan="4">** Actinides<br /></th>
@@ -464,6 +518,11 @@
 									<td title="Mendelevium"><span class="elem-num">101</span><span class="elem-name">Md</span></td>
 									<td title="Nobelium"><span class="elem-num">102</span><span class="elem-name">No</span></td>
 									<td title="Lawrencium"><span class="elem-num">103</span><span class="elem-name">Lr</span></td>
+									
+									<td colspan="1" class="table-spacer"></td>
+									<td class="ptable-key" latex-to-write='soluble\left("\right)' shift="-1" title="Find if a binary salt is soluble (> 0.1 M)">solu</td>
+									<td class="ptable-key" latex-to-write='charge\left("\right)' shift="-1" title="Find the common charge values of an ion (elemental or polyatomic)">chrg</td>
+									<td class="ptable-key" latex-to-write='balance\left("\right)' shift="-1" title="Balance a chemical equation of the form A ... B = C ... D (= may be replaced with >, ->, or <->)">baln</td>
 								</tr>
 							</table>
 							<div id="periodic-table-close">&times;</div>

@@ -1155,7 +1155,7 @@ $(document).ready(function() {
     }
 
 	// keypad
-    $('.key').on(evtname, function(){ 
+    $('.key, .ptable-key').on(evtname, function(){ 
 
 		$this = $(this); 
 		var ct = 0;
@@ -1195,7 +1195,7 @@ $(document).ready(function() {
 	})
 
     if (!Modernizr.touch){
-        $('.key').on('mouseup mouseleave', function() {		
+        $('.key, .ptable-key').on('mouseup mouseleave', function() {		
               clearInterval(timeoutTracker);
               exprField.focus();
         });
@@ -1274,14 +1274,20 @@ $(document).ready(function() {
 		if (! Modernizr.touch) exprField.focus();
 	});
 	
+	var ptable = $('#periodic-table');
+	
 	$('#periodic-btn').click(function(){
-		var ptable = $('#periodic-table');
+		var ptableClose = $('#periodic-table-close');
+		
 		if (ptable.css('display') == 'block'){
-			ptable.animate({'opacity': 0}, 1000, function(){ ptable.css('display', 'none'); });		
+			ptable.animate({'opacity': 0}, 1000, function(){ 
+				ptable.css('display', 'none'); 
+			});		
 		}
 		else{
 			ptable.css('opacity', 0);
 			ptable.css('display', 'block');
+			ptableClose.css('top', (ptable.position().top+10) + 'px');
 			ptable.animate({'opacity': 1}, 1000);		
 		}
 		if (!Modernizr.touch) exprField.focus();
@@ -1292,6 +1298,13 @@ $(document).ready(function() {
 		ptable.css('opacity', 1);
 		ptable.animate({'opacity': 0}, 1000, function(){ ptable.css('display', 'none'); });		
 		if (!Modernizr.touch) exprField.focus();
+	});
+	
+	$(window).resize(function(){
+		if (ptable.css('display') == 'block'){
+			var ptableClose = $('#periodic-table-close');
+			ptableClose.css('top', (ptable.position().top+10) + 'px');
+		}
 	});
 	
 	$('#periodic-table td').click(function(){

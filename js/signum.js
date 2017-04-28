@@ -249,8 +249,11 @@ function SigNum (value, sf, creatingOp) {
     };
 	
     /**
-     * Multiply this with another number (SigNum or normal)
+     * Multiply this by another number (SigNum or normal)
      * and return a new SigNum.
+	 * Note that this uses special rules when multiplying integer with infinite sig figs. 
+	 * In these cases, rounding is done by decimal place instead of sig figs 
+	 * (because it is equal to adding the number to itself many times)
 	 */
     this.times = function(b){
         roundIfNotOp('*', this);
@@ -258,11 +261,11 @@ function SigNum (value, sf, creatingOp) {
 
         if (b.constructor == SigNum){
             c.value = this.value * b.value; 
-            if (this.sf == Infinity && Math.abs(this.value) > 1 && Math.log10(Math.abs(this.value)) % 1 > 1e-300){
+            if (this.sf == Infinity && Math.abs(this.value) > 1 && Math.abs(this.value) % 1 < 1e-300){
                 var lg = Math.floor(Math.log10(Math.abs(c.value)));
                 c.sf = lg + b.decimalPlaces() + 1;
             }
-            else if (b.sf == Infinity && Math.abs(b.value) > 1 && Math.log10(Math.abs(b.value)) % 1 > 1e-300){
+            else if (b.sf == Infinity && Math.abs(b.value) > 1 && Math.abs(b.value) % 1 < 1e-300){
                 var lg = Math.floor(Math.log10(Math.abs(c.value)));
                 c.sf = lg + this.decimalPlaces() + 1;
             }
@@ -274,12 +277,35 @@ function SigNum (value, sf, creatingOp) {
             c.value = this.value * b;
             var lg = Math.floor(Math.log10(Math.abs(c.value)));
 			
-			if (Math.log10(Math.abs(b) % 1 > 1e-300) && Math.abs(b) > 1){
+			if (Math.abs(b) % 1 < 1e-300 && Math.abs(b) > 1){
 				c.sf = lg + this.decimalPlaces() + 1;
 			}
 			else{
 				c.sf = this.sf;				
 			}
+        } 
+
+        return c;
+    };
+	
+	/**
+     * Multiply this by another number
+     * and return a new SigNum.
+	 * This does not use special rules when multiplying integer with infinite sig figs.
+	 * The result will always have a number of sig figs equal to that of the least precise operand.
+	 */
+    this.scale = function(b){
+        roundIfNotOp('*', this);
+        var c = new SigNum(0, Infinity, lastOp);
+
+        if (b.constructor == SigNum){
+            c.value = this.value * b.value; 
+            c.sf = Math.min(this.sf, b.sf);
+        }
+        else{
+            c.value = this.value * b;
+            var lg = Math.floor(Math.log10(Math.abs(c.value)));
+			c.sf = this.sf;				
         } 
 
         return c;

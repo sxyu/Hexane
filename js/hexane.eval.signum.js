@@ -148,7 +148,7 @@ case 19:
 this.$ = $$[$0-2].shl($$[$0]);
 break;
 case 20:
-this.$ = $$[$0-2].times(SigNum.pow(10, $$[$0]));
+this.$ = $$[$0-2].scale(SigNum.pow(10, $$[$0]));
 break;
 case 21:
 this.$ = $$[$0-2].expo($$[$0]);

@@ -671,6 +671,8 @@ nav a {
 	bottom: 10px;
 	right: 10px;
 	
+	z-index: 10000;
+	
 	background-color: transparent;
 	
 	font-size: 20px;
@@ -686,6 +688,17 @@ nav a {
 
 #periodic-table-close:hover{
 	background-color: rgba(20,20,20,0.5);
+}
+
+.ptable-key{
+	text-align: center;
+	font-size: 14px;
+	font-family: Consolas,Courier New,times,Symbola,monospace;
+	font-weight: 600;
+}
+
+#periodic-table .ptable-key .elem-name{
+	font-weight: 600;
 }
 
 .main-container .wrapper {
