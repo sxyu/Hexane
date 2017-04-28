@@ -1121,7 +1121,10 @@ $(document).ready(function() {
 		$('.history-delete').click(function(e){
 			var tile = $(this).parent();
 			Hexane.prevAns.splice(Number(tile.attr('position')), 1);
-			saveAnsList();
+			try{
+				saveAnsList();
+			}
+			catch (ignore){}
 			
 			tile.animate({opacity:0}, 500, 'linear',
 				function(){
