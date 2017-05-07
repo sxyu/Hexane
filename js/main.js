@@ -203,7 +203,7 @@ var Hexane = new function(){
 				}
 				else{
 					for (var p in Hexane.data.polycharges){
-						if (formula.startsWith(p)){
+						if (formula.length >= p.length && formula.substring(0, p.length) == p){
 							n1 = p;
 							l = p.length;
 							break;
@@ -237,7 +237,7 @@ var Hexane = new function(){
 				}
 				else{
 					for (var p in Hexane.data.polycharges){
-						if (formula.startsWith(p)){
+						if (formula.length >= p.length && formula.substring(0, p.length) == p){
 							n2 = p;
 							l = p.length;
 							break;

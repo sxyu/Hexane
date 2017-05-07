@@ -202,7 +202,7 @@ Hexane.decomposeChemFormula = function(formula){
 	 *  @returns {Array} An array consisting of two subarrays each containing appropriate coefficients for the compounds on each side of the equation.
 	 */
 	obj.balanceNumerical = function(equation){
-		equation = equation.replaceAll('->', '=').replaceAll('>', '=').replaceAll('<', '');
+		equation = equation.replaceAll('<-', '=').replaceAll('->', '=').replaceAll('>', '=').replaceAll('<', '').replaceAll('^+', '^1').replace(/\^\{([0-9]*)\+\}/, '\^{\$1}');
 		var spl = equation.replaceAll('{', '').replaceAll('}', '').replace(/\+$/, '').replaceAll('+=', '=').replaceAll('++', '+').split('='); 	
 		
 		if (spl.length != 2) return null; // not 2 sides
@@ -329,33 +329,54 @@ Hexane.decomposeChemFormula = function(formula){
 			var c = equation[i];
 			if ('=<>'.indexOf(c) != -1) eqsign += c;
 		}
+		if (eqsign == ">") eqsign = "->";
+		if (eqsign == "<") eqsign = "<-";
+		if (eqsign == "<>") eqsign = "<->";
 		
-		equation = equation.replaceAll('->', '=').replaceAll('>', '=').replaceAll('<', '');
-		var spl = equation.replaceAll('{', '').replaceAll('}', '').replace(/\+$/, '').replaceAll('+=', '=').replaceAll('++', '+').split('=');
+		equation = equation.replaceAll('<-', '=').replaceAll('->', '=').replaceAll('>', '=').replaceAll('<', '').replace('^+', '^1').replace(/\^\{([0-9]*)\+\}/, '\^{\$1}');
+		var spl = equation.replace(/\+$/, '').replaceAll('+=', '=').replaceAll('++', '+').split('=');
 		var left = spl[0].split('+');
 		var right = spl[1].split('+');
 		
 		var ans = '';
+		
 		for (var i=0; i<left.length; ++i){
 			if (i != 0) ans += ' + ';
 			if (left[i].indexOf('^') != -1) {
-				if (!(left[i].endsWith('-')))
+				if (left[i].length >= 2 && !(left[i][left[i].length-1] == '-' || left[i][left[i].length-1] == '}' && left[i][left[i].length-2] == '-')){
 					left[i] += '+';
-				left[i] = left[i].replace('^', '^{') + '}'
+					left[i] = left[i].replace('^', '^{') + '}';
+				}
+				left[i] = left[i].replace('^{1+}', '^+');
 			}
-			ans += sol[i] + ' ' + left[i].trim();
+			if (sol[i] == 1){
+				ans += left[i].trim();
+			}
+			else if (sol[i] > 1){
+				ans += sol[i] + ' ' + left[i].trim();
+			}
 		}
 		
 		ans += ' ' + eqsign + ' ';
 		
+		var lL = left.length;
+		
 		for (var i=0; i<right.length; ++i){
 			if (i != 0) ans += ' + ';
 			if (right[i].indexOf('^') != -1) {
-				if (!(right[i].endsWith('-')))
+				if (right[i].length >= 2 && !(right[i][right[i].length-1] == '-' || right[i][right[i].length-1] == '}' && right[i][right[i].length-2] == '-')){
 					right[i] += '+';
-				right[i] = right[i].replace('^', '^{') + '}'
+					right[i] = right[i].replace('^', '^{') + '}';
+				}
+				right[i] = right[i].replace('^{1+}', '^+');
 			}
-			ans += sol[i + left.length] + ' ' + right[i].trim();
+			
+			if (sol[i + lL] == 1){
+				ans += right[i].trim();
+			}
+			else if (sol[i + lL] > 1){
+				ans += sol[i + lL] + ' ' + right[i].trim();
+			}
 		}
 		
 		return ans;
