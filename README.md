@@ -3,6 +3,17 @@
 ![Logo](https://raw.githubusercontent.com/sxyu/Hexane/master/favicon-32x32.png)	
 [hexane.tk](http://hexane.tk)
 
+## Reuse My Code
+
+All code is licenced under the Apache License, version 2.0.
+The reusable javascript files are available as a release. Check out [the releases page](https://github.com/sxyu/Hexane/releases) for more information about usage.
+
+**Overview of reusable JS files:**
+`signum.js` JS numbers supporting all sorts of computations with significant figures
+`hexane.eval.js` JS LaTeX evaluator for use with MathQuill. Created with Jison.
+`hexane.eval.signum.js` Same as above, but does computations with SigNums instead of regular numbers.
+`hexane.balance.js` Powerful & fast JS equation balancer supporting charges, nested brackets, etc.
+
 ![Screenshot](https://raw.githubusercontent.com/sxyu/Hexane/master/img/screenshot.png)	
 
 
@@ -71,12 +82,6 @@ The following are not strictly chemical functions but are still often useful in 
 - `sf`: Get (`sf(3.0)`) or set (`sf(300,2)`) the number of significant figures in a number.
 - `qdtc`: Takes three parameters a, b, c and outputs the solution(s) to the quadratic equation ax^2 + bx + c = 0.
 - `qdtcp` `qdtcn`: only return at most one of the two possible qdtc solutions to produce a numerical result you can work with.
-
-### Other Functions
-
-Hexane provides a number of other functions. You may use them in a similar
-
-### More Documentation Coming Soon
 
 ## License
 
