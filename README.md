@@ -5,14 +5,15 @@
 
 ## Reuse My Code
 
-All code is licenced under the Apache License, version 2.0.
+All code in this project is licenced under the Apache License, version 2.0.
 The reusable javascript files are available as a release. Check out [the releases page](https://github.com/sxyu/Hexane/releases) for more information about usage.
 
 **Overview of reusable JS files:**
-`signum.js` JS numbers supporting all sorts of computations with significant figures
-`hexane.eval.js` JS LaTeX evaluator for use with MathQuill. Created with Jison.
-`hexane.eval.signum.js` Same as above, but does computations with SigNums instead of regular numbers.
-`hexane.balance.js` Powerful & fast JS equation balancer supporting charges, nested brackets, etc.
+
+-`signum.js` JS numbers supporting all sorts of computations with significant figures
+-`hexane.eval.js` JS LaTeX evaluator for use with MathQuill. Created with Jison.
+-`hexane.eval.signum.js` Same as above, but does computations with SigNums instead of regular numbers.
+-`hexane.balance.js` Powerful & fast JS equation balancer supporting charges, nested brackets, etc.
 
 ![Screenshot](https://raw.githubusercontent.com/sxyu/Hexane/master/img/screenshot.png)	
 
