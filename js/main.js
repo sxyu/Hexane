@@ -105,6 +105,7 @@ var Hexane = new function(){
         min: function(a, b) { return SigNum.min(a, b); },
         abs: function(a, b) { return SigNum.abs(a, b); },
         log: function(a, b) { if (b === undefined) return SigNum.log10(a); else return SigNum.log2(a) / SigNum.log2(b); },
+        ln: function(a) { return a.ln(); },
         sqrt: function(a) { return SigNum.sqrt(a); },
         cbrt: function(a) { return SigNum.cbrt(a); },
         floor: function(a) { return SigNum.floor(a); },
