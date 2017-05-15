@@ -1,7 +1,7 @@
 # Hexane
 
 ![Logo](https://raw.githubusercontent.com/sxyu/Hexane/master/favicon-32x32.png)	
-[hexane.tk](http://hexane.tk)
+[hexane.cf](https://hexane.cf)
 
 ## Reuse My Code
 
@@ -22,7 +22,7 @@ Hexane is an online calculator supporting calculations with significant figures.
 
 ## Basic Usage
 
-- To use the calculator, open [hexane.tk](http://hexane.tk) on any computer or mobile device
+- To use the calculator, open [hexane.cf](https://hexane.cf) on any computer or mobile device
 - Type into the calculator textbox to evaluate any expression
 - The result is displayed at the top both as a *full number* and in *scientific notation*
 - On mobile devices and other devices with touch screens, you may want to use the keypad below to enter expressions.
