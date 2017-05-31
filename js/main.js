@@ -105,7 +105,7 @@ var Hexane = new function(){
         min: function(a, b) { return SigNum.min(a, b); },
         abs: function(a, b) { return SigNum.abs(a, b); },
         log: function(a, b) { if (b === undefined) return SigNum.log10(a); else return SigNum.log2(a) / SigNum.log2(b); },
-        ln: function(a) { return a.ln(); },
+        // ln: function(a) { return a.ln(); },
         sqrt: function(a) { return SigNum.sqrt(a); },
         cbrt: function(a) { return SigNum.cbrt(a); },
         floor: function(a) { return SigNum.floor(a); },
@@ -882,9 +882,8 @@ var Hexane = new function(){
 			'BO3': new SigNum(-3), 
 			'PO4': new SigNum(-3), 
 			'PO3': new SigNum(-3),
-		}
-
-    };
+		};
+	};
 };
 
 $(document).ready(function() {
@@ -1084,35 +1083,42 @@ $(document).ready(function() {
 		});
 		
 		$('.history-tile').mousedown(function(e){
-			histTimer = new Date();
 			
-		}).mouseup(function(event){
+			// enable long tap
+			$this = $(this);
+			histTimer = setTimeout(function(){onLongTapHist($this);}, 750);
+			
+		}).on('touchend mouseup', function(event){
 			$this = $(this);
 			var name =  $this.attr('var');
 			
-			// enable click & hold
-			var timeDiff = (new Date())-histTimer >= 1000;
-			
-			if (event.button == 0 && !timeDiff){
+			if (event.button == 0){
 				exprField.write($this.attr('value'));
 				window.scrollTo(0, document.getElementsByClassName('header-container')[0].offsetHeight);
 			}
 			else{
-				Hexane.prevAns.splice(Number($this.attr('position')), 1);
-				saveAnsList();
-				
-				$this.animate({opacity:0}, 500, 'linear',
-					function(){
-						$this.remove();
-						rebuildAnsList();
-					}
-				);
+				onLongTapHist($this);
 			}
 			
 			histTimer = null;
 			
 			if (!Modernizr.touch) exprField.focus();
 		});
+		
+		var onLongTapHist = function($this){
+			if (!$this) return;
+			var name =  $this.attr('var');
+			
+			Hexane.prevAns.splice(Number($this.attr('position')), 1);
+			saveAnsList();
+			
+			$this.animate({opacity:0}, 500, 'linear',
+				function(){
+					$this.remove();
+					rebuildAnsList();
+				}
+			);
+		}
 		
 		$('.history-delete').mouseup(function(e){	
 			window.event.cancelBubble = true;
@@ -1154,49 +1160,64 @@ $(document).ready(function() {
 	var timeoutTracker = 0;
 
     var evtname = 'mousedown';
-    if (Modernizr.touch){
-        evtname = 'mouseup';
-    }
+    if (Modernizr.touch) evtname = 'touchend';
 
 	// keypad
-    $('.key, .ptable-key').on(evtname, function(){ 
-
-		$this = $(this); 
-		var ct = 0;
-		var exec = function(){
-			if (ct == 0 || ct > 50 || (ct > 10 && ct % 5 == 0) || (ct < 10 && ct % 10 == 0)){
-				if ($this.attr('latex-to-write')){ 
-					exprField.write($this.attr('latex-to-write'));
-				} 
-    			if ($this.attr('text-to-add')){ 
-					exprField.typedText($this.attr('text-to-add'));
-				} 
-				if ($this.attr('keys-to-type')){ 
-					exprField.keystroke($this.attr('keys-to-type'));
-				}
-				if ($this.attr('shift')){ 
-                    var toType = "";
-                    var shNum = Number($this.attr('shift'));
-                    if (shNum > 0){
-                        for (var i=0; i<shNum; ++i){
-                            toType += "Right ";
-                        }
-                    }
-                    else{
-                        for (var i=0; i>shNum; --i){
-                            toType += "Left ";
-                        }
-                    }
-					exprField.keystroke(toType.trim());
-				}
+	
+	var $this = null;
+	var ct = 0;
+	var exec = function(){
+		if (ct == 0 || ct > 50 || (ct > 10 && ct % 5 == 0) || (ct < 10 && ct % 10 == 0)){
+			if ($this.attr('latex-to-write')){ 
+				exprField.write($this.attr('latex-to-write'));
+			} 
+			if ($this.attr('text-to-add')){ 
+				exprField.typedText($this.attr('text-to-add'));
+			} 
+			if ($this.attr('keys-to-type')){ 
+				exprField.keystroke($this.attr('keys-to-type'));
 			}
-			++ct;
+			if ($this.attr('shift')){ 
+				var toType = "";
+				var shNum = Number($this.attr('shift'));
+				if (shNum > 0){
+					for (var i=0; i<shNum; ++i){
+						toType += "Right ";
+					}
+				}
+				else{
+					for (var i=0; i>shNum; --i){
+						toType += "Left ";
+					}
+				}
+				exprField.keystroke(toType.trim());
+			}
 		}
+		++ct;
+	}
+	
+	var cancelPress = false;
+	
+    $('.key, .ptable-key').on(evtname, function(e){
+		if (cancelPress) {
+			cancelPress = false; 
+			return;
+		}
+		
+		ct = 0;
+		$this = $(this); 
 		exec();
+		
 		// allow user to hold key & repeat type
     	if (!Modernizr.touch)
-    	    timeoutTracker = setInterval(exec, 25);
-	})
+    	    timeoutTracker = setInterval(exec, 20);
+		else
+			document.activeElement.blur();
+	});
+	
+	$('.key, .ptable-key').on('touchmove', function(e){ 
+		cancelPress = true;
+	});
 
     if (!Modernizr.touch){
         $('.key, .ptable-key').on('mouseup mouseleave', function() {		
@@ -1212,39 +1233,54 @@ $(document).ready(function() {
 	
 	// memory
 	var memTimer;
-	$('.memory-tile').mousedown(function(event){
-		memTimer = new Date();
-	}).mouseup(function(event){
+	
+	$('.memory-tile').on('touchstart', function(event){
+		
+		// enable long tap		
+		$this = $(this);
+		memTimer = setTimeout(function(){onLongTapMem($this);}, 750);
+		
+	}).on('touchend mouseup', function(event){
 		$this = $(this);
 		var name =  $this.attr('var');
-		// enable click & hold
-		var timeDiff = (new Date())-memTimer >= 1000;
-		if (event.button == 0 && !timeDiff){
-		    name = $this.attr('latex-to-write') ? $this.attr('latex-to-write') : $this.attr('var');
-            exprField.write(name);
-			window.scrollTo(0, document.getElementsByClassName('header-container')[0].offsetHeight);
-		}
-		else{
-			if (resval !== undefined && resval !== null){
-				Hexane.vars[name] = resval;
-				$this.attr('title', resval.toString());
+		
+		if (memTimer){
+			clearTimeout(memTimer);
+			if (event.button == 0){
+				name = $this.attr('latex-to-write') ? $this.attr('latex-to-write') : $this.attr('var');
+				exprField.write(name);
+				window.scrollTo(0, document.getElementsByClassName('header-container')[0].offsetHeight);
 			}
 			else{
-				Hexane.vars[name] = undefined;
-				$this.attr('title', 'undefined');
-			}
-			if (varsLoaded){
-				try{
-					localStorage.setItem("vars", JSON.stringify(Hexane.vars));
-				}
-				catch (ignore) {};
+				onLongTapMem($this);
 			}
 		}
-		
-		memTimer = null;
 		
 		if (!Modernizr.touch) exprField.focus();
 	});
+	
+	var onLongTapMem = function($this){
+		if (!$this) return;
+		var name =  $this.attr('var');
+		
+		if (resval !== undefined && resval !== null){
+			Hexane.vars[name] = resval;
+			$this.attr('title', resval.toString());
+		}
+		else{
+			Hexane.vars[name] = undefined;
+			$this.attr('title', 'undefined');
+		}
+		
+		if (varsLoaded){
+			try{
+				localStorage.setItem("vars", JSON.stringify(Hexane.vars));
+			}
+			catch (ignore) {};
+		}
+		
+		if (!Modernizr.touch) exprField.focus();
+	};
 	
 	// config
 	$('#config-sf input').change(function(){
@@ -1264,7 +1300,7 @@ $(document).ready(function() {
 		
 		evalExpr();
 	});
-	
+		
 	$('#allclear-btn').click(function(){
 		exprField.latex('');
 		if (! Modernizr.touch) exprField.focus();
@@ -1280,7 +1316,13 @@ $(document).ready(function() {
 	
 	var ptable = $('#periodic-table');
 	
-	$('#periodic-btn').click(function(){
+	var ignorePtable = false;
+	$('#periodic-btn').on('touchstart', function(){
+		ignorePtable = false;
+	}).on('touchmove', function(){
+		ignorePtable = true;
+	}).click(function(){
+		if (ignorePtable) return;
 		var ptableClose = $('#periodic-table-close');
 		
 		if (ptable.css('display') == 'block'){
@@ -1387,7 +1429,7 @@ $(document).ready(function() {
             updateMemoryTitles();
         }
         catch (ex) { console.log(ex.message) }
-			
+	
 	// Fade in page when loaded
     $('.site-container').animate({opacity:1}, 1000);
 	$('#loading-spinner').animate({opacity:0}, 1000, function(){ 
@@ -1396,8 +1438,9 @@ $(document).ready(function() {
 	if (Modernizr.touch){
 		setTimeout(function(){
 			window.scrollTo(0, document.getElementsByClassName('header-container')[0].offsetHeight);
-		}, 500);	
-	}
+			$('textarea').attr('readonly', 'readonly');
+		}, 1500);	
+	};
     exprField.select();
     exprField.focus(); 
 });

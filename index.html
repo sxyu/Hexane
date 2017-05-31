@@ -4,17 +4,17 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Scientific Calculator - Hexane</title>
-    <meta name="description" content="Hexane calculator - expression evaluator designed for chemistry students">
-    <meta name="author" content="Alex Yu">
-	<meta name="copyright" content="All content copyright 2017 Hexane/Alex Yu">
-    <meta name="keywords" content="chemistry,calculator,computer,evaluator,sigfigs,significant,figures,Hexane,MathQuill,students,teaching,learning,school">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Hexane calculator - expression evaluator designed for chemistry students"/>
+    <meta name="author" content="Alex Yu"/>
+	<meta name="copyright" content="All content copyright 2017 Hexane/Alex Yu"/>
+    <meta name="keywords" content="chemistry,calculator,computer,evaluator,sigfigs,significant,figures,Hexane,MathQuill,students,teaching,learning,school"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui"/>
 	<meta name="robots" content="index,follow">
 	
-    <link rel="stylesheet" type="text/css" href="css/production.css">
+    <link rel="stylesheet" type="text/css" href="css/production.css"/>
 	
 	<!-- <noscript> -->
 		<!-- <style type="text/css"> -->
@@ -24,25 +24,25 @@
 		<!-- </style> -->
 	<!-- </noscript> -->
 	
-	<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
-	<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
-	<link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192">
-	<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
-	<link rel="manifest" href="manifest.json">
-	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#f06560">
-	<meta name="apple-mobile-web-app-title" content="Hexane">
-	<meta name="application-name" content="Hexane">
-	<meta name="msapplication-TileColor" content="#f06560">
-	<meta name="msapplication-TileImage" content="mstile-144x144.png">
-	<meta name="theme-color" content="#de4944">
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png"/>
+	<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png"/>
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png"/>
+	<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png"/>
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png"/>
+	<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png"/>
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png"/>
+	<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png"/>
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png"/>
+	<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32"/>
+	<link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192"/>
+	<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16"/>
+	<link rel="manifest" href="manifest.json"/>
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#f06560"/>
+	<meta name="apple-mobile-web-app-title" content="Hexane"/>
+	<meta name="application-name" content="Hexane"/>
+	<meta name="msapplication-TileColor" content="#f06560"/>
+	<meta name="msapplication-TileImage" content="mstile-144x144.png"/>
+	<meta name="theme-color" content="#de4944"/>
 </head>
 <body>
 	<div id="loading-spinner"></div>
@@ -68,7 +68,7 @@
 				<article>
 					<section>				
 						<a href="https://github.com/sxyu/Hexane" id="github-fork" title="Open Hexane's GitHub repository in a new tab" class="mobile-hide" target="_blank">
-							<img style="position: absolute; top: 0; right: 0; border: 0;" src="img/github-fork.png" alt="Fork me on GitHub">
+							<img style="position: absolute; top: 0; right: 0; border: 0;" src="img/github-fork.png" alt="Fork me on GitHub"/>
 						</a>
 						
 						<div id="answer"><span id="result-field"></span></div>
@@ -217,6 +217,11 @@
 							</div>
 						</div>
 						
+						<div id="history">
+							<p class="history-tip"><strong>Saved Results</strong><span class="mobile-hide"> &nbsp;|&nbsp; Press <kbd>ENTER</kbd> in the textbox to the save current result</span> &nbsp;|
+							<a class="history-clear">Clear</a></p>
+						</div>
+						
 						<div id="memory">
 							<div class="contiguous">
 								<div class="memory-tile" var="x">x</div>
@@ -267,11 +272,6 @@
 							</div>
 							
 							<p class="memory-tip"><strong>Memory</strong><span class="mobile-hide"> &nbsp;|&nbsp; Right click a variable to assign, left click to reuse.</span></p>
-						</div>
-						
-						<div id="history">
-							<p class="history-tip"><strong>Saved Results</strong><span class="mobile-hide"> &nbsp;|&nbsp; Press <kbd>ENTER</kbd> in the textbox to the save current result</span> &nbsp;|
-							<a class="history-clear">Clear</a></p>
 						</div>
 						
 						<div id="config">

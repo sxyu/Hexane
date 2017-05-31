@@ -3,7 +3,8 @@
 html {
     color: #222;
     font-size: 1em;
-    line-height: 1.4
+    line-height: 1.4;
+	touch-action: manipulation;
 }
 
 ::-moz-selection {
@@ -97,7 +98,8 @@ h1,h2,h3,h4,h5,h6 {
 body {
     font: 16px/26px Raleway,Helvetica Neue,Arial;
     background: #eee;
-    position: relative
+    position: relative;
+	touch-action: manipulation;
 }
 
 .site-container {
@@ -266,8 +268,6 @@ nav a:hover {
     -o-transition: all 1s ease;
     -ms-transition: all 1s ease;
     transition: all 1s ease;
-    overflow-x: auto;
-    overflow-y: visible;
     touch-action: none;
     -ms-touch-action: none;
     -webkit-user-select: none;
@@ -283,17 +283,18 @@ nav a:hover {
 }
 
 #editor {
-    padding: 0 12px
+    padding: 0 12px;
 }
 
 #expr-field .mq-root-block {
-    overflow-x: visible;
+    overflow-x: auto;
     overflow-y: visible;
     min-height: 50px
 }
 
 .mq-root-block,.mq-math-mode span.mq-root-block {
-    overflow: visible
+    overflow-x: auto;
+    overflow-y: visible;
 }
 
 #expr-field * {
@@ -342,7 +343,7 @@ nav a {
     box-sizing: border-box;
     background: #393939;
     position: relative;
-    padding-top: 13px;
+    padding-top: 12px;
     padding-bottom: 9px;
     font-size: 0;
     -moz-user-select: none;
@@ -355,7 +356,7 @@ nav a {
 }
 
 #keypad .key-row {
-    min-width: 1150px;
+    min-width: 890px;
 	padding: 0;
 }
 
@@ -370,8 +371,8 @@ nav a {
 	vertical-align:top;
     background-color: #2a2929;
     color: #efefef;
-    margin-right: 6px;
-    margin-bottom: 7px;
+    margin-right: 4px;
+    margin-bottom: 4px;
     cursor: pointer;
     -webkit-transition: background .5s ease;
     -moz-transition: background .5s ease;
@@ -409,11 +410,11 @@ nav a {
 }
 
 #keypad .key.double-wid {
-    width: 81px
+    width: 78px
 }
 
 #keypad .key.triple-wid {
-    width: 125px
+    width: 121px
 }
 
 #keypad #batch-btn{
@@ -427,7 +428,7 @@ nav a {
     overflow-x: auto;
     overflow-y: hidden;
     font-size: 0;
-    background: #393939;
+    
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
@@ -486,6 +487,7 @@ nav a {
 #memory .contiguous {
     height: 55px;
 	vertical-align:top;
+	margin-bottom: -4px;
 }
 
 #history .history-tile:hover,#memory .memory-tile:hover {
@@ -527,6 +529,7 @@ nav a {
     padding-bottom: 32px;
     overflow-x: auto;
     overflow-y: hidden;
+	background: #393939;
     font-size: 0;
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -780,6 +783,7 @@ nav a {
 	
 	#expr-field,#expr-field.mq-math-mode {
 		padding: 10px 0;
+		font-size: 1.9em;
 	}
 	
 	#answer {
@@ -834,6 +838,7 @@ nav a {
 
     #keypad .key {
         margin-right: 8px;
+        margin-bottom: 6px;
         width: 45px;
 		font-size: 14px;
     }
